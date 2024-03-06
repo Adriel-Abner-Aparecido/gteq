@@ -85,11 +85,11 @@ const ViewUsuario = () => {
                                 <Form>
                                 {/* <FormControl type='hidden' id='refUser' name='refUser' value={usuario && usuario._id}/> */}
                                 <FormGroup as={Row} >
-                                  <FormLabel column xl={1} htmlFor='metaUsuario' className="text-center">Meta:</FormLabel>
-                                  <Col xl={1} className='px-0'>
+                                  <FormLabel column xxl={1} xl={2} md={2} htmlFor='metaUsuario' className="text-center">Meta:</FormLabel>
+                                  <Col xxl={1} xl={2} md={2} className='px-0'>
                                     <FormControl type="text" id='metaUsuario' name='metaUsuario'/>
                                   </Col>
-                                  <Col xl={2} className='px-0'>
+                                  <Col xxl={2} xl={2} className='px-0'>
                                     <Button variant='link' type='submit'>Definir</Button>
                                   </Col>
                                 </FormGroup>
