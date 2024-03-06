@@ -1,13 +1,115 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+.container {
+    min-width: 100% !important;
 }
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+.nav-link {
+    /* font-weight: 400px !important; */
+}
+.h-100 {
+    min-height: 100vh !important;
+}
+.h-600{
+    min-width: 600px !important;
+}
+.avatar {
+    max-width: 200px !important;
+}
+.card-info {
+    min-height: 100%;
+}
+.valor {
+    font-size: 48px;
+    font-weight: bold;
+}
+.valor span{
+    font-size: 20px;
+}
+.table-personalized-1 thead tr th:first-child{
+    width: 5%;
+}
+.table-personalized-1 thead tr th {
+    width: 35%;
+}
+.table-personalized-1 thead tr th:nth-child(4){
+    width: 10%;
+}
+.table-personalized-1 thead tr th:last-child{
+    width: 17%;
+}
+.progress-30{
+    height: 30px !important;
+}
+.progress-bar-anim{
+    animation: progressbar 2s;
+}
+.ml-0 {
+    padding-left: 0px !important;
+}
+.mr-0 {
+    padding-right: 0px !important;
+}
+.ver{
+    display: block !important;
+}
+.ocultar{
+    display: none !important;
+}
+.eyeView{
+    font-size: 50px !important;
+}
+.mini-img{
+    max-width: 35px !important;
+}
+.input-number::-webkit-inner-spin-button{
+    -webkit-appearance: none;
+}
+.input-number{
+    moz-appearance: textfield;
+}
+@keyframes progressbar {
+    from {
+        width: 0%;
+    }
+}
+@media (max-width:1352px) {
+    .valor {
+        font-size: 28px;
+    }
+    .table-personalized-1 thead tr th:first-child{
+        width: 10%;
+    }
+    .table-personalized-1 thead tr th:last-child{
+        width: 20%;
+    }
+    .table-personalized-1 thead tr th:nth-child(3), .table-personalized-1 thead tr th:nth-child(4), .table-personalized-1 tbody tr td:nth-child(3), .table-personalized-1 tbody tr td:nth-child(4){
+        display: none;
+    }
+}
+@media (max-width:767px){
+    .h-600{
+        min-width: 100% !important;
+    }
+    .avatar{
+        max-width: 200px !important;
+        max-width: 200px !important;
+    }
+    .valor{
+        font-size: 30px;
+    }
+    .card-info {
+        min-width: 100%;
+        min-height: 200px;
+        margin-bottom: 20px !important;
+    }
+    .xs-m-0{
+        padding: 0px !important;
+    }
+    .table-personalized-1 thead tr th:first-child, .table-personalized-1 tbody tr th:first-child{
+        display: none;
+    }
+    .table-personalized-1 thead tr th:nth-child(2), .table-personalized-1 tbody tr td:nth-child(2){
+        width: 80%;
+    }
+    .table-personalized-1 thead tr th:last-child, .table-personalized-1 tbody tr td:last-child{
+        width:20%;
+    }
 }

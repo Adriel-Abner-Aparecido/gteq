@@ -1,0 +1,40 @@
+.input-number::-webkit-inner-spin-button{
+    -webkit-appearance: none;
+}
+.input-number{
+    moz-appearance: textfield;
+}
+.table-personalized-1 thead tr th:first-child{
+    width: 1%;
+}
+.table-personalized-1 thead tr th:nth-child(3){
+    width: 10%;
+}
+.table-personalized-1 thead tr th:nth-child(4){
+    width: 10%;
+}
+.table-personalized-1 thead tr th:last-child{
+    width: 5%;
+}
+@media (max-width:1352px) {
+    .table-personalized-1 thead tr th:first-child{
+        width: 10%;
+    }
+    .table-personalized-1 thead tr th:last-child{
+        width: 20%;
+    }
+    .table-personalized-1 thead tr th:nth-child(3), .table-personalized-1 thead tr th:nth-child(4), .table-personalized-1 tbody tr td:nth-child(3), .table-personalized-1 tbody tr td:nth-child(4){
+        display: none;
+    }
+}
+@media (max-width:767px){
+    .table-personalized-1 thead tr th:first-child, .table-personalized-1 tbody tr td:first-child{
+        display: none;
+    }
+    .table-personalized-1 thead tr th:nth-child(2), .table-personalized-1 tbody tr td:nth-child(2){
+        width: 80%;
+    }
+    .table-personalized-1 thead tr th:last-child, .table-personalized-1 tbody tr td:last-child{
+        width:20%;
+    }
+}

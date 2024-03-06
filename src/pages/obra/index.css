@@ -1,0 +1,11 @@
+.editavel{
+    -webkit-appearance: textfield !important;
+    appearance: textfield !important;
+}
+.input-number::-webkit-inner-spin-button{
+    -webkit-appearance: none !important;
+}
+.input-number{
+    moz-appearance: textfield !important;
+    appearance: textfield !important;
+}
