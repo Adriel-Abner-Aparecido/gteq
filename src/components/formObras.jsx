@@ -1,8 +1,7 @@
 import { Button, Card, CardBody, CardHeader, Col, Form, FormControl, FormLabel, FormSelect, Row } from "react-bootstrap"
-import { BsPlusCircle } from "react-icons/bs";
 import './style/style.css';
-import { useState, useEffect } from "react";
-import axios from "axios";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const FormObras =()=>{
 
@@ -20,16 +19,9 @@ const FormObras =()=>{
         servicoPrestado:'',
         precoServico: '',
         descricaoObra:'',
-        // formDados: [],
     })
-
-    // const[formDados, setFormDados] = useState([])
-
-    // const handleDados = () => {
-    //     setFormDados(...formDados, )
-    //     setFormDados()
-    // }
     
+    const navigate = useNavigate();
     const [validated, setValidated] = useState(false);
     const handleChange = event => {
         setFormData({ ...formData, [event.target.name]: event.target.value });
@@ -54,29 +46,35 @@ const FormObras =()=>{
             },
             body: JSON.stringify(formData)
           });
-    
-          const data = await response.json();
-          alert(data.message);
-    
+          
+          if(response.ok){
+            const data = await response.json()
+            if(data && data.id){
+                const {id} = data;
+                navigate(`../obras/obra/${id}`);
+            }
+          }else{
+            console.error('erro ao buscar o id')
+          }
         } catch (error) {
           console.error('Erro ao cadastrar Obra:', error);
         }
     };
 
-    const [servicos, setServicos] = useState([])
+    // const [servicos, setServicos] = useState([])
 
-    useEffect(()=>{
-        listaServicos();
-    }, []);
+    // useEffect(()=>{
+    //     listaServicos();
+    // }, []);
 
-    const listaServicos = async () =>{
-        try {
-            const response = await axios.get('http://localhost:3000/servicos');
-            setServicos(response.data.servicos);
-        }catch{
-            console.log("Erro ao buscar os dados");
-        }
-    }
+    // const listaServicos = async () =>{
+    //     try {
+    //         const response = await axios.get('http://localhost:3000/servicos');
+    //         setServicos(response.data.servicos);
+    //     }catch{
+    //         console.log("Erro ao buscar os dados");
+    //     }
+    // }
 
 
     return(
@@ -124,62 +122,6 @@ const FormObras =()=>{
                                     <option value="Sobrado">Sobrado</option>
                                     <option value="Barracão">Barracão</option>
                                 </FormSelect>
-                            </Col>
-                        </Row>
-                        <Row className="pt-3">
-                            <Col xl={6}>
-                                <Row>
-                                    <Col xl={4}>
-                                        <FormLabel htmlFor="qtdBlocos">Qtd Blocos:</FormLabel>
-                                        <FormControl className="input-number" type="number" id="qtdBlocos" name="qtdBlocos" value={formData.qtdBlocos} onChange={handleChange} required/>
-                                    </Col>
-                                    <Col xl={4}>
-                                        <FormLabel htmlFor="qtdAndares">Qtd Andares:</FormLabel>
-                                        <FormControl className="input-number" type="number" id="qtdAndares" name="qtdAndares" value={formData.qtdAndares} onChange={handleChange} required/>
-                                    </Col>
-                                    <Col xl={4}>
-                                        <FormLabel htmlFor="qtdApartamentos">Unidades:</FormLabel>
-                                        <FormControl className="input-number" type="number" id="qtdApartamentos" name="qtdApartamentos" value={formData.qtdApartamentos} onChange={handleChange} required/>
-                                    </Col>
-                                </Row>
-                            </Col>
-                            <Col xl={6} className="d-flex align-middle">
-                                <Row className="d-flex align-middle">
-                                    <Col xl={4} className="d-flex align-middle">
-                                        <Button variant="link" className="p-0 mt-auto text-dark">
-                                            <h3><BsPlusCircle/></h3>
-                                        </Button>
-                                    </Col>
-                                </Row>
-                            </Col>
-                        </Row>
-                        <Row className="mt-3">
-                            <Col xl={4}>
-                                <Row>
-                                    <Col xl={8}>
-                                        <FormLabel htmlFor="servicoPrestado">Serviço Prestado:</FormLabel>
-                                        <FormSelect id="servicoPrestado" name="servicoPrestado" value={formData.servicoPrestado} onChange={handleChange} required>
-                                            <option></option>
-                                            { servicos.map(servicos=>(
-                                                    <option key={servicos._id} value={servicos.nomeServico}>{servicos.nomeServico}</option>
-                                                )) 
-                                            }
-                                        </FormSelect>
-                                    </Col>
-                                    <Col xl={4}>
-                                        <FormLabel htmlFor="precoServico">Preço:</FormLabel>
-                                        <FormControl className="input-number" type="number" id="precoServico" name="precoServico" value={formData.precoServico} onChange={handleChange} required/>
-                                    </Col>
-                                </Row>
-                            </Col>
-                            <Col xl={6} className="d-flex align-middle">
-                                <Row className="d-flex align-middle">
-                                    <Col xl={6} className="d-flex align-middle">
-                                        <Button variant="link" className="p-0 mt-auto text-dark">
-                                            <h3><BsPlusCircle/></h3>
-                                        </Button>
-                                    </Col>
-                                </Row>
                             </Col>
                         </Row>
                         <Row className="pt-3">

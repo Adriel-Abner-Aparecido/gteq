@@ -14,15 +14,73 @@ const ViewUsuario = () => {
 
   const [usuario, setUsuario] = useState(null);
   const [entregaServico, setEntregaServico] = useState([]);
+  const [metaUser, setMetaUser] = useState();
+  const [metaNumber, setMetaNumber] = useState();
+
+  const [formData, setFormData]= useState({
+    relUser: '',
+    valorMeta: '',
+  });
+
+  const [formUpdate, setFormUpdate] = useState({
+    valorMeta: '',
+  })
+
+  const handleChange = event => {
+    setFormData({ ...formData, [event.target.name] : event.target.value });
+  };
+
+const handleSubmit = async() =>{
+    const dataToSend = {
+      ...formData,
+      relUser: usuario._id
+    };
+
+    try {
+        const response = await fetch('http://localhost:3000/metaUser', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(dataToSend)
+        });
+        await response.json();
+      } catch (error) {
+        console.error('Erro ao cadastrar Serviço:', error);
+      }
+}
+
+const handleUpdate = async(event)=>{
+  if(!event.target.value) {
+    setMetaNumber('')
+  } else {
+    setMetaNumber(event.target.value);
+  }
+  console.log(`${event.target.value}`)
+  setFormUpdate({valorMeta: `${event.target.value}`});
+}
+
+const atualizaDados = async(event)=>{
+    event.preventDefault();
+    try{
+      await axios.put(`http://localhost:3000/metaUser/${metaUser[0]._id}`,formUpdate);
+      
+    }catch(error){
+      console.error('Erro ao cadastrar Serviço:', error);
+    }
+  
+}
       
     useEffect(() => {
       const fetchUsuario = async () => {
         try {
           const responseUsuario = await axios.get(`http://localhost:3000/usuario/${id}`);
           const responseEntregaServico = await axios.get(`http://localhost:3000/entregaServico/${id}`);
-            setUsuario(responseUsuario.data.usuario);
-            setEntregaServico(responseEntregaServico.data.entregaServico);
-            console.log(setEntregaServico);
+          const responseMetaUser = await axios.get(`http://localhost:3000/metaUser/${id}`);
+          setUsuario(responseUsuario.data.usuario);
+          setEntregaServico(responseEntregaServico.data.entregaServico);
+          setMetaUser(responseMetaUser.data.metaUser);
+          setMetaNumber(responseMetaUser.data.metaUser[0].valorMeta)
         } catch (error) {
           console.error('Erro ao buscar usuário:', error);
         }
@@ -82,18 +140,37 @@ const ViewUsuario = () => {
                           </Row>
                           <Row>
                             <Col className=''>
-                                <Form>
-                                {/* <FormControl type='hidden' id='refUser' name='refUser' value={usuario && usuario._id}/> */}
-                                <FormGroup as={Row} >
-                                  <FormLabel column xxl={1} xl={2} md={2} htmlFor='metaUsuario' className="text-center">Meta:</FormLabel>
-                                  <Col xxl={1} xl={2} md={2} className='px-0'>
-                                    <FormControl type="text" id='metaUsuario' name='metaUsuario'/>
-                                  </Col>
-                                  <Col xxl={2} xl={2} className='px-0'>
-                                    <Button variant='link' type='submit'>Definir</Button>
-                                  </Col>
-                                </FormGroup>
-                              </Form>
+                              {
+                                metaUser && metaUser.length === 0 && (
+                                  <Form onSubmit={handleSubmit}>
+                                    <FormControl type='hidden' id='refUser' name='refUser' value={usuario && usuario._id} onChange={handleChange}/>
+                                    <FormGroup as={Row} >
+                                      <FormLabel column xxl={1} xl={2} md={2} htmlFor='valorMeta' className="text-center">Meta:</FormLabel>
+                                      <Col xxl={1} xl={2} md={2} className='px-0'>
+                                        <FormControl type="text" id='valorMeta' name='valorMeta' value={formData.valorMeta} onChange={handleChange} required/>
+                                      </Col>
+                                      <Col xxl={2} xl={2} className='px-0'>
+                                        <Button variant='link' type='submit'>Definir</Button>
+                                      </Col>
+                                    </FormGroup>
+                                  </Form>
+                                )
+                              }
+                              {
+                                metaUser && metaUser.length > 0 && (
+                                  <Form onSubmit={atualizaDados}>
+                                    <FormGroup as={Row} >
+                                      <FormLabel column xxl={1} xl={2} md={2} htmlFor='metaUser' className="text-center">Meta:</FormLabel>
+                                      <Col xxl={1} xl={2} md={2} className='px-0'>
+                                        <FormControl type="text" id='metaUser' name='metaUser' value={metaNumber} handleChange={handleUpdate} required/>
+                                      </Col>
+                                      <Col xxl={2} xl={2} className='px-0'>
+                                        <Button variant='link' type='submit'>Definir</Button>
+                                      </Col>
+                                    </FormGroup>
+                                  </Form>
+                                )
+                              }
                             </Col>
                           </Row>
                       </Col>

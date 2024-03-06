@@ -6,6 +6,7 @@ import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import { BsSquare } from 'react-icons/bs';
 import '../obra/index.css'
+import FormUnidadesObra from '../../components/formUnidadesObra';
 
 
 const ViewObra = () => {
@@ -17,7 +18,6 @@ const ViewObra = () => {
   const [metaObra, setMetaObra] = useState();
   const [metaNumber, setMetaNumber] = useState();
 
-
   const [formData, setFormData]= useState({
     relObra: '',
     valorMeta: '',
@@ -27,10 +27,9 @@ const ViewObra = () => {
     valorMeta: '',
   })
 
-
-const handleChange = event => {
+  const handleChange = event => {
     setFormData({ ...formData, [event.target.name] : event.target.value });
-};
+  };
 
 const handleSubmit = async() =>{
     const dataToSend = {
@@ -48,7 +47,7 @@ const handleSubmit = async() =>{
         });
         await response.json();
       } catch (error) {
-        console.error('Erro ao cadastrar Serviço:', error);
+        console.error('Erro ao cadastrar Meta:', error);
       }
 }
 
@@ -68,12 +67,10 @@ const atualizaDados = async(event)=>{
       await axios.put(`http://localhost:3000/metaObra/${metaObra[0]._id}`,formUpdate);
       
     }catch(error){
-      console.error('Erro ao cadastrar Serviço:', error);
+      console.error('Erro ao cadastrar Obra:', error);
     }
   
 }
-
-  
       
     useEffect(() => {
       const fetchObra = async () => {
@@ -86,7 +83,7 @@ const atualizaDados = async(event)=>{
           setMetaObra(responseMetaObra.data.metaObra);
           setMetaNumber(responseMetaObra.data.metaObra[0].valorMeta)
         } catch (error) {
-          console.error('Erro ao buscar usuário:', error);
+          console.error('Erro ao buscar dados:', error);
         }
       };
       fetchObra();
@@ -161,7 +158,7 @@ const atualizaDados = async(event)=>{
                                     <FormGroup as={Row} >
                                       <FormLabel column xl={1} htmlFor='valorMeta' className="text-center">Meta:</FormLabel>
                                       <Col xl={1} className='px-0'>
-                                        <FormControl className='input-number' type="number" id='valorMeta' name='valorMeta' value={formData.valorMeta} onChange={handleUpdate} required/>
+                                        <FormControl className='input-number' type="number" id='valorMeta' name='valorMeta' value={formData.valorMeta} onChange={handleChange} required/>
                                       </Col>
                                       <Col xl={2} className='px-0'>
                                         <Button variant='link' type='submit'>Definir</Button>
@@ -197,6 +194,7 @@ const atualizaDados = async(event)=>{
                   </Row>
               </CardBody>
             </Card>
+            <FormUnidadesObra refObra={obra && obra._id}/>
             {
             entregaServico && entregaServico.length > 0 && (
             <Card className='mt-5'>
