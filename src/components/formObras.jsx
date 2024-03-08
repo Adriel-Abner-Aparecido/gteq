@@ -2,6 +2,7 @@ import { Button, Card, CardBody, CardHeader, Col, Form, FormControl, FormLabel, 
 import './style/style.css';
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import apiUrl from "../config";
 
 const FormObras =()=>{
 
@@ -39,7 +40,7 @@ const FormObras =()=>{
         setValidated(true);
         
         try {
-          const response = await fetch('http://localhost:3000/cadastroObras', {
+          const response = await fetch(`${apiUrl}/cadastroObras`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json'

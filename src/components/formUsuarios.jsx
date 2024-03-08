@@ -1,5 +1,6 @@
 import { Card, CardHeader, CardBody, Form, FormLabel, FormControl, Button, FormSelect } from "react-bootstrap";
 import { useState } from "react";
+import apiUrl from "../config";
 
 
 
@@ -33,7 +34,7 @@ const FormUsuarios =()=>{
         setValidated(true);
         
         try {
-          const response = await fetch('http://localhost:3000/cadastro', {
+          const response = await fetch(`${apiUrl}/cadastro`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json'

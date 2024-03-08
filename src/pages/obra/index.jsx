@@ -7,6 +7,7 @@ import { useParams } from 'react-router-dom';
 import { BsSquare } from 'react-icons/bs';
 import '../obra/index.css'
 import FormUnidadesObra from '../../components/formUnidadesObra';
+import apiUrl from '../../config';
 
 
 const ViewObra = () => {
@@ -38,7 +39,7 @@ const handleSubmit = async() =>{
     };
 
     try {
-        const response = await fetch('http://localhost:3000/metaObra', {
+        const response = await fetch(`${apiUrl}/metaObra`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
@@ -64,7 +65,7 @@ const handleUpdate = async(event)=>{
 const atualizaDados = async(event)=>{
     event.preventDefault();
     try{
-      await axios.put(`http://localhost:3000/metaObra/${metaObra[0]._id}`,formUpdate);
+      await axios.put(`${apiUrl}/metaObra/${metaObra[0]._id}`,formUpdate);
       
     }catch(error){
       console.error('Erro ao cadastrar Obra:', error);
@@ -75,9 +76,9 @@ const atualizaDados = async(event)=>{
     useEffect(() => {
       const fetchObra = async () => {
         try {
-          const responseObra = await axios.get(`http://localhost:3000/obra/${id}`);
-          const responseEntregaServico = await axios.get(`http://localhost:3000/entregaServicoObra/${id}`);
-          const responseMetaObra = await axios.get(`http://localhost:3000/metaObra/${id}`);
+          const responseObra = await axios.get(`${apiUrl}/obra/${id}`);
+          const responseEntregaServico = await axios.get(`${apiUrl}/entregaServicoObra/${id}`);
+          const responseMetaObra = await axios.get(`${apiUrl}/metaObra/${id}`);
           setObra(responseObra.data.obra);
           setEntregaServico(responseEntregaServico.data.entregaServico);
           setMetaObra(responseMetaObra.data.metaObra);

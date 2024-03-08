@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react"
 import axios from 'axios'
 import './style/style.css'
 import { BsEyeFill } from "react-icons/bs"
+import apiUrl from "../config"
 
 const TableObras = () => {
 
@@ -11,7 +12,7 @@ const TableObras = () => {
     useEffect(()=>{
         const listaObras = async () =>{
             try {
-                const response = await axios.get('http://localhost:3000/verObras');
+                const response = await axios.get(`${apiUrl}/verObras`);
                 setObras(response.data.obras);
             }catch{
                 console.log("Erro ao buscar os dados");

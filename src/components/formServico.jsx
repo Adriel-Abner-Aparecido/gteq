@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Button, Card, CardBody, Form, FormControl, Row, Col } from "react-bootstrap"
+import apiUrl from "../config";
 
 const FormServico = () => {
 
@@ -13,7 +14,7 @@ const FormServico = () => {
 
     const handleSubmit = async() =>{
         try {
-            const response = await fetch('http://localhost:3000/cadastroServico', {
+            const response = await fetch(`${apiUrl}/cadastroServico`, {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json'

@@ -5,6 +5,8 @@ import { BsCircleFill } from "react-icons/bs";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import ValorAreceber from "../../components/valorAreceber";
+import apiUrl from "../../config";
+
 
 const AreaUsuario = () => {
 
@@ -25,7 +27,7 @@ const AreaUsuario = () => {
     useEffect(()=>{
         const fetchServicos = async()=>{
         try {
-            const responseEntregaServico = await axios.get(`localhost:3000/entregaServico/${userId}`);
+            const responseEntregaServico = await axios.get(`${apiUrl}/entregaServico/${userId}`);
             setEntregaServico(responseEntregaServico.data.entregaServico);
         }catch{
 

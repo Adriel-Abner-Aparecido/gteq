@@ -5,6 +5,7 @@ import LateralNav from '../../components/lateralNav';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import { BsSquare } from 'react-icons/bs';
+import apiUrl from '../../config';
 
 
 
@@ -37,7 +38,7 @@ const handleSubmit = async() =>{
     };
 
     try {
-        const response = await fetch('http://localhost:3000/metaUser', {
+        const response = await fetch(`${apiUrl}/metaUser`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
@@ -63,7 +64,7 @@ const handleUpdate = async(event)=>{
 const atualizaDados = async(event)=>{
     event.preventDefault();
     try{
-      await axios.put(`http://localhost:3000/metaUser/${metaUser[0]._id}`,formUpdate);
+      await axios.put(`${apiUrl}/metaUser/${metaUser[0]._id}`,formUpdate);
       
     }catch(error){
       console.error('Erro ao cadastrar Serviço:', error);
@@ -74,9 +75,9 @@ const atualizaDados = async(event)=>{
     useEffect(() => {
       const fetchUsuario = async () => {
         try {
-          const responseUsuario = await axios.get(`http://localhost:3000/usuario/${id}`);
-          const responseEntregaServico = await axios.get(`http://localhost:3000/entregaServico/${id}`);
-          const responseMetaUser = await axios.get(`http://localhost:3000/metaUser/${id}`);
+          const responseUsuario = await axios.get(`${apiUrl}/usuario/${id}`);
+          const responseEntregaServico = await axios.get(`${apiUrl}/entregaServico/${id}`);
+          const responseMetaUser = await axios.get(`${apiUrl}/metaUser/${id}`);
           setUsuario(responseUsuario.data.usuario);
           setEntregaServico(responseEntregaServico.data.entregaServico);
           setMetaUser(responseMetaUser.data.metaUser);

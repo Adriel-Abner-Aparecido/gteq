@@ -3,6 +3,7 @@ import axios from "axios";
 import { BsTrashFill } from "react-icons/bs";
 import { useState, useEffect } from "react";
 import './style/style.css'
+import apiUrl from "../config";
 
 const TableServicos = () => {
 
@@ -14,7 +15,7 @@ const TableServicos = () => {
 
     const listaObras = async () =>{
         try {
-            const response = await axios.get('http://localhost:3000/servicos');
+            const response = await axios.get(`${apiUrl}/servicos`);
             setServicos(response.data.servicos);
         }catch{
             console.log("Erro ao buscar os dados");
@@ -25,7 +26,7 @@ const TableServicos = () => {
 
     const handleDelete = async (servicosId) => {
         try {
-          await axios.delete(`http://localhost:3000/deleteServico/${servicosId}`);
+          await axios.delete(`${apiUrl}/deleteServico/${servicosId}`);
           listaObras(); // Atualiza a lista após a exclusão
         } catch (error) {
           console.error(error);

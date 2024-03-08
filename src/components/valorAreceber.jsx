@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import apiUrl from "../config";
 
 const ValorAreceber = ({userId}) =>{
     const [entregaServico, setEntregaServico] = useState();
@@ -7,7 +8,7 @@ const ValorAreceber = ({userId}) =>{
     useEffect(()=>{
         const fetchServicos = async()=>{
         try {
-            const responseEntregaServico = await axios.get(`http://localhost:3000/entregaServico/${userId}`);
+            const responseEntregaServico = await axios.get(`${apiUrl}/entregaServico/${userId}`);
             setEntregaServico(responseEntregaServico.data.entregaServico);
         }catch{
             

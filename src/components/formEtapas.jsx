@@ -1,6 +1,7 @@
 import { Button, Card, CardBody, Col, Form, FormControl, FormSelect, Row } from "react-bootstrap"
 import { useEffect, useState } from "react";
 import axios from "axios";
+import apiUrl from "../config";
 
 const FormEtapas = () => {
 
@@ -15,7 +16,7 @@ const FormEtapas = () => {
 
     const handleSubmit = async() =>{
         try {
-            const response = await fetch('http://localhost:3000/cadastroEtapa', {
+            const response = await fetch(`${apiUrl}/cadastroEtapa`, {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json'
@@ -36,7 +37,7 @@ const FormEtapas = () => {
 
     const listaServicos = async () =>{
         try {
-            const response = await axios.get('http://localhost:3000/servicos');
+            const response = await axios.get(`${apiUrl}/servicos`);
             setServicos(response.data.servicos);
         }catch{
             console.log("Erro ao buscar os dados");

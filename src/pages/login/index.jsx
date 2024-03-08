@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Button, FormLabel, FormControl, Container, Card, CardHeader, CardBody } from 'react-bootstrap';
 import Form from 'react-bootstrap/Form'
 import { useNavigate } from 'react-router-dom';
+import apiUrl from '../../config';
 
 const LoginPage = () => {
 
@@ -28,7 +29,7 @@ const LoginPage = () => {
     setValidated(true);
 
     try{
-      const response = await fetch('http://localhost:3000/login', {
+      const response = await fetch(`${apiUrl}/login`, {
         method: 'POST',
         headers: {
           'Content-Type':'application/json'

@@ -2,6 +2,7 @@ import { Button, FormLabel, FormControl, Container, Card, CardHeader, CardBody }
 import Form from 'react-bootstrap/Form'
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import apiUrl from '../../config';
 
 
 const SignupPage = () => {
@@ -34,7 +35,7 @@ const SignupPage = () => {
     setValidated(true);
     
     try {
-      const response = await fetch('http://localhost:3000/cadastro', {
+      const response = await fetch(`${apiUrl}/cadastro`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

@@ -4,6 +4,7 @@ import { BsTrashFill } from "react-icons/bs"
 import axios from "axios"
 
 import './style/style.css'
+import apiUrl from "../config"
 
 const TableEtapas = () => {
 
@@ -15,7 +16,7 @@ const TableEtapas = () => {
 
     const listaEtapas = async () =>{
         try {
-            const response = await axios.get('http://localhost:3000/etapas');
+            const response = await axios.get(`${apiUrl}/etapas`);
             setEtapas(response.data.etapas);
         }catch{
             console.log("Erro ao buscar os dados");
@@ -26,7 +27,7 @@ const TableEtapas = () => {
 
     const handleDelete = async (servicosId) => {
         try {
-          await axios.delete(`http://localhost:3000/deleteEtapa/${servicosId}`);
+          await axios.delete(`${apiUrl}/deleteEtapa/${servicosId}`);
           listaEtapas(); // Atualiza a lista após a exclusão
         } catch (error) {
           console.error(error);

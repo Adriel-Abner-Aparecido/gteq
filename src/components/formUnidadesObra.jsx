@@ -1,5 +1,6 @@
 import { Button, Card, CardBody, Col, Form, FormControl, FormGroup, FormLabel, Row } from "react-bootstrap";
 import { useState } from "react";
+import apiUrl from "../config";
 
 const FormUnidadesObra = ({refObra})=>{
 
@@ -17,7 +18,7 @@ const FormUnidadesObra = ({refObra})=>{
       const handleSubmit = async() => {
 
         try {
-            const response = await fetch('http://localhost:3000/cadastroNumerosObra', {
+            const response = await fetch(`${apiUrl}/cadastroNumerosObra`, {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json'

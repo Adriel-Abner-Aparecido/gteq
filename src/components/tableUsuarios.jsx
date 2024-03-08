@@ -3,6 +3,7 @@ import { useState, useEffect } from "react"
 import './style/style.css'
 import axios from "axios"
 import { BsEyeFill } from "react-icons/bs"
+import apiUrl from "../config"
 
 const TableUsuarios = () => {
 
@@ -15,7 +16,7 @@ const TableUsuarios = () => {
 
     const listaUsers = async () =>{
         try {
-            const response = await axios.get('http://localhost:3000/usuarios');
+            const response = await axios.get(`${apiUrl}/usuarios`);
             setUsers(response.data.users);
         }catch{
             console.log("Erro ao buscar os dados");
