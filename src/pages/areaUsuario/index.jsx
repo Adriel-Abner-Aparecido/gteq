@@ -46,7 +46,6 @@ const AreaUsuario = () => {
         return `${dia}-${mes}-${ano}`;
       };
 
-
     return(
             <Container className="pb-5">
                 <Row className="bg-light pt-5 pb-3">
