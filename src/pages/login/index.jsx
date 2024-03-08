@@ -20,7 +20,7 @@ const LoginPage = () => {
 
     event.preventDefault();
     const form = event.currentTarget;
-    if (form.checkValidity() === false) {
+    if (form.checkValidity() === false){
       event.stopPropagation();
       setValidated(true);
       return;
@@ -28,7 +28,7 @@ const LoginPage = () => {
     setValidated(true);
 
     try{
-      const response = await fetch('http://localhost:3000/login', {
+      const response = await fetch('http://52.67.169.10:3000/login', {
         method: 'POST',
         headers: {
           'Content-Type':'application/json'
@@ -37,12 +37,10 @@ const LoginPage = () => {
       });
 
       if(response.ok){
-        const { token, nivelUsuario } = await response.json();
+        const { token, nivelUsuario, userId, userName } = await response.json();
 
-        const tokenPayLoad = {token, nivel: nivelUsuario};
+        const tokenPayLoad = {token, nivel: nivelUsuario, userId: userId, userName: userName};
         localStorage.setItem('token', JSON.stringify(tokenPayLoad));
-        console.log('Token:', token);
-        console.log('Nivel Usuario', nivelUsuario);
         
         if(nivelUsuario === 'user'){
           navigate('/areaUsuario');

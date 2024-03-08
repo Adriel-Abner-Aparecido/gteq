@@ -39,7 +39,6 @@ const FormUnidadesObra = ({refObra})=>{
                 <CardBody>
                     <Form onSubmit={handleSubmit}>
                         <FormGroup as={Row}>
-                            {/* <input type="hidden" name="relObra" value={refObra} onChange={handleChange} required/> */}
                             <Col xxl="auto" className="text-end">
                                 <FormLabel htmlFor="numeroBloco" className="my-auto">N° BLoco:</FormLabel>
                             </Col>

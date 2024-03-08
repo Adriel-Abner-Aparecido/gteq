@@ -1,20 +1,53 @@
 import { Button, Card, CardBody, CardHeader, Col, Container, Form, FormControl, FormLabel, FormSelect, Row, Table } from "react-bootstrap";
-import Avatar from '../../images/avatar.jpg'
+import Avatar from '../../images/avatar.png'
 import { useNavigate } from "react-router-dom";
-import { Bs0CircleFill } from "react-icons/bs";
+import { BsCircleFill } from "react-icons/bs";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import ValorAreceber from "../../components/valorAreceber";
 
 const AreaUsuario = () => {
 
-    const navigate = useNavigate(); 
+    const navigate = useNavigate();
 
     const handleLogout = () => {
       localStorage.removeItem('token');
       return navigate("/login");
     };
 
+    const token = localStorage.getItem('token');
+    const tokenPayload = JSON.parse(token);
+    const userId = tokenPayload?.userId;
+    const userName = tokenPayload?.userName;
+
+    const [entregaServico, setEntregaServico] = useState();
+
+    useEffect(()=>{
+        const fetchServicos = async()=>{
+        try {
+            const responseEntregaServico = await axios.get(`http://localhost:3000/entregaServico/${userId}`);
+            setEntregaServico(responseEntregaServico.data.entregaServico);
+        }catch{
+
+        }
+        }
+        fetchServicos();
+    }, [userId]);
+
+    const formatarData = (dataString) => {
+        const data = new Date(dataString);
+        // const hora = ("0" + data.getHours()).slice(-2);
+        // const minutos = ("0" + data.getMinutes()).slice(-2);
+        const dia = ("0" + data.getDate()).slice(-2);
+        const mes = ("0" + (data.getMonth() + 1)).slice(-2);
+        const ano = data.getFullYear();
+        return `${dia}-${mes}-${ano}`;
+      };
+
+
     return(
             <Container className="pb-5">
-                <Row className="bg-light p-5">
+                <Row className="bg-light pt-5 pb-3">
                     <Col>
                         <Row>
                             <Col className="d-flex justify-content-center">
@@ -22,8 +55,8 @@ const AreaUsuario = () => {
                             </Col>
                         </Row>
                         <Row>
-                            <Col className="d-flex justify-content-center">
-                                User
+                            <Col className="d-flex justify-content-center p-2">
+                                <h3 className="my-auto">{userName}</h3>
                             </Col>
                         </Row>
                         <Row>
@@ -33,14 +66,14 @@ const AreaUsuario = () => {
                         </Row>
                     </Col>
                 </Row>
-                <Row className="d-flex justify-content-center py-xxl-5 py-md-5">
+                <Row className="d-flex justify-content-center mb-5 mt-5">
                     <Col xxl={4}>
                         <Card>
                             <CardHeader className="text-center">
                                 A receber
                             </CardHeader>
                             <CardBody>
-                                <p className="valor text-success text-center">R$1500,00</p>
+                                <p className="valor text-success text-center">R$<ValorAreceber userId={userId}/>,00</p>
                             </CardBody>
                         </Card>
                     </Col>
@@ -79,31 +112,52 @@ const AreaUsuario = () => {
                         </Card>
                     </Col>
                 </Row>
-                <Row className="d-flex justify-content-center mt-5">
+                <Row className="d-flex justify-content-center">
                     <Col xxl={4}>
-                        <Card>
-                            <CardHeader className="text-center">
-                                Ultimas entregas
+                        {
+                            entregaServico && entregaServico.length > 0 && (
+                            <Card className='mt-5'>
+                            <CardHeader>
+                                Atualizações
                             </CardHeader>
                             <CardBody>
-                                <Table>
-                                    <thead>
+                                
+                                    <Table striped>
+                                        <thead>
                                         <tr>
                                             <th>Etapa</th>
                                             <th>Data</th>
                                             <th className="text-center">Status</th>
                                         </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>Lixa</td>
-                                            <td>01-04-2004</td>
-                                            <td className="text-center"><Bs0CircleFill className="btn bg-danger"/></td>
-                                        </tr>
-                                    </tbody>
-                                </Table>
+                                        </thead>
+                                        <tbody>
+                                        {
+                                            entregaServico.map(servico=>(
+                                                <tr key={servico._id}>
+                                                    <td className='align-middle'>{servico.etapaEntregue}</td>
+                                                    <td className='align-middle'>{formatarData(servico.createdAt)}</td>
+                                                    <td className='align-middle text-center'>{servico.statusEntrega === 'pendente' ? 
+                                                    (<BsCircleFill className="text-warning"/>) : servico.statusEntrega === 'aceito'?
+                                                    (<BsCircleFill className="text-success"/>) : (<BsCircleFill className="text-danger"/>)
+                                                    }</td>
+                                                </tr>
+                                            ))
+                                        }
+                                        </tbody>
+                                    </Table>
                             </CardBody>
-                        </Card>
+                            </Card>
+                            )
+                        }
+                        {
+                            entregaServico && entregaServico.length === 0 && (
+                            <Card className='mt-5'>
+                                <CardBody>
+                                <p className='text-center my-auto'>Ainda não entregou nada</p>
+                                </CardBody>
+                            </Card>
+                            )
+                        }
                     </Col>
                 </Row>
             </Container>
