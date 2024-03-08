@@ -1,4 +1,4 @@
-import { Card, CardHeader, CardBody, Row, Button } from "reactstrap";
+import { Card, CardHeader, CardBody, Row, Button } from "react-bootstrap";
 import React, { useState } from "react";
 import {BsEyeSlashFill} from 'react-icons/bs'
 
@@ -18,7 +18,7 @@ const ocultarValor = () => {
             <CardHeader>
                 Total
                 <div className='float-end'>
-                    <Button color="link" className="btn p-0 m-0" onClick={ocultarValor}><span className="material-symbols-outlined"  id="spanView">{textStatus}</span></Button>
+                    <Button variant="link" className="btn p-0 m-0" onClick={ocultarValor}><span className="material-symbols-outlined"  id="spanView">{textStatus}</span></Button>
                 </div>
             </CardHeader>
             <CardBody className="d-flex align-middle justify-content-center">

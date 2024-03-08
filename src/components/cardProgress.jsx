@@ -1,5 +1,4 @@
-import {Card, CardHeader, CardBody, Button} from 'reactstrap';
-import { ProgressBar } from 'react-bootstrap';
+import { ProgressBar, Card, CardHeader, CardBody, Button } from 'react-bootstrap';
 
 const CardProgress = () => {
     return(
@@ -7,7 +6,7 @@ const CardProgress = () => {
         <CardHeader>
             Progresso
         <div className='float-end'>
-        <Button href="./obras/cadastroObras" color='link' className="btn p-0 m-0"><span className="material-symbols-outlined">add_circle</span></Button>
+        <Button href="./obras/cadastroObras" variant='link' className="p-0 m-0"><span className="material-symbols-outlined">add_circle</span></Button>
         </div>
         </CardHeader>
         <CardBody>

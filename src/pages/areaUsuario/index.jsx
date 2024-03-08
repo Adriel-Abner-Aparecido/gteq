@@ -25,7 +25,7 @@ const AreaUsuario = () => {
     useEffect(()=>{
         const fetchServicos = async()=>{
         try {
-            const responseEntregaServico = await axios.get(`http://localhost:3000/entregaServico/${userId}`);
+            const responseEntregaServico = await axios.get(`localhost:3000/entregaServico/${userId}`);
             setEntregaServico(responseEntregaServico.data.entregaServico);
         }catch{
 

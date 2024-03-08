@@ -1,5 +1,4 @@
-import { Card, CardHeader, CardBody, Button } from "reactstrap"
-import { ProgressBar } from "react-bootstrap"
+import { ProgressBar, Card, CardHeader, CardBody, Button } from "react-bootstrap"
 import {useState} from 'react'
 import ModalMeta from "./modalMeta"
 
@@ -15,7 +14,7 @@ const percent = 33;
                 <CardHeader>
                     Meta
                     <div className='float-end'>
-                        <Button color="link" className="p-0 m-0" onClick={handleShow}><span className="material-symbols-outlined">add_circle</span></Button>
+                        <Button variant="link" className="p-0 m-0" onClick={handleShow}><span className="material-symbols-outlined">add_circle</span></Button>
                     </div>
                 </CardHeader>
                 <CardBody>
