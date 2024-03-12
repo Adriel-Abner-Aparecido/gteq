@@ -14,6 +14,7 @@ import ViewUsuario from "../pages/usuario";
 import ViewObra from "../pages/obra";
 import AreaUsuario from "../pages/areaUsuario";
 import PrivateRouteUser from "./privateRoutUser";
+import EditaObra from "../pages/editarObra";
 const Rotas =()=>{
     return(
         <BrowserRouter>
@@ -69,6 +70,11 @@ const Rotas =()=>{
                 <Route path="/obras/obra/:id" element={
                     <PrivateRoute>
                         <ViewObra/>
+                    </PrivateRoute>
+                }/>
+                <Route path="/obras/obra/editaObra/:id" element={
+                    <PrivateRoute>
+                        <EditaObra/>
                     </PrivateRoute>
                 }/>
                 <Route path="/areaUsuario" element={

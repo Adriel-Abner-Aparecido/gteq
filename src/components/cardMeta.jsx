@@ -18,7 +18,7 @@ const percent = 33;
                     </div>
                 </CardHeader>
                 <CardBody>
-                    <ProgressBar now={percent} className="progress-30 rounded-0 mt-2 progress-bar-anim" label={`${percent}%`}/>
+                <div style={{background: '#E9ECEF'}}><ProgressBar now={percent} className="progress-30 rounded-0 mt-2 progress-bar-anim" label={`${percent}%`}/></div>
                 </CardBody>
                 <ModalMeta show={show} handleClose={handleShow}/>
             </Card>
