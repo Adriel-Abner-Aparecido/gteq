@@ -8,13 +8,14 @@ import { BsSquare } from 'react-icons/bs';
 import '../obra/index.css'
 import FormUnidadesObra from '../../components/formUnidadesObra';
 import apiUrl from '../../config';
+import UnidadesObra from '../../components/unidadesObra';
 
 
 const ViewObra = () => {
 
   const {id} = useParams();
 
-  const [obra, setObra] = useState(null);
+  const [obra, setObra] = useState([]);
   const [entregaServico, setEntregaServico] = useState([]);
   const [metaObra, setMetaObra] = useState();
   const [metaNumber, setMetaNumber] = useState();
@@ -28,6 +29,23 @@ const ViewObra = () => {
     valorMeta: '',
   })
 
+  useEffect(() => {
+    const fetchObra = async () => {
+        try {
+          const responseObra = await axios.get(`${apiUrl}/obra/${id}`);
+          const responseEntregaServico = await axios.get(`${apiUrl}/entregaServicoObra/${id}`);
+          const responseMetaObra = await axios.get(`${apiUrl}/metaObra/${id}`);
+          setObra(responseObra.data.obra);
+          setEntregaServico(responseEntregaServico.data.entregaServico);
+          setMetaObra(responseMetaObra.data.metaObra);
+          setMetaNumber(responseMetaObra.data.metaObra[0].valorMeta)
+        } catch (error) {
+          console.error('Erro ao buscar dados:', error);
+        }
+        };
+      fetchObra();
+    }, [id]);
+
   const handleChange = event => {
     setFormData({ ...formData, [event.target.name] : event.target.value });
   };
@@ -35,7 +53,7 @@ const ViewObra = () => {
 const handleSubmit = async() =>{
     const dataToSend = {
       ...formData,
-      relObra: obra._id
+      relObra: obra._id,
     };
 
     try {
@@ -71,24 +89,7 @@ const atualizaDados = async(event)=>{
       console.error('Erro ao cadastrar Obra:', error);
     }
   
-}
-      
-    useEffect(() => {
-      const fetchObra = async () => {
-        try {
-          const responseObra = await axios.get(`${apiUrl}/obra/${id}`);
-          const responseEntregaServico = await axios.get(`${apiUrl}/entregaServicoObra/${id}`);
-          const responseMetaObra = await axios.get(`${apiUrl}/metaObra/${id}`);
-          setObra(responseObra.data.obra);
-          setEntregaServico(responseEntregaServico.data.entregaServico);
-          setMetaObra(responseMetaObra.data.metaObra);
-          setMetaNumber(responseMetaObra.data.metaObra[0].valorMeta)
-        } catch (error) {
-          console.error('Erro ao buscar dados:', error);
-        }
-      };
-      fetchObra();
-    }, [id]);
+  }
 
     var i = 1;
     
@@ -148,6 +149,11 @@ const atualizaDados = async(event)=>{
                           <Row className='mb-3'>
                             <Col>
                               Descrição: {obra && obra.descricaoObra}
+                            </Col>
+                          </Row>
+                          <Row>
+                            <Col>
+                              <UnidadesObra refObra={obra && obra._id}/>
                             </Col>
                           </Row>
                           <Row>

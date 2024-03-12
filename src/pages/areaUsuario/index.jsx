@@ -1,4 +1,4 @@
-import { Button, Card, CardBody, CardHeader, Col, Container, Form, FormControl, FormLabel, FormSelect, Row, Table } from "react-bootstrap";
+import { Button, Card, CardBody, CardHeader, Col, Container, Row, Table } from "react-bootstrap";
 import Avatar from '../../images/avatar.png'
 import { useNavigate } from "react-router-dom";
 import { BsCircleFill } from "react-icons/bs";
@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import ValorAreceber from "../../components/valorAreceber";
 import apiUrl from "../../config";
-
+import FormEntregasUsuario from "../../components/formEntregasUsuario";
 
 const AreaUsuario = () => {
 
@@ -86,29 +86,7 @@ const AreaUsuario = () => {
                                 Entregar
                             </CardHeader>
                             <CardBody>
-                                <Form>
-                                    <FormLabel htmlFor="nomeObra">Obra:</FormLabel>
-                                    <FormSelect className="mb-2" name="nomeObra">
-                                        <option></option>
-                                        <option value="obra 1">Obra 1</option>
-                                        <option value="obra 2">Obra 2</option>
-                                    </FormSelect>
-                                    <FormLabel htmlFor="blocoObra">Bloco:</FormLabel>
-                                    <FormSelect className="mb-2" name="blocoObra">
-                                        <option></option>
-                                        <option value="bloco 1">Bloco 1</option>
-                                        <option value="bloco 2">Bloco 2</option>
-                                    </FormSelect>
-                                    <FormLabel htmlFor="etapaEntregue">Etapa:</FormLabel>
-                                    <FormSelect className="mb-2" name="etapaEntregue">
-                                        <option></option>
-                                        <option value="etapa 1">Etapa 1</option>
-                                        <option value="etapa 2">Etapa 2</option>
-                                    </FormSelect>
-                                    <FormLabel htmlFor="unidadeObra">Unidade:</FormLabel>
-                                    <FormControl className="mb-2" type="text" name="unidadeObra"/>
-                                    <Button className="w-100" variant="primary" type="submit">Entregar</Button>
-                                </Form>
+                                <FormEntregasUsuario userId={userId} userName={userName}/>
                             </CardBody>
                         </Card>
                     </Col>

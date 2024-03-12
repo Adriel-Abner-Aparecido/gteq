@@ -15,6 +15,10 @@ const LateralNav =()=> {
       return navigate("/login");
     };
 
+    const token = localStorage.getItem('token');
+    const tokenPayload = JSON.parse(token);
+    const userName = tokenPayload?.userName;
+
 
     return(
         <Col xxl={2} md={2} sm={12} className="p-0 bg-light">
@@ -22,7 +26,7 @@ const LateralNav =()=> {
             <img src={Avatar} className='avatar rounded rounded-circle p-2 m-auto' alt={Avatar}/>
           </Row>
           <Row className='text-center p-0 m-0'>
-            <span>User</span>
+            <span>{userName}</span>
           </Row>
           <Row className='p-0 m-0'>
             <Button onClick={handleLogout} variant="link">Sair</Button>

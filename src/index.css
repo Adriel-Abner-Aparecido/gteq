@@ -38,9 +38,7 @@
 .progress-30{
     height: 30px !important;
 }
-.progress-bar-anim{
-    animation: progressbar 2s;
-}
+
 .ml-0 {
     padding-left: 0px !important;
 }
@@ -65,9 +63,15 @@
 .input-number{
     moz-appearance: textfield;
 }
+.progress-bar-anim{
+    animation: progressbar 2s;
+}
 @keyframes progressbar {
-    from {
+    0% {
         width: 0%;
+    }
+    100%{
+        width: 100%;
     }
 }
 @media (max-width:1352px) {

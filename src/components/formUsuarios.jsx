@@ -88,7 +88,7 @@ const FormUsuarios =()=>{
                         <FormSelect id="nivelUsuario" name="nivelUsuario" value={formData.nivelUsuario} onChange={handleChange}>
                             <option value="user">Usuario</option>
                             <option value="gestor">Gestor</option>
-                            <option value="root">Adm</option>
+                            <option value="adm">Adm</option>
                         </FormSelect>
                     </div>
                     

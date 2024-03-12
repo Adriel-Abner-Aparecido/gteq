@@ -5,7 +5,7 @@ import apiUrl from "../config";
 const FormUnidadesObra = ({refObra})=>{
 
     const [formData, setFormData] = useState({
-        relObra: refObra,
+        refObra: '',
         numeroBloco: '',
         numeroAndares: '',
         numeroUnidades: '',
@@ -16,6 +16,10 @@ const FormUnidadesObra = ({refObra})=>{
       };
 
       const handleSubmit = async() => {
+        const dataToSend = {
+            ...formData,
+            refObra: refObra,
+          };
 
         try {
             const response = await fetch(`${apiUrl}/cadastroNumerosObra`, {
@@ -23,7 +27,7 @@ const FormUnidadesObra = ({refObra})=>{
               headers: {
                 'Content-Type': 'application/json'
               },
-              body: JSON.stringify(formData)
+              body: JSON.stringify(dataToSend)
             });
       
             const data = await response.json();
