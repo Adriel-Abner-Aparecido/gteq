@@ -1,7 +1,6 @@
 import { Card, CardHeader, CardBody, Row, Button } from "react-bootstrap";
 import React, { useState } from "react";
 import {BsEyeSlashFill} from 'react-icons/bs'
-
 const TotalProduzido = () => {
 
 const[classeParagrafoUm, setClasseParagrafoUm] = useState('valor text-success text-center');

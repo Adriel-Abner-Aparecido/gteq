@@ -122,16 +122,16 @@ const ViewObra = () => {
               <Row>
                 <Col xl={12}>
                   <Row className='mb-3'>
-                    <Col xl={3}>
+                    <Col xxl={3}>
                       Endereço: {obra && obra.enderecoObra}
                     </Col>
-                    <Col xl={1}>
+                    <Col xxl={2}>
                       n°: {obra && obra.numeroRua}
                     </Col>
-                    <Col xl={3}>
+                    <Col xxl={3}>
                       Cidade: {obra && obra.cidadeObra}
                     </Col>
-                    <Col xl={4}>
+                    <Col xxl={4}>
                       Complemento: {obra && obra.complementoObra}
                     </Col>
                   </Row>
@@ -152,7 +152,9 @@ const ViewObra = () => {
                   </Row>
                   <Row>
                     <Col>
-                      <UnidadesObra refObra={obra && obra._id} />
+                      <Row xxl={12} className='gap-2 mb-3'>
+                          <UnidadesObra refObra={obra && obra._id} />
+                      </Row>
                     </Col>
                   </Row>
                   <Row>
@@ -202,7 +204,7 @@ const ViewObra = () => {
           </Card>
           <FormUnidadesObra refObra={obra && obra._id} />
           {
-            entregaServico && entregaServico.length > 0 && (
+            entregaServico.length > 0 && (
               <Card className='mt-5'>
                 <CardHeader>
                   Atualizações
@@ -213,8 +215,6 @@ const ViewObra = () => {
                     <thead>
                       <tr>
                         <th></th>
-                        <th>Nome</th>
-                        <th>Obra</th>
                         <th>Etapa</th>
                         <th>Data</th>
                         <th>Status</th>
@@ -227,8 +227,6 @@ const ViewObra = () => {
 
                           <tr key={servico._id}>
                             <td className='align-middle'>{i++}</td>
-                            <td className='align-middle'>{servico.nomeUsuario}</td>
-                            <td className='align-middle'>{servico.nomeObra}</td>
                             <td className='align-middle'>{servico.etapaEntregue}</td>
                             <td className='align-middle'>{formatarData(servico.createdAt)}</td>
                             <td className='align-middle'>{servico.statusEntrega}</td>
@@ -243,7 +241,7 @@ const ViewObra = () => {
             )
           }
           {
-            entregaServico && entregaServico.length === 0 && (
+            entregaServico.length === 0 && (
               <Card className='mt-5'>
                 <CardBody>
                   <p className='text-center my-auto'>Ainda não entregou nada</p>

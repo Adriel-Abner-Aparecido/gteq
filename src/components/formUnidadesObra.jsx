@@ -44,22 +44,22 @@ const FormUnidadesObra = ({refObra})=>{
                 <CardBody>
                     <Form onSubmit={handleSubmit}>
                         <FormGroup as={Row}>
-                            <Col xxl="auto" className="text-end">
+                            <Col xxl="auto" sm={12} className="text-xxl-end">
                                 <FormLabel htmlFor="numeroBloco" className="my-auto">N° BLoco:</FormLabel>
                             </Col>
-                            <Col className="p-0">
+                            <Col sm={12} className="p-0">
                                 <FormControl name="numeroBloco" onChange={handleChange} required/>
                             </Col>
-                            <Col xxl="auto" className="text-end">
+                            <Col xxl="auto" sm={12} className="text-xxl-end">
                                 <FormLabel htmlFor="numeroAndares">N° Andares:</FormLabel>
                             </Col>
-                            <Col className="p-0">
+                            <Col sm={12} className="p-0">
                                 <FormControl name="numeroAndares" onChange={handleChange} required/>
                             </Col>
-                            <Col xxl="auto" className="text-end">
+                            <Col xxl="auto" sm={12} className="text-xxl-end">
                                 <FormLabel htmlFor="numeroUnidades" className="my-auto">N° Unidades:</FormLabel>
                             </Col>
-                            <Col className="p-0">
+                            <Col sm={12} className="p-0">
                                 <FormControl name="numeroUnidades" onChange={handleChange} required/>
                             </Col>
                             <Col>

@@ -15,7 +15,7 @@ import TableUsuarios from '../../components/tableUsuarios';
 
 const DashboardPage = () => {
   return (
-    <Container className='p-0'>
+    <Container className='p-0 h-100'>
       <Row className='p-0 m-0'>
         <LateralNav/>
         <Col sm={12} md={10} xxl={10} className="m-0 h-100 pt-5 pb-5">

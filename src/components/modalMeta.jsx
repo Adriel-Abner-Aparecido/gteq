@@ -37,7 +37,6 @@ const ModalMeta = ({ show, handleClose }) => {
       try {
         const meta = await axios.get(`${apiUrl}/meta`);
         setMeta(meta.data.meta);
-        console.log(meta.data.meta)
       } catch {
 
       }

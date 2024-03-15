@@ -27,7 +27,7 @@ const ValorAreceber = ({userId}) =>{
 
     return(
         <>
-        {entregaServico !== null ?(<>{aReceber}</>): '0'}
+        {entregaServico !== null ? (<>{aReceber}</>) : '0'}
         </>
     )
 }

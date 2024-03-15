@@ -7,7 +7,8 @@ const FormEtapas = () => {
 
     const [formData, setFormData]= useState({
         nomeEtapa: '',
-        relEtapa: ''
+        refEtapa: '',
+        porcentagemReferencia: '',
     });
     
     const handleChange = event => {
@@ -50,17 +51,20 @@ const FormEtapas = () => {
             <CardBody>
                 <Form onSubmit={handleSubmit}>
                     <Row>
-                        <Col xl={4}>
-                            <FormSelect  id="relEtapa" name="relEtapa" value={formData.relEtapa} onChange={handleChange} required>
+                        <Col xl={3}>
+                            <FormSelect  id="refEtapa" name="refEtapa" value={formData.refEtapa} onChange={handleChange} required>
                                 <option value="0">Serviço Relacionado</option>
                                 { servicos.map(servicos=>(
-                                        <option key={servicos._id} value={servicos.nomeServico}>{servicos.nomeServico}</option>
-                                    )) 
+                                        <option key={servicos._id} value={servicos._id}>{servicos.nomeServico}</option>
+                                    ))
                                 }
                             </FormSelect>
                         </Col>
-                        <Col xl={4}>
+                        <Col xl={3}>
                             <FormControl id="nomeEtapa" name="nomeEtapa" placeholder="Etapa" value={formData.nomeEtapa} onChange={handleChange} required/>
+                        </Col>
+                        <Col xl={2}>
+                            <FormControl id="porcentagemReferencia" name="porcentagemReferencia" placeholder="Representa" value={formData.porcentagemReferencia} onChange={handleChange} required/>
                         </Col>
                         <Col xl={1}>
                             <Button type="submit">Cadastrar</Button>

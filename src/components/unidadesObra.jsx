@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import apiUrl from "../config";
-import { Row } from "react-bootstrap";
+import { Col } from "react-bootstrap";
 
 
 const UnidadesObra = ({refObra}) => {
@@ -23,7 +23,7 @@ const UnidadesObra = ({refObra}) => {
     
 
     const calculoUnidades = () =>{
-        if(numerosObra.length > 0){
+        if(numerosObra && numerosObra.length > 0){
             const a = parseInt(numerosObra[0].numeroAndares);
             const b = parseInt(numerosObra[0].numeroUnidades);
             return a * b;
@@ -37,15 +37,14 @@ const UnidadesObra = ({refObra}) => {
     return (
         <>
             {
-                numerosObra.length > 0 && (
+                numerosObra && numerosObra.length > 0 && (
                     <>
                                     {
-                                        numerosObra.map(numero=>(
-                                            <Row key={numero._id}>
-                                                <p>Blocos: {numero.numeroBloco}</p>
-                                                <p> Unidades: {unidades}</p>
-                                            </Row>
-                                            ))
+                                        numerosObra && numerosObra.map(numero=>(
+                                            <Col xxl={2} key={numero._id}>
+                                                Bloco: {numero.numeroBloco} Unidades: {unidades}
+                                            </Col>
+                                        ))
                                     }
                     </>
                 )
