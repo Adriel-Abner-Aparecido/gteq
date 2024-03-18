@@ -7,6 +7,7 @@ import CardProgress from '../../components/cardProgress';
 import CardMeta from '../../components/cardMeta';
 import CardTotal from '../../components/cardTotal';
 import TableObras from '../../components/tableObras';
+import Entregas from '../../components/tableEntregas';
 
 import LateralNav from '../../components/lateralNav';
 import TableUsuarios from '../../components/tableUsuarios';
@@ -33,6 +34,9 @@ const DashboardPage = () => {
           <Row className='px-5'>
             <Col xl={12} className='pt-5 p-0'>
               <TableObras/>
+            </Col>
+            <Col xl={12} className='pt-5 p-0'>
+              <Entregas/>
             </Col>
             <Col xl={12} className='pt-5 p-0'>
               <TableUsuarios/>
