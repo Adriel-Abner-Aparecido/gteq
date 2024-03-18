@@ -43,7 +43,7 @@ const AreaUsuario = () => {
         const dia = ("0" + data.getDate()).slice(-2);
         const mes = ("0" + (data.getMonth() + 1)).slice(-2);
         const ano = data.getFullYear();
-        return `${dia}-${mes}-${ano}`;
+        return `${dia}/${mes}/${ano}`;
       };
 
     return(
@@ -113,8 +113,8 @@ const AreaUsuario = () => {
                                         {
                                             entregaServico.map(servico=>(
                                                 <tr key={servico._id}>
-                                                    <td className='align-middle'>{servico.etapaEntregue}</td>
-                                                    <td className='align-middle'>{formatarData(servico.createdAt)}</td>
+                                                    <td className='align-middle'>{servico.etapaEntregue && servico.etapaEntregue.nomeEtapa}</td>
+                                                    <td className='align-middle'>{servico.createdAt && formatarData(servico.createdAt)}</td>
                                                     <td className='align-middle text-center'>{servico.statusEntrega === 'pendente' ? 
                                                     (<BsCircleFill className="text-warning"/>) : servico.statusEntrega === 'aceito'?
                                                     (<BsCircleFill className="text-success"/>) : (<BsCircleFill className="text-danger"/>)

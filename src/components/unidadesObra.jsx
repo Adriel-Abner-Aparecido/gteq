@@ -4,7 +4,7 @@ import apiUrl from "../config";
 import { Col } from "react-bootstrap";
 
 
-const UnidadesObra = ({refObra}) => {
+const UnidadesObra = ({ refObra }) => {
 
     const [numerosObra, setNumerosObra] = useState([]);
 
@@ -20,10 +20,8 @@ const UnidadesObra = ({refObra}) => {
         fetchUnidadesObra();
     }, [refObra]);
 
-    
-
     const calculoUnidades = () =>{
-        if(numerosObra && numerosObra.length > 0){
+        if(numerosObra.length > 0){
             const a = parseInt(numerosObra[0].numeroAndares);
             const b = parseInt(numerosObra[0].numeroUnidades);
             return a * b;
@@ -37,11 +35,11 @@ const UnidadesObra = ({refObra}) => {
     return (
         <>
             {
-                numerosObra && numerosObra.length > 0 && (
+                numerosObra.length > 0 && (
                     <>
                                     {
-                                        numerosObra && numerosObra.map(numero=>(
-                                            <Col xxl={2} key={numero._id}>
+                                        numerosObra.map((numero, index) => (
+                                            <Col xxl={2} key={index + 1}>
                                                 Bloco: {numero.numeroBloco} Unidades: {unidades}
                                             </Col>
                                         ))

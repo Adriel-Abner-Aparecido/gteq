@@ -43,26 +43,26 @@ const FormUnidadesObra = ({refObra})=>{
             <Card className="mt-5">
                 <CardBody>
                     <Form onSubmit={handleSubmit}>
-                        <FormGroup as={Row}>
-                            <Col xxl="auto" sm={12} className="text-xxl-end">
+                        <FormGroup as={Row} className="g-sm-3">
+                            <Col xxl="auto" className="text-xxl-end">
                                 <FormLabel htmlFor="numeroBloco" className="my-auto">N° BLoco:</FormLabel>
                             </Col>
-                            <Col sm={12} className="p-0">
+                            <Col className="p-0">
                                 <FormControl name="numeroBloco" onChange={handleChange} required/>
                             </Col>
-                            <Col xxl="auto" sm={12} className="text-xxl-end">
+                            <Col xxl="auto" className="text-xxl-end">
                                 <FormLabel htmlFor="numeroAndares">N° Andares:</FormLabel>
                             </Col>
-                            <Col sm={12} className="p-0">
+                            <Col  className="p-0">
                                 <FormControl name="numeroAndares" onChange={handleChange} required/>
                             </Col>
-                            <Col xxl="auto" sm={12} className="text-xxl-end">
+                            <Col xxl="auto" className="text-xxl-end">
                                 <FormLabel htmlFor="numeroUnidades" className="my-auto">N° Unidades:</FormLabel>
                             </Col>
-                            <Col sm={12} className="p-0">
+                            <Col  className="p-0">
                                 <FormControl name="numeroUnidades" onChange={handleChange} required/>
                             </Col>
-                            <Col>
+                            <Col xxl="auto" className="px-xxl-3 p-0">
                                 <Button type="submit">Cadastrar</Button>
                             </Col>
                         </FormGroup>

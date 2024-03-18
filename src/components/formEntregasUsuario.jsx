@@ -25,14 +25,7 @@ const FormEntregasUsuario = ({ userId }) => {
   });
 
   const handleSubmit = async event => {
-    setFormData({
-      refUsuario: userId,
-      refObra: selectedObra,
-      blocoObra: selectedBloco,
-      servicoObra: selectedServico,
-      unidadeObra: unidadeObra,
-      etapaEntregue: selectedEtapa,
-    })
+    
 
     event.preventDefault();
     try {
@@ -87,7 +80,6 @@ const FormEntregasUsuario = ({ userId }) => {
     }
   };
 
-
   const handleSelectedServico = (servicoId) => {
     setSelectedServico(servicoId);
     setSelectedEtapa('');
@@ -109,14 +101,15 @@ const FormEntregasUsuario = ({ userId }) => {
 
   const handleUnidade = (unidade)=>{
     setUnidadeObra(unidade);
+    setFormData({
+      refUsuario: userId,
+      refObra: selectedObra,
+      blocoObra: selectedBloco,
+      servicoObra: selectedServico,
+      unidadeObra: unidadeObra,
+      etapaEntregue: selectedEtapa,
+    })
   }
-
-  console.log(obras)
-  console.log(blocos)
-  console.log(servicos)
-  console.log(etapas)
-  console.log(unidadeObra)
-
 
   return (
     <Form className="row g-3" onSubmit={handleSubmit}>

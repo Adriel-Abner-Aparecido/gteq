@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Row, Col, Card, CardHeader, CardBody, Form, FormGroup, FormControl, FormLabel, Table, Button } from 'react-bootstrap';
+import { Container, Row, Col, Card, CardHeader, CardBody, Table, Button } from 'react-bootstrap';
 import Avatar from '../../images/avatar.jpg'
 import LateralNav from '../../components/lateralNav';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import { BsSquare } from 'react-icons/bs';
 import apiUrl from '../../config';
+import FormMetaUsers from '../../components/formMetaUsers';
 
 
 
@@ -15,81 +16,20 @@ const ViewUsuario = () => {
 
   const [usuario, setUsuario] = useState(null);
   const [entregaServico, setEntregaServico] = useState([]);
-  const [metaUser, setMetaUser] = useState();
-  const [metaNumber, setMetaNumber] = useState('');
-
-  const [formData, setFormData] = useState({
-    relUser: '',
-    valorMeta: '',
-  });
-
-  const [formUpdate, setFormUpdate] = useState({
-    valorMeta: '',
-  })
-
-  const handleChange = event => {
-    setFormData({ ...formData, [event.target.name]: event.target.value });
-  };
-
-  const handleSubmit = async () => {
-    const dataToSend = {
-      ...formData,
-      relUser: usuario._id
-    };
-
-    try {
-      const response = await fetch(`${apiUrl}/metaUser`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(dataToSend)
-      });
-      await response.json();
-    } catch (error) {
-      console.error('Erro ao cadastrar Serviço:', error);
-    }
-  }
-
-  const handleUpdate = async (event) => {
-    if (!event.target.value) {
-      setMetaNumber('')
-    } else {
-      setMetaNumber(event.target.value);
-    }
-    setFormUpdate({ valorMeta: `${event.target.value}` });
-  }
-
-  const atualizaDados = async () => {
-    try {
-      await axios.put(`${apiUrl}/metaUser/${metaUser[0]._id}`, formUpdate);
-
-    } catch (error) {
-      console.error('Erro ao cadastrar Serviço:', error);
-    }
-
-  }
 
   useEffect(() => {
     const fetchUsuario = async () => {
       try {
         const responseUsuario = await axios.get(`${apiUrl}/usuario/${id}`);
         const responseEntregaServico = await axios.get(`${apiUrl}/entregaServico/${id}`);
-        const responseMetaUser = await axios.get(`${apiUrl}/metaUser/${id}`);
         setUsuario(responseUsuario.data.usuario);
         setEntregaServico(responseEntregaServico.data.entregaServico);
-        setMetaUser(responseMetaUser.data.metaUser);
-        setMetaNumber(responseMetaUser.data.metaUser[0].valorMeta)
       } catch (error) {
-        console.error('Erro ao buscar usuário:', error);
+        console.error('Erro ao buscar dados', error);
       }
     };
     fetchUsuario();
   }, [id]);
-
-  var i = 1;
-
-  
 
   //Formata a Data
 
@@ -139,39 +79,7 @@ const ViewUsuario = () => {
                     </Col>
                   </Row>
                   <Row>
-                    <Col className=''>
-                      {
-                        metaUser && metaUser.length === 0 && (
-                          <Form onSubmit={handleSubmit}>
-                            <FormControl type='hidden' id='refUser' name='refUser' value={usuario && usuario._id} onChange={handleChange} />
-                            <FormGroup as={Row} >
-                              <FormLabel column xxl={1} xl={2} md={2} htmlFor='valorMeta' className="text-center">Meta:</FormLabel>
-                              <Col xxl={1} xl={2} md={2} className='px-0'>
-                                <FormControl className='input-number' type="number" id='valorMeta' name='valorMeta' value={formData.valorMeta} onChange={handleChange} required />
-                              </Col>
-                              <Col xxl={2} xl={2} className='px-0'>
-                                <Button variant='link' type='submit'>Definir</Button>
-                              </Col>
-                            </FormGroup>
-                          </Form>
-                        )
-                      }
-                      {
-                        metaUser && metaUser.length > 0 && (
-                          <Form onSubmit={atualizaDados}>
-                            <FormGroup as={Row} >
-                              <FormLabel column xxl={1} xl={2} md={2} htmlFor='valorMeta' className="text-center">Meta:</FormLabel>
-                              <Col xxl={1} xl={2} md={2} className='px-0'>
-                                <FormControl type='number' className='input-number' id='valorMeta' name='valorMeta' value={metaNumber} onChange={handleUpdate} />
-                              </Col>
-                              <Col xxl={2} xl={2} className='px-0'>
-                                <Button variant='link' type='submit'>Definir</Button>
-                              </Col>
-                            </FormGroup>
-                          </Form>
-                        )
-                      }
-                    </Col>
+                    <FormMetaUsers id={id}/>
                   </Row>
                 </Col>
               </Row>
@@ -199,14 +107,14 @@ const ViewUsuario = () => {
                     </thead>
                     <tbody>
                       {
-                        entregaServico.map(servico => (
+                        entregaServico.map((servico, index) => (
 
-                          <tr key={servico._id}>
-                            <td className='align-middle'>{i++}</td>
-                            <td className='align-middle'>{servico.nomeUsuario}</td>
-                            <td className='align-middle'>{servico.nomeObra}</td>
-                            <td className='align-middle'>{servico.etapaEntregue}</td>
-                            <td className='align-middle'>{formatarData(servico.createdAt)}</td>
+                          <tr key={index + 1}>
+                            <td className='align-middle'>{index + 1}</td>
+                            <td className='align-middle'>{servico.refUsuario && servico.refUsuario.nomeCompleto}</td>
+                            <td className='align-middle'>{servico.refObra && servico.refObra.nomeObra}</td>
+                            <td className='align-middle'>{servico.etapaEntregue && servico.etapaEntregue.nomeEtapa}</td>
+                            <td className='align-middle'>{servico.createdAt && formatarData(servico.createdAt)}</td>
                             <td className='align-middle'>{servico.statusEntrega}</td>
                             <td className='align-middle'><Button variant='link'><BsSquare /></Button></td>
                           </tr>

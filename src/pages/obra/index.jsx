@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Row, Col, Card, CardHeader, CardBody, Form, FormGroup, FormControl, FormLabel, Table, Button } from 'react-bootstrap';
+import { Container, Row, Col, Card, CardHeader, CardBody, Form, FormGroup, FormControl, FormLabel, Button } from 'react-bootstrap';
 import Modal from 'react-bootstrap/Modal';
 import LateralNav from '../../components/lateralNav';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
-import { BsSquare } from 'react-icons/bs';
 import '../obra/index.css'
 import FormUnidadesObra from '../../components/formUnidadesObra';
 import apiUrl from '../../config';
 import UnidadesObra from '../../components/unidadesObra';
+import EntregasObra from '../../components/tableEntregasObra';
 
 
 const ViewObra = () => {
@@ -16,12 +16,11 @@ const ViewObra = () => {
   const { id } = useParams();
 
   const [obra, setObra] = useState([]);
-  const [entregaServico, setEntregaServico] = useState([]);
   const [metaObra, setMetaObra] = useState();
   const [metaNumber, setMetaNumber] = useState();
 
   const [formData, setFormData] = useState({
-    relObra: '',
+    relObra: obra._id,
     valorMeta: '',
   });
 
@@ -33,12 +32,10 @@ const ViewObra = () => {
     const fetchObra = async () => {
       try {
         const responseObra = await axios.get(`${apiUrl}/obra/${id}`);
-        const responseEntregaServico = await axios.get(`${apiUrl}/entregaServicoObra/${id}`);
         const responseMetaObra = await axios.get(`${apiUrl}/metaObra/${id}`);
         setObra(responseObra.data.obra);
-        setEntregaServico(responseEntregaServico.data.entregaServico);
         setMetaObra(responseMetaObra.data.metaObra);
-        setMetaNumber(responseMetaObra.data.metaObra[0].valorMeta)
+        setMetaNumber(responseMetaObra.data.metaObra.valorMeta)
       } catch (error) {
         console.error('Erro ao buscar dados:', error);
       }
@@ -51,10 +48,6 @@ const ViewObra = () => {
   };
 
   const handleSubmit = async () => {
-    const dataToSend = {
-      ...formData,
-      relObra: obra._id,
-    };
 
     try {
       const response = await fetch(`${apiUrl}/metaObra`, {
@@ -62,7 +55,7 @@ const ViewObra = () => {
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify(dataToSend)
+        body: JSON.stringify(formData)
       });
       await response.json();
     } catch (error) {
@@ -82,7 +75,7 @@ const ViewObra = () => {
   const atualizaDados = async (event) => {
     event.preventDefault();
     try {
-      await axios.put(`${apiUrl}/metaObra/${metaObra[0]._id}`, formUpdate);
+      await axios.put(`${apiUrl}/metaObra/${metaObra._id}`, formUpdate);
 
     } catch (error) {
       console.error('Erro ao cadastrar Obra:', error);
@@ -90,20 +83,7 @@ const ViewObra = () => {
 
   }
 
-  var i = 1;
 
-
-  //Formata a Data
-
-  const formatarData = (dataString) => {
-    const data = new Date(dataString);
-    const hora = ("0" + data.getHours()).slice(-2);
-    const minutos = ("0" + data.getMinutes()).slice(-2);
-    const dia = ("0" + data.getDate()).slice(-2);
-    const mes = ("0" + (data.getMonth() + 1)).slice(-2);
-    const ano = data.getFullYear();
-    return `${hora}:${minutos} ${dia}-${mes}-${ano}`;
-  };
 
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -153,7 +133,7 @@ const ViewObra = () => {
                   <Row>
                     <Col>
                       <Row xxl={12} className='gap-2 mb-3'>
-                          <UnidadesObra refObra={obra && obra._id} />
+                        <UnidadesObra refObra={id} />
                       </Row>
                     </Col>
                   </Row>
@@ -202,53 +182,8 @@ const ViewObra = () => {
               </Row>
             </CardBody>
           </Card>
-          <FormUnidadesObra refObra={obra && obra._id} />
-          {
-            entregaServico.length > 0 && (
-              <Card className='mt-5'>
-                <CardHeader>
-                  Atualizações
-                </CardHeader>
-                <CardBody>
-
-                  <Table striped>
-                    <thead>
-                      <tr>
-                        <th></th>
-                        <th>Etapa</th>
-                        <th>Data</th>
-                        <th>Status</th>
-                        <th>Ação</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {
-                        entregaServico.map(servico => (
-
-                          <tr key={servico._id}>
-                            <td className='align-middle'>{i++}</td>
-                            <td className='align-middle'>{servico.etapaEntregue}</td>
-                            <td className='align-middle'>{formatarData(servico.createdAt)}</td>
-                            <td className='align-middle'>{servico.statusEntrega}</td>
-                            <td className='align-middle'><Button variant='link'><BsSquare /></Button></td>
-                          </tr>
-                        ))
-                      }
-                    </tbody>
-                  </Table>
-                </CardBody>
-              </Card>
-            )
-          }
-          {
-            entregaServico.length === 0 && (
-              <Card className='mt-5'>
-                <CardBody>
-                  <p className='text-center my-auto'>Ainda não entregou nada</p>
-                </CardBody>
-              </Card>
-            )
-          }
+          <FormUnidadesObra refObra={id} />
+          <EntregasObra id={id}/>
         </Col>
       </Row>
       <Modal show={show} onHide={handleClose} animation={true} centered>
