@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Row, Col, Card, CardHeader, CardBody, Form, FormGroup, FormControl, FormLabel, Button } from 'react-bootstrap';
+import { Container, Row, Col, Card, CardHeader, CardBody, Button } from 'react-bootstrap';
 import Modal from 'react-bootstrap/Modal';
 import LateralNav from '../../components/lateralNav';
 import axios from 'axios';
@@ -9,6 +9,7 @@ import FormUnidadesObra from '../../components/formUnidadesObra';
 import apiUrl from '../../config';
 import UnidadesObra from '../../components/unidadesObra';
 import EntregasObra from '../../components/tableEntregasObra';
+import FormMetaObras from '../../components/formMetaObras';
 
 
 const ViewObra = () => {
@@ -16,74 +17,21 @@ const ViewObra = () => {
   const { id } = useParams();
 
   const [obra, setObra] = useState([]);
-  const [metaObra, setMetaObra] = useState();
-  const [metaNumber, setMetaNumber] = useState();
 
-  const [formData, setFormData] = useState({
-    relObra: obra._id,
-    valorMeta: '',
-  });
-
-  const [formUpdate, setFormUpdate] = useState({
-    valorMeta: '',
-  })
 
   useEffect(() => {
     const fetchObra = async () => {
       try {
         const responseObra = await axios.get(`${apiUrl}/obra/${id}`);
-        const responseMetaObra = await axios.get(`${apiUrl}/metaObra/${id}`);
+
         setObra(responseObra.data.obra);
-        setMetaObra(responseMetaObra.data.metaObra);
-        setMetaNumber(responseMetaObra.data.metaObra.valorMeta)
+
       } catch (error) {
         console.error('Erro ao buscar dados:', error);
       }
     };
     fetchObra();
   }, [id]);
-
-  const handleChange = event => {
-    setFormData({ ...formData, [event.target.name]: event.target.value });
-  };
-
-  const handleSubmit = async () => {
-
-    try {
-      const response = await fetch(`${apiUrl}/metaObra`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(formData)
-      });
-      await response.json();
-    } catch (error) {
-      console.error('Erro ao cadastrar Meta:', error);
-    }
-  }
-
-  const handleUpdate = async (event) => {
-    if (!event.target.value) {
-      setMetaNumber('')
-    } else {
-      setMetaNumber(event.target.value);
-    }
-    setFormUpdate({ valorMeta: `${event.target.value}` });
-  }
-
-  const atualizaDados = async (event) => {
-    event.preventDefault();
-    try {
-      await axios.put(`${apiUrl}/metaObra/${metaObra._id}`, formUpdate);
-
-    } catch (error) {
-      console.error('Erro ao cadastrar Obra:', error);
-    }
-
-  }
-
-
 
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -138,39 +86,7 @@ const ViewObra = () => {
                     </Col>
                   </Row>
                   <Row>
-                    <Col>
-                      {
-                        metaObra && metaObra.length === 0 && (
-                          <Form onSubmit={handleSubmit}>
-                            <input type='hidden' id='relObra' name='relObra' value={obra && obra._id} onChange={handleChange} />
-                            <FormGroup as={Row} >
-                              <FormLabel column xl={1} htmlFor='valorMeta' className="text-center">Meta:</FormLabel>
-                              <Col xl={1} className='px-0'>
-                                <FormControl className='input-number' type="number" id='valorMeta' name='valorMeta' value={formData.valorMeta} onChange={handleChange} required />
-                              </Col>
-                              <Col xl={2} className='px-0'>
-                                <Button variant='link' type='submit'>Definir</Button>
-                              </Col>
-                            </FormGroup>
-                          </Form>
-                        )
-                      }
-                      {
-                        metaObra && metaObra.length > 0 && (
-                          <Form onSubmit={atualizaDados} id='formUpdate'>
-                            <FormGroup as={Row} >
-                              <FormLabel column xl={1} htmlFor='valorMeta' className="text-center">Meta:</FormLabel>
-                              <Col xl={1} className='px-0'>
-                                <input className='form-control input-number' type="number" id='valorMeta' name="valorMeta" value={metaNumber} onChange={handleUpdate} required />
-                              </Col>
-                              <Col xl={2} className='px-0'>
-                                <Button variant='link' type='submit'>Definir</Button>
-                              </Col>
-                            </FormGroup>
-                          </Form>
-                        )
-                      }
-                    </Col>
+                    <FormMetaObras id={id}/>
                   </Row>
                   <Row className='mt-5'>
                     <Col>
@@ -183,7 +99,7 @@ const ViewObra = () => {
             </CardBody>
           </Card>
           <FormUnidadesObra refObra={id} />
-          <EntregasObra id={id}/>
+          <EntregasObra id={id} />
         </Col>
       </Row>
       <Modal show={show} onHide={handleClose} animation={true} centered>

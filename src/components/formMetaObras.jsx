@@ -3,13 +3,13 @@ import { Row, Col, Form, FormGroup, FormControl, FormLabel, Button } from 'react
 import axios from 'axios';
 import apiUrl from '../config';
 
-const FormMetaUsers = ({ id }) => {
+const FormMetaObras = ({ id }) => {
 
-  const [metaUser, setMetaUser] = useState();
+  const [metaObra, setMetaObra] = useState();
   const [metaNumber, setMetaNumber] = useState('');
 
   const [formData, setFormData] = useState({
-    relUser: id,
+    relObra: id,
     valorMeta: '',
   });
 
@@ -17,13 +17,15 @@ const FormMetaUsers = ({ id }) => {
     valorMeta: '',
   })
 
+
   const handleChange = event => {
     setFormData({ ...formData, [event.target.name]: event.target.value });
   };
 
   const handleSubmit = async () => {
+
     try {
-      const response = await fetch(`${apiUrl}/metaUser`, {
+      const response = await fetch(`${apiUrl}/metaObra`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -32,7 +34,7 @@ const FormMetaUsers = ({ id }) => {
       });
       await response.json();
     } catch (error) {
-      console.error('Erro ao cadastrar Serviço:', error);
+      console.error('Erro ao cadastrar Meta:', error);
     }
   }
 
@@ -45,40 +47,42 @@ const FormMetaUsers = ({ id }) => {
     setFormUpdate({ valorMeta: `${event.target.value}` });
   }
 
-  const atualizaDados = async () => {
+  const atualizaDados = async (event) => {
+    event.preventDefault();
     try {
-      await axios.put(`${apiUrl}/metaUser/${metaUser[0]._id}`, formUpdate);
+      await axios.put(`${apiUrl}/metaObra/${metaObra[0]._id}`, formUpdate);
 
     } catch (error) {
-      console.error('Erro ao cadastrar Serviço:', error);
+      console.error('Erro ao cadastrar Obra:', error);
     }
 
   }
-
+  
   useEffect(() => {
-    const fetchUsuario = async () => {
+    const fetchObra = async () => {
       try {
-        const responseMetaUser = await axios.get(`${apiUrl}/metaUser/${id}`);
-        setMetaUser(responseMetaUser.data.metaUser);
-        setMetaNumber(responseMetaUser.data.metaUser[0].valorMeta)
+        const responseMetaObra = await axios.get(`${apiUrl}/metaObra/${id}`);
+        setMetaObra(responseMetaObra.data.metaObra);
+        setMetaNumber(responseMetaObra.data.metaObra[0].valorMeta)
       } catch (error) {
-        console.error('Erro ao buscar dados', error);
+        console.error('Erro ao buscar Obra:', error);
       }
     };
-    fetchUsuario();
+    fetchObra();
   }, [id]);
 
+
   return (
-    <Col className=''>
+    <Col>
       {
-        metaUser && metaUser.length === 0 && (
+        metaObra && metaObra.length === 0 && (
           <Form onSubmit={handleSubmit}>
             <FormGroup as={Row} >
-              <FormLabel column xxl={1} xl={2} md={2} htmlFor='valorMeta' className="text-center">Meta:</FormLabel>
-              <Col xxl={1} xl={2} md={2} className='px-0'>
+              <FormLabel column xl={1} htmlFor='valorMeta' className="text-center">Meta:</FormLabel>
+              <Col xl={1} className='px-0'>
                 <FormControl className='input-number' type="number" id='valorMeta' name='valorMeta' value={formData.valorMeta} onChange={handleChange} required />
               </Col>
-              <Col xxl={2} xl={2} className='px-0'>
+              <Col xl={2} className='px-0'>
                 <Button variant='link' type='submit'>Definir</Button>
               </Col>
             </FormGroup>
@@ -86,14 +90,14 @@ const FormMetaUsers = ({ id }) => {
         )
       }
       {
-        metaUser && metaUser.length > 0 && (
-          <Form onSubmit={atualizaDados}>
+        metaObra && metaObra.length > 0 && (
+          <Form onSubmit={atualizaDados} id='formUpdate'>
             <FormGroup as={Row} >
-              <FormLabel column xxl={1} xl={2} md={2} htmlFor='valorMeta' className="text-center">Meta:</FormLabel>
-              <Col xxl={1} xl={2} md={2} className='px-0'>
-                <FormControl type='number' className='input-number' id='valorMeta' name='valorMeta' value={metaNumber} onChange={handleUpdate} />
+              <FormLabel column xl={1} htmlFor='valorMeta' className="text-center">Meta:</FormLabel>
+              <Col xl={1} className='px-0'>
+                <input className='form-control input-number' type="number" id='valorMeta' name="valorMeta" value={metaNumber} onChange={handleUpdate} required />
               </Col>
-              <Col xxl={2} xl={2} className='px-0'>
+              <Col xl={2} className='px-0'>
                 <Button variant='link' type='submit'>Definir</Button>
               </Col>
             </FormGroup>
@@ -103,4 +107,4 @@ const FormMetaUsers = ({ id }) => {
     </Col>
   )
 }
-export default FormMetaUsers;
+export default FormMetaObras;
