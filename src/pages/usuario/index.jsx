@@ -40,7 +40,7 @@ const ViewUsuario = () => {
     const dia = ("0" + data.getDate()).slice(-2);
     const mes = ("0" + (data.getMonth() + 1)).slice(-2);
     const ano = data.getFullYear();
-    return `${hora}:${minutos} ${dia}-${mes}-${ano}`;
+    return `${hora}:${minutos} - ${dia}/${mes}/${ano}`;
   };
 
   return (
