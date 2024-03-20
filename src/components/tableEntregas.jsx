@@ -40,7 +40,7 @@ const Entregas = () => {
                 {
                     entregaServico && entregaServico.length > 0 && (
 
-                        <Table striped>
+                        <Table striped responsive>
                             <thead>
                                 <tr>
                                     <th></th>

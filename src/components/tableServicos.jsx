@@ -4,6 +4,7 @@ import { BsTrashFill } from "react-icons/bs";
 import { useState, useEffect } from "react";
 import './style/style.css'
 import apiUrl from "../config";
+import Tempo from "./calculaTempo";
 
 const TableServicos = () => {
 
@@ -41,11 +42,12 @@ const TableServicos = () => {
             </CardHeader>
             <CardBody>
                     {servicos.length > 0 && (
-                            <Table className="table-personalized-1" striped>
+                            <Table striped>
                             <thead>
                                 <tr>
                                     <th>#</th>
                                     <th>Nome</th>
+                                    <th>Tempo</th>
                                     <th className="text-center">Ação</th>
                                 </tr>
                             </thead>
@@ -54,6 +56,7 @@ const TableServicos = () => {
                                 <tr key={servicos._id}>
                                     <td className="align-middle">{c++}</td>
                                     <td className="align-middle">{servicos.nomeServico}</td>
+                                    <td className="align-middle"><Tempo id={servicos._id} porcentagem={false}/> Min</td>
                                     <td className="align-middle text-center"><Button onClick={() => handleDelete(servicos._id)} variant="link" className="p-0 m-0"><h5><BsTrashFill/></h5></Button></td>
                                 </tr>
                             ))
