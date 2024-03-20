@@ -8,7 +8,7 @@ const FormEtapas = () => {
     const [formData, setFormData]= useState({
         nomeEtapa: '',
         refEtapa: '',
-        porcentagemReferencia: '',
+        tempoExecucao: '',
     });
     
     const handleChange = event => {
@@ -64,7 +64,7 @@ const FormEtapas = () => {
                             <FormControl id="nomeEtapa" name="nomeEtapa" placeholder="Etapa" value={formData.nomeEtapa} onChange={handleChange} required/>
                         </Col>
                         <Col xl={2}>
-                            <FormControl id="porcentagemReferencia" name="porcentagemReferencia" placeholder="Representa" value={formData.porcentagemReferencia} onChange={handleChange} required/>
+                            <FormControl id="tempoExecucao" name="tempoExecucao" placeholder="Tempo" value={formData.tempoExecucao} onChange={handleChange} required/>
                         </Col>
                         <Col xl={1}>
                             <Button type="submit">Cadastrar</Button>

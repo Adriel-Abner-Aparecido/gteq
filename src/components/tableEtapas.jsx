@@ -23,8 +23,6 @@ const TableEtapas = () => {
         }
     }
 
-    var c = 1;
-
     const handleDelete = async (servicosId) => {
         try {
           await axios.delete(`${apiUrl}/deleteEtapa/${servicosId}`);
@@ -52,11 +50,11 @@ const TableEtapas = () => {
                                 </tr>
                             </thead>
                             <tbody>
-                            { etapas.map(etapas =>(
-                                <tr key={etapas._id}>
-                                    <td className="align-middle">{c++}</td>
+                            { etapas.map((etapas, index) =>(
+                                <tr key={index += 1}>
+                                    <td className="align-middle">{index += 1}</td>
                                     <td className="align-middle">{etapas.nomeEtapa}</td>
-                                    <td className="align-middle">{etapas.refEtapas}</td>
+                                    <td className="align-middle">{etapas.refEtapa && etapas.refEtapa.nomeServico}</td>
                                     <td className="align-middle text-center"><Button onClick={() => handleDelete(etapas._id)} variant="link" className="p-0 m-0"><h5><BsTrashFill/></h5></Button></td>
                                 </tr>
                             ))
