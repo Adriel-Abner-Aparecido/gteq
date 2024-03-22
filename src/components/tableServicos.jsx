@@ -56,7 +56,7 @@ const TableServicos = () => {
                                 <tr key={servicos._id}>
                                     <td className="align-middle">{c++}</td>
                                     <td className="align-middle">{servicos.nomeServico}</td>
-                                    <td className="align-middle"><Tempo id={servicos._id} porcentagem={false}/> Min</td>
+                                    <td className="align-middle"><Tempo id={servicos._id} porcentagem={false} index={null}/> Min</td>
                                     <td className="align-middle text-center"><Button onClick={() => handleDelete(servicos._id)} variant="link" className="p-0 m-0"><h5><BsTrashFill/></h5></Button></td>
                                 </tr>
                             ))

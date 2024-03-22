@@ -13,21 +13,19 @@ const Tempo = ({ id, porcentagem, index }) => {
             try {
                 const response = await axios.get(`${apiUrl}/refEtapas/${id}`);
                 setTempo(response.data.etapas)
-            } catch (err) {
-                console.log(err)
+                if (index !== null) {
+                    const responseEtapa = await axios.get(`${apiUrl}/refEtapa/${index}`);
+                    setPercentual(responseEtapa.data.etapa.tempoExecucao);
+                }
+            } catch {
+                console.log('Erro ao buscar dados')
             }
         }
         fetchTempo();
-    }, [id])
+    }, [id, index])
 
     useEffect(() => {
-        if (tempo.length > 0 && index >= 0 && index < tempo.length) {
-            setPercentual(tempo[index].tempoExecucao);
-        }
-    }, [tempo, index]);
-
-    useEffect(() => {
-        if (porcentagem === true){
+        if (porcentagem === true) {
             const soma = tempo.reduce((acc, tempoItem) => acc + parseInt(tempoItem.tempoExecucao), 0)
             const percentuais = ((parseInt(percentual) * 100) / soma).toFixed(2);
             setSomaTempo(percentuais);

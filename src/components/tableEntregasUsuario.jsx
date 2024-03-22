@@ -1,0 +1,90 @@
+import { Card, CardHeader, CardBody, Table, Button } from "react-bootstrap";
+import { BsFillHandThumbsUpFill, BsFillHandThumbsDownFill } from "react-icons/bs";
+import { useState, useEffect } from "react";
+import axios from "axios";
+import apiUrl from "../config";
+
+const EntregasUsuarios = ({ id }) => {
+
+    const [entregaServico, setEntregaServico] = useState([]);
+
+    useEffect(() => {
+        const fetchUsuario = async () => {
+            try {
+                const responseEntregaServico = await axios.get(`${apiUrl}/entregaServico/${id}`);
+                setEntregaServico(responseEntregaServico.data.entregaServico);
+            } catch (error) {
+                console.error('Erro ao buscar dados', error);
+            }
+        };
+        fetchUsuario();
+    });
+
+    //Formata a Data
+
+    const formatarData = (dataString) => {
+        const data = new Date(dataString);
+        const hora = ("0" + data.getHours()).slice(-2);
+        const minutos = ("0" + data.getMinutes()).slice(-2);
+        const dia = ("0" + data.getDate()).slice(-2);
+        const mes = ("0" + (data.getMonth() + 1)).slice(-2);
+        const ano = data.getFullYear();
+        return `${hora}:${minutos} - ${dia}/${mes}/${ano}`;
+    };
+
+    return (
+        <><Card className='mt-5'>
+            <CardHeader>
+                Atualizações
+            </CardHeader>
+            {
+                entregaServico && entregaServico.length > 0 && (
+                    <CardBody>
+
+                        <Table striped>
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>Nome</th>
+                                    <th>Obra</th>
+                                    <th>Etapa</th>
+                                    <th>Data</th>
+                                    <th>Status</th>
+                                    <th>Ação</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {
+                                    entregaServico.map((servico, index) => (
+
+                                        <tr key={index + 1}>
+                                            <td className='align-middle'>{index + 1}</td>
+                                            <td className='align-middle'>{servico.refUsuario && servico.refUsuario.nomeCompleto}</td>
+                                            <td className='align-middle'>{servico.refObra && servico.refObra.nomeObra}</td>
+                                            <td className='align-middle'>{servico.etapaEntregue && servico.etapaEntregue.nomeEtapa}</td>
+                                            <td className='align-middle'>{servico.createdAt && formatarData(servico.createdAt)}</td>
+                                            <td className='align-middle'>{servico.statusEntrega}</td>
+                                            <td className='align-middle'>
+                                                <Button variant='link'><BsFillHandThumbsUpFill /></Button>
+                                                <Button variant="link" className="text-danger"><BsFillHandThumbsDownFill /></Button>
+                                            </td>
+                                        </tr>
+                                    ))
+                                }
+                            </tbody>
+                        </Table>
+                    </CardBody>
+                )
+            }
+            {
+                entregaServico && entregaServico.length === 0 && (
+                    <CardBody>
+                        <p className='text-center my-auto'>Ainda não entregou nada</p>
+                    </CardBody>
+                )
+            }
+        </Card>
+        </>
+    )
+}
+export default EntregasUsuarios

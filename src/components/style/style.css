@@ -2,7 +2,7 @@
     -webkit-appearance: none;
 }
 .input-number{
-    moz-appearance: textfield;
+    -moz-appearance: textfield;
 }
 .table-personalized-1 thead tr th:first-child{
     width: 1%;

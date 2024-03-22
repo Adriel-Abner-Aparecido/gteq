@@ -10,6 +10,8 @@ import apiUrl from '../../config';
 import UnidadesObra from '../../components/unidadesObra';
 import EntregasObra from '../../components/tableEntregasObra';
 import FormMetaObras from '../../components/formMetaObras';
+import FormServicoPrestado from '../../components/formServicoPrestado';
+import ServicosPrestados from '../../components/tableServicosPrestados';
 
 
 const ViewObra = () => {
@@ -17,6 +19,7 @@ const ViewObra = () => {
   const { id } = useParams();
 
   const [obra, setObra] = useState([]);
+  const [metaObra, setMetaObra] = useState([]);
 
 
   useEffect(() => {
@@ -79,14 +82,7 @@ const ViewObra = () => {
                     </Col>
                   </Row>
                   <Row>
-                    <Col>
-                      <Row xxl={12} className='gap-2 mb-3'>
-                        <UnidadesObra refObra={id} />
-                      </Row>
-                    </Col>
-                  </Row>
-                  <Row>
-                    <FormMetaObras id={id}/>
+                    <FormMetaObras id={id} metaObra={metaObra} setMetaObra={setMetaObra}/>
                   </Row>
                   <Row className='mt-5'>
                     <Col>
@@ -98,6 +94,8 @@ const ViewObra = () => {
               </Row>
             </CardBody>
           </Card>
+          <FormServicoPrestado refObra={id} />
+          <ServicosPrestados refObra={id}/>
           <FormUnidadesObra refObra={id} />
           <EntregasObra id={id} />
         </Col>

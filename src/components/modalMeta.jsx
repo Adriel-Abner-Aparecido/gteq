@@ -8,6 +8,7 @@ const ModalMeta = ({ show, handleClose }) => {
   const [meta, setMeta] = useState([])
   const [formData, setFormData] = useState({
     meta: '',
+    diasUteis: '',
     metaData: '',
   })
 
@@ -30,33 +31,38 @@ const ModalMeta = ({ show, handleClose }) => {
     } catch (err) {
       console.log({ Message: 'Algo deu errado', err })
     }
+    pegaMeta();
   }
 
   useEffect(() => {
-    const pegaMeta = async () => {
-      try {
-        const meta = await axios.get(`${apiUrl}/meta`);
-        setMeta(meta.data.meta);
-      } catch {
-
-      }
-    }
     pegaMeta();
   }, [])
 
+  const pegaMeta = async () => {
+    try {
+      const meta = await axios.get(`${apiUrl}/meta`);
+      setMeta(meta.data.meta);
+    } catch {
+
+    }
+  }
+
   const [metaUpdate, setMetaUpdate] = useState('');
-  const [metaDataUpdate, setMetaDataUpdate] = useState('')
+  const [metaDiasUteisUpdate, setDiasUteisUpdate] = useState('');
+  const [metaDataUpdate, setMetaDataUpdate] = useState('');
 
 
   useEffect(() => {
     if (meta.length > 0) {
       setMetaUpdate(meta[0].meta || '');
+      setDiasUteisUpdate(meta[0].diasUteis || '');
       setMetaDataUpdate(meta[0].metaData || '');
     }
   }, [meta]);
 
   const formUpdate = () => ({
     meta: metaUpdate,
+    diasUteis: metaDiasUteisUpdate,
     metaData: metaDataUpdate
   })
 
@@ -67,6 +73,7 @@ const ModalMeta = ({ show, handleClose }) => {
     } catch (error) {
       console.error('Erro ao atualizar Meta', error);
     }
+    pegaMeta();
   }
 
   return (
@@ -79,9 +86,13 @@ const ModalMeta = ({ show, handleClose }) => {
           meta && meta.length === 0 && (
             <Form onSubmit={handleSubmit} id="formMeta" name="meta" method="dialog" className="row justify-content-center">
               <Row>
-                <Col xl={6}>
+                <Col xl={3}>
                   <FormLabel htmlFor="meta">Definir meta:</FormLabel>
                   <FormControl type="number" id="meta" name="meta" onChange={handleChange} required />
+                </Col>
+                <Col xl={3}>
+                  <FormLabel htmlFor="diasUteis">Dias Uteis</FormLabel>
+                  <FormControl type="number" id="diasUteis" name="diasUteis" onChange={handleChange} />
                 </Col>
                 <Col xl={6}>
                   <FormLabel htmlFor="metaData">Definir Data:</FormLabel>
@@ -95,9 +106,13 @@ const ModalMeta = ({ show, handleClose }) => {
           meta && meta.length > 0 && (
             <Form onSubmit={submitUpdate} id="formMeta" name="meta" method="dialog" className="row justify-content-center">
               <Row>
-                <Col xl={6}>
+                <Col xl={3}>
                   <FormLabel htmlFor="meta">Definir meta:</FormLabel>
                   <FormControl type="number" id="meta" name="meta" value={metaUpdate} onChange={e => setMetaUpdate(e.target.value)} required />
+                </Col>
+                <Col xl={3}>
+                  <FormLabel htmlFor="diasUteis">Dias Uteis</FormLabel>
+                  <FormControl type="number" id="diasUteis" name="diasUteis" value={metaDiasUteisUpdate} onChange={e => setDiasUteisUpdate(e.target.value)} />
                 </Col>
                 <Col xl={6}>
                   <FormLabel htmlFor="metaData">Definir Data:</FormLabel>

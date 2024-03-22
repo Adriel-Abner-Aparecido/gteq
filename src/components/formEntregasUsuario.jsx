@@ -64,6 +64,10 @@ const FormEntregasUsuario = ({ userId }) => {
       axios.get(`${apiUrl}/numerosObra/${obraId}`)
         .then((response) => { setBlocos(response.data.numerosObra) })
         .catch(error => console.error(error));
+        axios.get(`${apiUrl}/servicosPrestados/${obraId}`)
+        .then((response) => { setServicos(response.data.getServicoPrestado) })
+        .catch(error => console.error(error));
+
     }
   };
 
@@ -73,11 +77,6 @@ const FormEntregasUsuario = ({ userId }) => {
     setSelectedEtapa('');
     setUnidadeObra('');
 
-    if (blocoId !== '') {
-      axios.get(`${apiUrl}/servicos`)
-        .then((response) => { setServicos(response.data.servicos) })
-        .catch(error => console.error(error));
-    }
   };
 
   const handleSelectedServico = (servicoId) => {
@@ -90,7 +89,6 @@ const FormEntregasUsuario = ({ userId }) => {
       axios.get(`${apiUrl}/refEtapas/${servicoId}`)
         .then((response) => { setEtapas(response.data.etapas) })
         .catch(error => console.error(error));
-        console.log(servicoId)
     }
   };
 
@@ -130,7 +128,7 @@ const FormEntregasUsuario = ({ userId }) => {
       <FormSelect name="servicoObra" onChange={(e) => handleSelectedServico(e.target.value)} required>
         <option value={''}>Selecione um serviço</option>
         {servicos.map(servico => (
-          <option key={servico._id} value={servico._id}>{servico.nomeServico}</option>
+          <option key={servico.servicoPrestado._id} value={servico.servicoPrestado._id}>{servico.servicoPrestado.nomeServico}</option>
         ))}
       </FormSelect>
 

@@ -1,5 +1,5 @@
 import { Card, CardHeader, CardBody, Table, Button } from "react-bootstrap";
-import { BsSquare } from "react-icons/bs";
+import { BsFillHandThumbsDownFill, BsFillHandThumbsUpFill } from "react-icons/bs";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import apiUrl from "../config";
@@ -14,7 +14,7 @@ const Entregas = () => {
             try {
                 const responseEntregaServico = await axios.get(`${apiUrl}/entregas`);
                 setEntregaServico(responseEntregaServico.data.entregaServico);
-            } catch(error) {
+            } catch (error) {
                 console.error('Erro ao buscar dados:', error);
             }
         };
@@ -48,7 +48,7 @@ const Entregas = () => {
                                     <th>Etapa</th>
                                     <th>Data</th>
                                     <th>Status</th>
-                                    <th>Ação</th>
+                                    <th className="text-center">Ação</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -61,7 +61,10 @@ const Entregas = () => {
                                             <td className='align-middle'>{servico.etapaEntregue && servico.etapaEntregue.nomeEtapa}</td>
                                             <td className='align-middle'>{servico.createdAt && formatarData(servico.createdAt)}</td>
                                             <td className='align-middle'>{servico.statusEntrega}</td>
-                                            <td className='align-middle'><Button variant='link'><BsSquare /></Button></td>
+                                            <td className='align-middle text-center'>
+                                                <Button variant='link'><BsFillHandThumbsUpFill /></Button>
+                                                <Button variant="link" className="text-danger"><BsFillHandThumbsDownFill /></Button>
+                                            </td>
                                         </tr>
                                     ))
                                 }

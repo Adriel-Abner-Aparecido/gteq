@@ -34,7 +34,7 @@ const TableUsuarios = () => {
             </CardHeader>
             <CardBody>
                 {users.length > 0 && (
-                    <Table striped>
+                    <Table className="table-personalized-1" striped>
                         <thead>
                             <tr>
                                 <th>#</th>

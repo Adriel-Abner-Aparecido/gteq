@@ -45,7 +45,7 @@ const TableEtapas = () => {
             <CardBody>
                 {
                     etapas.length > 0 && (
-                        <Table striped>
+                        <Table striped responsive>
                             <thead>
                                 <tr>
                                     <th>#</th>
@@ -64,7 +64,7 @@ const TableEtapas = () => {
                                             <td className="align-middle">{etapa.nomeEtapa}</td>
                                             <td className="align-middle">{etapa.refEtapa && etapa.refEtapa.nomeServico}</td>
                                             <td className="align-middle">{etapa.tempoExecucao} Min</td>
-                                            <td className="align-middle"><Tempo id={etapa.refEtapa && etapa.refEtapa._id} porcentagem={true} index={index - 1} />%</td>
+                                            <td className="align-middle"><Tempo id={etapa.refEtapa && etapa.refEtapa._id} porcentagem={true} index={etapa._id} /> %</td>
                                             <td className="align-middle text-center"><Button onClick={() => handleDelete(etapa._id)} variant="link" className="p-0 m-0"><h5><BsTrashFill /></h5></Button></td>
                                         </tr>
                                     ))

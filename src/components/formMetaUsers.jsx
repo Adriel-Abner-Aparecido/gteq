@@ -6,7 +6,7 @@ import apiUrl from '../config';
 const FormMetaUsers = ({ id }) => {
 
   const [metaUser, setMetaUser] = useState();
-  const [metaNumber, setMetaNumber] = useState('');
+  const [metaNumber, setMetaNumber] = useState(null);
 
   const [formData, setFormData] = useState({
     relUser: id,
@@ -32,7 +32,7 @@ const FormMetaUsers = ({ id }) => {
       });
       await response.json();
     } catch (error) {
-      console.error('Erro ao cadastrar Serviço:', error);
+      console.error('Erro ao Cadastrar Meta do Usuario!:', error);
     }
   }
 
@@ -48,9 +48,8 @@ const FormMetaUsers = ({ id }) => {
   const atualizaDados = async () => {
     try {
       await axios.put(`${apiUrl}/metaUser/${metaUser[0]._id}`, formUpdate);
-
     } catch (error) {
-      console.error('Erro ao cadastrar Serviço:', error);
+      console.error('Erro ao Atualizar meta do Usuario:', error);
     }
 
   }
@@ -60,13 +59,15 @@ const FormMetaUsers = ({ id }) => {
       try {
         const responseMetaUser = await axios.get(`${apiUrl}/metaUser/${id}`);
         setMetaUser(responseMetaUser.data.metaUser);
-        setMetaNumber(responseMetaUser.data.metaUser[0].valorMeta)
+        if (responseMetaUser.data.metaUser.length > 0) {
+          setMetaNumber(responseMetaUser.data.metaUser[0].valorMeta)
+        }
       } catch (error) {
         console.error('Erro ao buscar dados', error);
       }
     };
     fetchUsuario();
-  }, [id]);
+  }, []);
 
   return (
     <Col className=''>
