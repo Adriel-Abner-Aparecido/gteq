@@ -1,5 +1,5 @@
 import { Card, CardHeader, CardBody, Table, Button } from "react-bootstrap";
-import { BsFillHandThumbsDownFill, BsFillHandThumbsUpFill } from "react-icons/bs";
+import { BsFillHandThumbsDownFill, BsFillHandThumbsUpFill, BsCircleFill } from "react-icons/bs";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import apiUrl from "../config";
@@ -9,16 +9,27 @@ const Entregas = () => {
 
     const [entregaServico, setEntregaServico] = useState([]);
 
+    const handleClick = async (id, status) => {
+        try {
+            await axios.put(`${apiUrl}/atualizaStatusEntrega/${id}`, { statusEntrega: status })
+            fetchEntregas();
+        }
+        catch {
+            console.log('Erro ao atualizar este dado!')
+        }
+    }
+
+    const fetchEntregas = async () => {
+        try {
+            const responseEntregaServico = await axios.get(`${apiUrl}/entregas`);
+            setEntregaServico(responseEntregaServico.data.entregaServico);
+        } catch (error) {
+            console.error('Erro ao buscar dados:', error);
+        }
+    };
+
     useEffect(() => {
-        const fetchObra = async () => {
-            try {
-                const responseEntregaServico = await axios.get(`${apiUrl}/entregas`);
-                setEntregaServico(responseEntregaServico.data.entregaServico);
-            } catch (error) {
-                console.error('Erro ao buscar dados:', error);
-            }
-        };
-        fetchObra();
+        fetchEntregas();
     }, []);
 
     const formatarData = (dataString) => {
@@ -45,9 +56,12 @@ const Entregas = () => {
                                 <tr>
                                     <th></th>
                                     <th>Colaborador</th>
+                                    <th>Obra</th>
+                                    <th>Bloco</th>
+                                    <th>Unidade</th>
                                     <th>Etapa</th>
                                     <th>Data</th>
-                                    <th>Status</th>
+                                    <th className="text-center">Status</th>
                                     <th className="text-center">Ação</th>
                                 </tr>
                             </thead>
@@ -58,12 +72,20 @@ const Entregas = () => {
                                         <tr key={index + 1}>
                                             <td className='align-middle'>{index + 1}</td>
                                             <td className="align-middle">{servico.refUsuario && servico.refUsuario.nomeCompleto}</td>
+                                            <td className="align-middle">{servico.refObra && servico.refObra.nomeObra}</td>
+                                            <td className="align-middle">{servico.blocoObra && servico.blocoObra.numeroBloco}</td>
+                                            <td className="align-middle">{servico.unidadeObra}</td>
                                             <td className='align-middle'>{servico.etapaEntregue && servico.etapaEntregue.nomeEtapa}</td>
                                             <td className='align-middle'>{servico.createdAt && formatarData(servico.createdAt)}</td>
-                                            <td className='align-middle'>{servico.statusEntrega}</td>
                                             <td className='align-middle text-center'>
-                                                <Button variant='link'><BsFillHandThumbsUpFill /></Button>
-                                                <Button variant="link" className="text-danger"><BsFillHandThumbsDownFill /></Button>
+                                                {servico.statusEntrega === 'pendente' ?
+                                                    (<BsCircleFill className="text-warning" />) : servico.statusEntrega === 'aceito' ?
+                                                        (<BsCircleFill className="text-success" />) : (<BsCircleFill className="text-danger" />)
+                                                }
+                                            </td>
+                                            <td className='align-middle text-center'>
+                                                <Button variant='link' onClick={() => handleClick(servico._id, 'aceito')}><BsFillHandThumbsUpFill /></Button>
+                                                <Button variant="link" className="text-danger" onClick={() => handleClick(servico._id, 'rejeitado')}><BsFillHandThumbsDownFill /></Button>
                                             </td>
                                         </tr>
                                     ))

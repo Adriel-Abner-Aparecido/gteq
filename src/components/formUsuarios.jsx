@@ -12,8 +12,8 @@ const FormUsuarios =()=>{
         emailUsuario: '',
         nivelUsuario: '',
         senhaUsuario: '',
-        // companyUsuario: '',
         confirmaSenha: '',
+        funcaoUsuario: '',
       });
     
       const [validated, setValidated] = useState(false);
@@ -83,15 +83,23 @@ const FormUsuarios =()=>{
                       <FormLabel htmlFor="companyUsuario">Empresa:</FormLabel>
                       <FormControl type='text' id='companyUsuario' name='companyUsuario' value={formData.companyUsuario} onChange={handleChange} required/>
                     </div> */}
-                    <div className="mb3">
-                        <FormLabel htmlFor="nivelUsuario">Tipo de Usuario</FormLabel>
+                    <div className="mb-3">
+                        <FormLabel htmlFor="nivelUsuario">Tipo de Usuario:</FormLabel>
                         <FormSelect id="nivelUsuario" name="nivelUsuario" value={formData.nivelUsuario} onChange={handleChange}>
                             <option value="user">Usuario</option>
                             <option value="gestor">Gestor</option>
                             <option value="adm">Adm</option>
                         </FormSelect>
                     </div>
-                    
+                    <div className="mb-3">
+                    <FormLabel htmlFor="funcaoUsuario">Função do Colaborador:</FormLabel>
+                        <FormSelect id="funcaoUsuario" name="funcaoUsuario" value={formData.funcaoUsuario} onChange={handleChange}>
+                            <option></option>
+                            <option value="user">Pintor</option>
+                            <option value="gestor">Ajudante</option>
+                            <option value="adm">Azulegista</option>
+                        </FormSelect>
+                    </div>
                     <div className="mb-3">
                       <FormLabel htmlFor="senhaUsuario">Senha:</FormLabel>
                       <FormControl type="password" id="senhaUsuario" name='senhaUsuario' value={formData.senhaUsuario} onChange={handleChange} required/>

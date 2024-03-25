@@ -92,7 +92,7 @@ const FormMetaUsers = ({ id }) => {
             <FormGroup as={Row} >
               <FormLabel column xxl={1} xl={2} md={2} htmlFor='valorMeta' className="text-center">Meta:</FormLabel>
               <Col xxl={1} xl={2} md={2} className='px-0'>
-                <FormControl type='number' className='input-number' id='valorMeta' name='valorMeta' value={metaNumber} onChange={handleUpdate} />
+                <FormControl type='number' className='input-number' id='valorMeta' name='valorMeta' value={metaNumber} onChange={handleUpdate} required/>
               </Col>
               <Col xxl={2} xl={2} className='px-0'>
                 <Button variant='link' type='submit'>Definir</Button>

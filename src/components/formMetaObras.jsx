@@ -5,8 +5,8 @@ import apiUrl from '../config';
 
 const FormMetaObras = ({ id }) => {
 
-  const [metaObra, setMetaObra] = useState();
-  const [metaNumber, setMetaNumber] = useState(null);
+  const [metaObra, setMetaObra] = useState('');
+  const [metaNumber, setMetaNumber] = useState('');
 
   const [formData, setFormData] = useState({
     relObra: id,
@@ -94,7 +94,7 @@ const FormMetaObras = ({ id }) => {
             <FormGroup as={Row} >
               <FormLabel column xl={1} htmlFor='valorMeta' className="text-center">Meta:</FormLabel>
               <Col xl={1} className='px-0'>
-                <FormControl className='form-control input-number' type="number" id='valorMeta' name="valorMeta" value={metaNumber} onChange={handleUpdate}/>
+                <FormControl className='form-control input-number' type="number" id='valorMeta' name="valorMeta" value={metaNumber} onChange={handleUpdate} required/>
               </Col>
               <Col xl={2} className='px-0'>
                 <Button variant='link' type='submit'>Definir</Button>

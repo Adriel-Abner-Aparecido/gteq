@@ -1,4 +1,4 @@
-import { Table, ProgressBar, Card, CardHeader, CardBody, Button } from "react-bootstrap"
+import { Table, Card, CardHeader, CardBody, Button } from "react-bootstrap"
 import React, { useEffect, useState } from "react"
 import axios from 'axios'
 import './style/style.css'
@@ -38,13 +38,12 @@ const TableObras = () => {
             <CardBody>
                 
                         {obras.length > 0 && (
-                            <Table className="table-personalized-1" striped>
+                            <Table striped>
                             <thead>
                                 <tr>
                                     <th>#</th>
                                     <th>Nome</th>
                                     <th>Unidades</th>
-                                    <th>Progresso</th>
                                     <th className="text-center">Ação</th>
                                 </tr>
                             </thead>
@@ -54,7 +53,6 @@ const TableObras = () => {
                                     <td className="align-middle">{c++}</td>
                                     <td className="align-middle">{obras.nomeObra}</td>
                                     <td className="align-middle"><Unidades id={obras._id}/></td>
-                                    <td className="align-middle"><div style={{background: '#E9ECEF'}}><ProgressBar now={60} className="rounded-0 progress-bar-anim" /></div></td>
                                     <td className="align-middle text-center"><Button href={`./obras/obra/${obras._id}`} variant="link" className="p-0 m-0"><h5><BsEyeFill/></h5></Button></td>
                                 </tr>
                             ))

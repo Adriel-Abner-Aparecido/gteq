@@ -31,6 +31,12 @@ const CardProgress = () => {
                 <div style={{ background: '#E9ECEF' }}>
                     <ProgressBar variant='success' now={100} className='rounded-0 progress-bar-anim' label={<Counter finalNumber={100} />} />
                 </div>
+                <div style={{ background: '#E9ECEF' }}>
+                    <ProgressBar now={8} className='progress-30 rounded-0 mt-2 progress-bar-anim' label={<Counter finalNumber={8} />} />
+                </div>
+                <div style={{ background: '#E9ECEF' }}>
+                    <ProgressBar variant='success' now={100} className='rounded-0 progress-bar-anim' label={<Counter finalNumber={100} />} />
+                </div>
             </CardBody>
         </Card>
     )

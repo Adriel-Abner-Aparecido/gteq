@@ -18,11 +18,11 @@ const ValorAreceber = ({userId}) =>{
     }, [userId]);
 
     const aReceber = entregaServico && entregaServico.reduce((acc, item)=>{
-        if (item.etapaEntregue === "finalizado" && item.statusEntrega === "aceito"){
+        if (item.statusEntrega === "aceito"){
             acc++;
         }
         return acc;
-    }, 0)*1000;
+    }, 0)*0;
     
 
     return(

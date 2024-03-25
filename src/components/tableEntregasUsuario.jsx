@@ -1,5 +1,5 @@
 import { Card, CardHeader, CardBody, Table, Button } from "react-bootstrap";
-import { BsFillHandThumbsUpFill, BsFillHandThumbsDownFill } from "react-icons/bs";
+import { BsFillHandThumbsUpFill, BsFillHandThumbsDownFill, BsCircleFill } from "react-icons/bs";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import apiUrl from "../config";
@@ -8,17 +8,29 @@ const EntregasUsuarios = ({ id }) => {
 
     const [entregaServico, setEntregaServico] = useState([]);
 
+    const handleClick = async (id, status) => {
+        try {
+            await axios.put(`${apiUrl}/atualizaStatusEntrega/${id}`, { statusEntrega: status })
+            fetchEntregas();
+        }
+        catch {
+            console.log('Erro ao atualizar este dado!')
+        }
+    }
+
+
+    const fetchEntregas = async () => {
+        try {
+            const responseEntregaServico = await axios.get(`${apiUrl}/entregaServico/${id}`);
+            setEntregaServico(responseEntregaServico.data.entregaServico);
+        } catch (error) {
+            console.error('Erro ao buscar dados', error);
+        }
+    };
+
     useEffect(() => {
-        const fetchUsuario = async () => {
-            try {
-                const responseEntregaServico = await axios.get(`${apiUrl}/entregaServico/${id}`);
-                setEntregaServico(responseEntregaServico.data.entregaServico);
-            } catch (error) {
-                console.error('Erro ao buscar dados', error);
-            }
-        };
-        fetchUsuario();
-    });
+        fetchEntregas();
+    }, []);
 
     //Formata a Data
 
@@ -49,7 +61,7 @@ const EntregasUsuarios = ({ id }) => {
                                     <th>Obra</th>
                                     <th>Etapa</th>
                                     <th>Data</th>
-                                    <th>Status</th>
+                                    <th className="text-center">Status</th>
                                     <th>Ação</th>
                                 </tr>
                             </thead>
@@ -63,10 +75,15 @@ const EntregasUsuarios = ({ id }) => {
                                             <td className='align-middle'>{servico.refObra && servico.refObra.nomeObra}</td>
                                             <td className='align-middle'>{servico.etapaEntregue && servico.etapaEntregue.nomeEtapa}</td>
                                             <td className='align-middle'>{servico.createdAt && formatarData(servico.createdAt)}</td>
-                                            <td className='align-middle'>{servico.statusEntrega}</td>
+                                            <td className='align-middle text-center'>
+                                                {servico.statusEntrega === 'pendente' ?
+                                                    (<BsCircleFill className="text-warning" />) : servico.statusEntrega === 'aceito' ?
+                                                        (<BsCircleFill className="text-success" />) : (<BsCircleFill className="text-danger" />)
+                                                }
+                                            </td>
                                             <td className='align-middle'>
-                                                <Button variant='link'><BsFillHandThumbsUpFill /></Button>
-                                                <Button variant="link" className="text-danger"><BsFillHandThumbsDownFill /></Button>
+                                                <Button variant='link' onClick={() => handleClick(servico._id, 'aceito')}><BsFillHandThumbsUpFill /></Button>
+                                                <Button variant="link" className="text-danger" onClick={() => handleClick(servico._id, 'rejeitado')}><BsFillHandThumbsDownFill /></Button>
                                             </td>
                                         </tr>
                                     ))

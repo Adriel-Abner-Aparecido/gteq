@@ -4,32 +4,27 @@ import { Form, FormSelect, FormControl, Button } from "react-bootstrap";
 import axios from "axios";
 
 
-const FormEntregasUsuario = ({ userId }) => {
+const FormEntregasUsuario = ({ userId, atualiza }) => {
 
   const [obras, setObras] = useState([]);
   const [blocos, setBlocos] = useState([]);
   const [servicos, setServicos] = useState([]);
   const [etapas, setEtapas] = useState([]);
-  const [selectedObra, setSelectedObra] = useState('');
-  const [selectedBloco, setSelectedBloco] = useState('');
-  const [selectedServico, setSelectedServico] = useState('');
-  const [selectedEtapa, setSelectedEtapa] = useState('')
-  const [unidadeObra, setUnidadeObra] = useState('');
   const [formData, setFormData] = useState({
-    refUsuario: '',
+    refUsuario: userId,
     refObra: '',
     blocoObra: '',
     servicoObra: '',
-    unidadeObra: '',
     etapaEntregue: '',
+    unidadeObra: '',
   });
 
+
   const handleSubmit = async event => {
-    
 
     event.preventDefault();
     try {
-      const response = await fetch(`${apiUrl}/entregaServico`, {
+      await fetch(`${apiUrl}/entregaServico`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -37,8 +32,9 @@ const FormEntregasUsuario = ({ userId }) => {
         body: JSON.stringify(formData)
       });
 
-      const data = await response.json();
-      alert(data.message);
+      if (atualiza) {
+        atualiza();
+      }
 
     } catch (error) {
       console.error('Erro ao cadastrar usuário:', error);
@@ -53,18 +49,16 @@ const FormEntregasUsuario = ({ userId }) => {
   }, []);
 
   const handleSelectedObra = (obraId) => {
-    setSelectedObra(obraId);
-    setSelectedBloco('');
-    setSelectedServico('');
-    setSelectedEtapa('');
-    setUnidadeObra('');
+    setFormData({...formData,
+      refObra: obraId,
+      })
 
     // Buscar blocos com base na obra selecionada
-    if (obraId !== '') {
+    if (obraId !== '' && obras.length > 0) {
       axios.get(`${apiUrl}/numerosObra/${obraId}`)
         .then((response) => { setBlocos(response.data.numerosObra) })
         .catch(error => console.error(error));
-        axios.get(`${apiUrl}/servicosPrestados/${obraId}`)
+      axios.get(`${apiUrl}/servicosPrestados/${obraId}`)
         .then((response) => { setServicos(response.data.getServicoPrestado) })
         .catch(error => console.error(error));
 
@@ -72,40 +66,34 @@ const FormEntregasUsuario = ({ userId }) => {
   };
 
   const handleSelectedBloco = (blocoId) => {
-    setSelectedBloco(blocoId);
-    setSelectedServico('');
-    setSelectedEtapa('');
-    setUnidadeObra('');
+    setFormData({...formData,
+      blocoObra: blocoId,
+      })
 
   };
 
   const handleSelectedServico = (servicoId) => {
-    setSelectedServico(servicoId);
-    setSelectedEtapa('');
-    setUnidadeObra('');
+    setFormData({...formData,
+      servicoObra: servicoId,
+      })
 
     // Buscar etapas com base no serviço selecionado
-    if (servicoId !== '') {
+    if (servicoId !== '' && servicos.length > 0) {
       axios.get(`${apiUrl}/refEtapas/${servicoId}`)
         .then((response) => { setEtapas(response.data.etapas) })
         .catch(error => console.error(error));
     }
   };
 
-  const handleSelectedEtapa = (etapaID) => {
-    setSelectedEtapa(etapaID);
-    setUnidadeObra('');
+  const handleSelectedEtapa = (etapaId) => {
+    setFormData({...formData,
+      etapaEntregue: etapaId,
+    })
   }
 
-  const handleUnidade = (unidade)=>{
-    setUnidadeObra(unidade);
-    setFormData({
-      refUsuario: userId,
-      refObra: selectedObra,
-      blocoObra: selectedBloco,
-      servicoObra: selectedServico,
-      unidadeObra: unidadeObra,
-      etapaEntregue: selectedEtapa,
+  const handleUnidade = (unidade) => {
+    setFormData({...formData,
+      unidadeObra: unidade,
     })
   }
 
@@ -139,7 +127,7 @@ const FormEntregasUsuario = ({ userId }) => {
         ))}
       </FormSelect>
 
-      <FormControl name="unidadeObra" placeholder="Unidade" onChange={(e) => handleUnidade(e.target.value)} required/>
+      <FormControl name="unidadeObra" placeholder="Unidade" onChange={(e) => handleUnidade(e.target.value)} required />
 
       <Button type="submit">Entregar</Button>
     </Form>
