@@ -5,6 +5,7 @@ import apiUrl from "../config"
 const Unidades = ({ id }) => {
 
     const [numerosObra, setNumerosObra] = useState([]);
+    const [unidades, setUnidades] = useState(0);
 
     useEffect(()=>{
         const fetchUnidadesObra = async()=>{
@@ -18,18 +19,14 @@ const Unidades = ({ id }) => {
         fetchUnidadesObra();
     }, [id]);
 
-    const calculoUnidades = () =>{
-        if(numerosObra.length > 0){
-            const a = parseInt(numerosObra[0].numeroAndares);
-            const b = parseInt(numerosObra[0].numeroUnidades);
-            return a * b;
-        }return 0;
-        
-    }
-
-    const unidades = calculoUnidades() * numerosObra.length;
-
-    
+    useEffect(()=>{
+        const somaunidades = numerosObra.reduce((acc, numeros) => {
+            const a = parseInt(numeros.numeroAndares);
+            const b = parseInt(numeros.numeroUnidades);
+            return acc + (a * b);
+        }, 0);
+        setUnidades(somaunidades);
+    }, [numerosObra]);
 
     return (
         <>{(unidades)}</>

@@ -3,6 +3,7 @@ import Counter from './contador';
 
 const CardProgress = () => {
 
+    
 
     return (
         <Card className='card-info'>

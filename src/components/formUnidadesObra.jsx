@@ -22,16 +22,13 @@ const FormUnidadesObra = ({refObra})=>{
           };
 
         try {
-            const response = await fetch(`${apiUrl}/cadastroNumerosObra`, {
+            await fetch(`${apiUrl}/cadastroNumerosObra`, {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json'
               },
               body: JSON.stringify(dataToSend)
             });
-      
-            const data = await response.json();
-            alert(data.message);
       
           } catch (error) {
             console.error('Erro ao cadastrar Obra:', error);

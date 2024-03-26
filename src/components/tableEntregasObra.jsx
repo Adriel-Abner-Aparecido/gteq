@@ -3,6 +3,7 @@ import { BsFillHandThumbsUpFill, BsFillHandThumbsDownFill, BsCircleFill } from "
 import { useState, useEffect } from "react";
 import axios from "axios";
 import apiUrl from "../config";
+import UnidadesObra from "./unidadesObra";
 
 
 const EntregasObra = ({ id }) => {
@@ -48,6 +49,7 @@ const EntregasObra = ({ id }) => {
                 Atualizações
             </CardHeader>
             <CardBody>
+                <UnidadesObra refObra={id}/>
                 {
                     entregaServico && entregaServico.length > 0 && (
 

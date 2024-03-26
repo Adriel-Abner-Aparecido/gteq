@@ -1,15 +1,18 @@
 import { Table, Card, CardHeader, CardBody, Button } from "react-bootstrap"
 import { useState, useEffect } from "react"
-import { BsTrashFill } from "react-icons/bs"
+import { BsPencilSquare, BsTrashFill } from "react-icons/bs"
 import axios from "axios"
 
 import './style/style.css'
 import apiUrl from "../config"
 import Tempo from "./calculaTempo"
 
-const TableEtapas = () => {
+const TableEtapas = ({onSelecionarId}) => {
 
     const [etapas, setEtapas] = useState([])
+    const handleClick = (id) => {
+        onSelecionarId(id);
+    }
 
     useEffect(() => {
         listaEtapas();
@@ -65,7 +68,10 @@ const TableEtapas = () => {
                                             <td className="align-middle">{etapa.refEtapa && etapa.refEtapa.nomeServico}</td>
                                             <td className="align-middle">{etapa.tempoExecucao} Min</td>
                                             <td className="align-middle"><Tempo id={etapa.refEtapa && etapa.refEtapa._id} porcentagem={true} index={etapa._id} /> %</td>
-                                            <td className="align-middle text-center"><Button onClick={() => handleDelete(etapa._id)} variant="link" className="p-0 m-0"><h5><BsTrashFill /></h5></Button></td>
+                                            <td className="align-middle text-center">
+                                                <Button variant="link" className="p-0 m-0 px-2" onClick={()=>handleClick(etapa._id)}><h5><BsPencilSquare /></h5></Button>
+                                                <Button onClick={() => handleDelete(etapa._id)} variant="link" className="p-0 m-0 px-2"><h5><BsTrashFill /></h5></Button>
+                                            </td>
                                         </tr>
                                     ))
                                 }

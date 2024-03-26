@@ -20,17 +20,6 @@ const UnidadesObra = ({ refObra }) => {
         fetchUnidadesObra();
     }, [refObra]);
 
-    const calculoUnidades = () =>{
-        if(numerosObra.length > 0){
-            const a = parseInt(numerosObra[0].numeroAndares);
-            const b = parseInt(numerosObra[0].numeroUnidades);
-            return a * b;
-        }return 0;
-        
-    }
-
-    const unidades = calculoUnidades();
-
 
     return (
         <>
@@ -40,7 +29,7 @@ const UnidadesObra = ({ refObra }) => {
                                     {
                                         numerosObra.map((numero, index) => (
                                             <Col xxl={2} key={index + 1}>
-                                                Bloco: {numero.numeroBloco} Unidades: {unidades}
+                                                Bloco: {numero.numeroBloco} Unidades: {parseInt(numero.numeroAndares) * parseInt(numero.numeroUnidades)}
                                             </Col>
                                         ))
                                     }

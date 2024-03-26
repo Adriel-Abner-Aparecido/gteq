@@ -1,24 +1,27 @@
 import { Table, Card, CardHeader, CardBody, Button } from "react-bootstrap"
 import axios from "axios";
-import { BsTrashFill } from "react-icons/bs";
+import { BsTrashFill, BsPencilSquare } from "react-icons/bs";
 import { useState, useEffect } from "react";
 import './style/style.css'
 import apiUrl from "../config";
 import Tempo from "./calculaTempo";
 
-const TableServicos = () => {
+const TableServicos = ({onSelecionarId}) => {
 
     const [servicos, setServicos] = useState([])
+    const handleClick = (id) => {
+        onSelecionarId(id);
+    }
 
-    useEffect(()=>{
+    useEffect(() => {
         listaObras();
     }, []);
 
-    const listaObras = async () =>{
+    const listaObras = async () => {
         try {
             const response = await axios.get(`${apiUrl}/servicos`);
             setServicos(response.data.servicos);
-        }catch{
+        } catch {
             console.log("Erro ao buscar os dados");
         }
     }
@@ -27,10 +30,10 @@ const TableServicos = () => {
 
     const handleDelete = async (servicosId) => {
         try {
-          await axios.delete(`${apiUrl}/deleteServico/${servicosId}`);
-          listaObras(); // Atualiza a lista após a exclusão
+            await axios.delete(`${apiUrl}/deleteServico/${servicosId}`);
+            listaObras(); // Atualiza a lista após a exclusão
         } catch (error) {
-          console.error(error);
+            console.error(error);
         }
     }
 
@@ -41,36 +44,39 @@ const TableServicos = () => {
                 Serviços
             </CardHeader>
             <CardBody>
-                    {servicos.length > 0 && (
-                            <Table striped>
-                            <thead>
-                                <tr>
-                                    <th>#</th>
-                                    <th>Nome</th>
-                                    <th>Tempo</th>
-                                    <th className="text-center">Ação</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                            { servicos.map(servicos =>(
+                {servicos.length > 0 && (
+                    <Table striped>
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Nome</th>
+                                <th>Tempo</th>
+                                <th className="text-center">Ação</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {servicos.map(servicos => (
                                 <tr key={servicos._id}>
                                     <td className="align-middle">{c++}</td>
                                     <td className="align-middle">{servicos.nomeServico}</td>
-                                    <td className="align-middle"><Tempo id={servicos._id} porcentagem={false} index={null}/> Min</td>
-                                    <td className="align-middle text-center"><Button onClick={() => handleDelete(servicos._id)} variant="link" className="p-0 m-0"><h5><BsTrashFill/></h5></Button></td>
+                                    <td className="align-middle"><Tempo id={servicos._id} porcentagem={false} index={null} /> Min</td>
+                                    <td className="align-middle text-center">
+                                        <Button variant="link" className="p-0 m-0 px-2" onClick={() => handleClick(servicos._id)}><h5><BsPencilSquare /></h5></Button>
+                                        <Button onClick={() => handleDelete(servicos._id)} variant="link" className="p-0 m-0"><h5><BsTrashFill /></h5></Button>
+                                    </td>
                                 </tr>
                             ))
                             }
-                                    </tbody>
-                                </Table>
-                            )
-                        }
-                        {servicos.length === 0 && (
-                            <p className="text-center my-auto">Não há dados cadastrados</p>
-                        )}
+                        </tbody>
+                    </Table>
+                )
+                }
+                {servicos.length === 0 && (
+                    <p className="text-center my-auto">Não há dados cadastrados</p>
+                )}
             </CardBody>
         </Card>
-        
+
     )
 }
 export default TableServicos;

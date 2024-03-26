@@ -7,7 +7,6 @@ import { useParams } from 'react-router-dom';
 import '../obra/index.css'
 import FormUnidadesObra from '../../components/formUnidadesObra';
 import apiUrl from '../../config';
-import UnidadesObra from '../../components/unidadesObra';
 import EntregasObra from '../../components/tableEntregasObra';
 import FormMetaObras from '../../components/formMetaObras';
 import FormServicoPrestado from '../../components/formServicoPrestado';
