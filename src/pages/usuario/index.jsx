@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Row, Col, Card, CardHeader, CardBody } from 'react-bootstrap';
+import { Container, Row, Col, Card, CardHeader, CardBody, Button } from 'react-bootstrap';
 import Avatar from '../../images/avatar.jpg'
 import LateralNav from '../../components/lateralNav';
 import axios from 'axios';
@@ -40,7 +40,7 @@ const ViewUsuario = () => {
             <CardBody>
               <Row>
                 <Col xl={3} className='d-flex justify-content-center'>
-                  <img src={Avatar} className='avatar rounded rounded-circle p-2' alt={Avatar} />
+                  <img src={Avatar} className='avatar rounded rounded-circle p-2 my-auto' alt={Avatar} />
                 </Col>
                 <Col xl={9}>
                   <Row className='mb-3'>
@@ -63,14 +63,27 @@ const ViewUsuario = () => {
                       Tipo de usuario: {usuario && usuario.nivelUsuario}
                     </Col>
                   </Row>
+                  <Row className='mb-3'>
+                    <Col>
+                      Função: {usuario && usuario.funcaoUsuario}
+                    </Col>
+                  </Row>
                   <Row>
                     <FormMetaUsers id={id} />
+                  </Row>
+                  <Row className='mt-3'>
+                    <Col xxl={2} xs={6} >
+                      <Button className='w-100' href={`/usuarios/usuario/editarUsuario/${id}`} variant="primary">Editar</Button>
+                    </Col>
+                    {/* <Col xxl={2} xs={6}>
+                      <Button className='w-100' variant="danger">Apagar</Button>
+                    </Col> */}
                   </Row>
                 </Col>
               </Row>
             </CardBody>
           </Card>
-          <EntregasUsuarios id={id}/>
+          <EntregasUsuarios id={id} />
         </Col>
       </Row>
     </Container>

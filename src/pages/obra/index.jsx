@@ -33,7 +33,7 @@ const ViewObra = () => {
       }
     };
     fetchObra();
-  }, [id]);
+  },[id]);
 
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -84,9 +84,9 @@ const ViewObra = () => {
                     <FormMetaObras id={id} metaObra={metaObra} setMetaObra={setMetaObra}/>
                   </Row>
                   <Row className='mt-5'>
-                    <Col>
-                      <Button href={`./editaObra/${obra._id}`} variant='primary'>Editar</Button>
-                      <Button variant='danger' className='mx-3' onClick={handleShow}>Apagar</Button>
+                    <Col xl={2}>
+                      <Button className='w-100' href={`./editarObra/${obra._id}`} variant='primary'>Editar</Button>
+                      {/* <Button variant='danger' className='mx-3' onClick={handleShow}>Apagar</Button> */}
                     </Col>
                   </Row>
                 </Col>

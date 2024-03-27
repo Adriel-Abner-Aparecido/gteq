@@ -31,7 +31,7 @@ const EntregasObra = ({ id }) => {
 
     useEffect(() => {
         fetchEntregas();
-    });
+    }, []);
 
     const formatarData = (dataString) => {
         const data = new Date(dataString);

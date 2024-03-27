@@ -10,7 +10,7 @@ const CardProgress = () => {
             <CardHeader>
                 Progresso
                 <div className='float-end'>
-                    <Button href="./obras/cadastroObras" variant='link' className="p-0 m-0"><span className="material-symbols-outlined">add_circle</span></Button>
+                    <Button href="/obras/cadastroObras" variant='link' className="p-0 m-0"><span className="material-symbols-outlined">add_circle</span></Button>
                 </div>
             </CardHeader>
             <CardBody>

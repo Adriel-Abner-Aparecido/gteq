@@ -13,16 +13,11 @@ const FormObras =()=>{
         cidadeObra: '',
         numeroRua: '',
         complementoObra: '',
-        tipoObra: '',
-        qtdBlocos: '',
-        qtdAndares: '',
-        qtdApartamentos: '',
-        servicoPrestado:'',
-        precoServico: '',
         descricaoObra:'',
     })
     
     const navigate = useNavigate();
+    
     const [validated, setValidated] = useState(false);
     const handleChange = event => {
         setFormData({ ...formData, [event.target.name]: event.target.value });
@@ -61,21 +56,6 @@ const FormObras =()=>{
           console.error('Erro ao cadastrar Obra:', error);
         }
     };
-
-    // const [servicos, setServicos] = useState([])
-
-    // useEffect(()=>{
-    //     listaServicos();
-    // }, []);
-
-    // const listaServicos = async () =>{
-    //     try {
-    //         const response = await axios.get('http://localhost:3000/servicos');
-    //         setServicos(response.data.servicos);
-    //     }catch{
-    //         console.log("Erro ao buscar os dados");
-    //     }
-    // }
 
 
     return(

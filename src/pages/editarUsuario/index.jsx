@@ -1,19 +1,20 @@
 import React from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import LateralNav from '../../components/lateralNav';
-import FormUsuarios from '../../components/formUsuarios';
+import FormEditaUsuarios from '../../components/formEditaUsuarios';
+import { useParams } from 'react-router-dom';
 
 
 const EditaUsuario = () => {
-  // Dados de exemplo para a lista
+  
+  const {id} = useParams();
 
   return (
     <Container className='p-0 h-100'>
       <Row className='p-0 m-0 '>
         <LateralNav/>
           <Col sm={12} md={10} xxl={10} className="p-5 h-100">
-            <FormUsuarios/>
+            <FormEditaUsuarios id={id}/>
           </Col>
       </Row>
     </Container>

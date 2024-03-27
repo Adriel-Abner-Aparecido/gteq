@@ -1,8 +1,9 @@
+.link-15-400{
+    font-size: 20px !important;
+    font-weight: 400 !important;
+}
 .container {
     min-width: 100% !important;
-}
-.nav-link {
-    /* font-weight: 400px !important; */
 }
 .h-100 {
     min-height: 100vh !important;
@@ -12,6 +13,7 @@
 }
 .avatar {
     max-width: 200px !important;
+    max-height: 200px !important;
 }
 .card-info {
     min-height: 100%;
