@@ -112,7 +112,7 @@ const FormUsuarios =()=>{
                       <FormControl type="password" id="confirmaSenha" name='confirmaSenha' value={formData.confirmaSenha} onChange={handleChange} required/>
                     </div>
                     <Button type="submit" color='primary'>Cadastrar</Button>
-                    <Button href="../usuarios" variant="danger" className="mx-2">Cancelar</Button>
+                    <Button href="/usuarios" variant="danger" className="mx-2">Cancelar</Button>
                   </Form>
             </CardBody>
         </Card>

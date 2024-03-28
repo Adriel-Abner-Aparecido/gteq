@@ -47,7 +47,7 @@ const FormObras =()=>{
             const data = await response.json()
             if(data && data.id){
                 const {id} = data;
-                navigate(`../obras/obra/${id}`);
+                navigate(`/obras/obra/${id}`);
             }
           }else{
             console.error('erro ao buscar o id')
@@ -114,7 +114,7 @@ const FormObras =()=>{
                         <Row className="mt-3">
                             <Col xl={12}>
                                 <Button  type="submit">Cadastrar Obra</Button>
-                                <Button href="../obras" className="mx-3" variant="danger" type="reset">Cancelar</Button>
+                                <Button href="/obras" className="mx-3" variant="danger" type="reset">Cancelar</Button>
                             </Col>
                         </Row>
                     </Form>

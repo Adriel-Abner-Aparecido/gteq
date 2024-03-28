@@ -51,7 +51,7 @@ const TableUsuarios = () => {
                                         <td className="align-middle">{users.nomeUsuario}</td>
                                         <td className="align-middle">{users.emailUsuario}</td>
                                         <td className="align-middle"><div style={{background: '#E9ECEF'}}><ProgressBar now={60} className="rounded-0 progress-bar-anim" /></div></td>
-                                        <td className="align-middle text-center"><Button href={`./usuarios/usuario/${users._id}`} variant="link" className="p-0 m-0"><h5><BsEyeFill/></h5></Button></td>
+                                        <td className="align-middle text-center"><Button href={`/usuarios/usuario/${users._id}`} variant="link" className="p-0 m-0"><h5><BsEyeFill/></h5></Button></td>
                                     </tr>
                                 ))
                             }

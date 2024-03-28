@@ -53,7 +53,7 @@ const TableObras = () => {
                                     <td className="align-middle">{c++}</td>
                                     <td className="align-middle">{obras.nomeObra}</td>
                                     <td className="align-middle"><Unidades id={obras._id}/></td>
-                                    <td className="align-middle text-center"><Button href={`./obras/obra/${obras._id}`} variant="link" className="p-0 m-0"><h5><BsEyeFill/></h5></Button></td>
+                                    <td className="align-middle text-center"><Button href={`/obras/obra/${obras._id}`} variant="link" className="p-0 m-0"><h5><BsEyeFill/></h5></Button></td>
                                 </tr>
                             ))
                             }

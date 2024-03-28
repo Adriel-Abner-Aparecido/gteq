@@ -49,7 +49,6 @@ const EntregasObra = ({ id }) => {
                 Atualizações
             </CardHeader>
             <CardBody>
-                <UnidadesObra refObra={id}/>
                 {
                     entregaServico && entregaServico.length > 0 && (
 

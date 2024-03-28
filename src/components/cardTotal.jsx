@@ -1,6 +1,7 @@
 import { Card, CardHeader, CardBody, Row, Button } from "react-bootstrap";
 import React, { useState } from "react";
 import { BsEyeSlashFill } from 'react-icons/bs'
+import CalculaTotalProduzido from "./totalProduzido";
 const TotalProduzido = () => {
 
     const [classeParagrafoUm, setClasseParagrafoUm] = useState('valor text-success text-center');
@@ -23,7 +24,7 @@ const TotalProduzido = () => {
             <CardBody className="d-flex align-middle justify-content-center">
                 <Row className="d-flex align-items-center w-100">
                     <p className={classeParagrafoUm}>
-                        R$70.000<span>,00</span>
+                        R$<CalculaTotalProduzido/>
                     </p>
                     <p className={classeParagrafoDois}>
                         <BsEyeSlashFill className="eyeView text-light" />

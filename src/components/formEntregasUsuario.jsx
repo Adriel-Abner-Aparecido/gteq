@@ -49,9 +49,10 @@ const FormEntregasUsuario = ({ userId, atualiza }) => {
   }, []);
 
   const handleSelectedObra = (obraId) => {
-    setFormData({...formData,
+    setFormData({
+      ...formData,
       refObra: obraId,
-      })
+    })
 
     // Buscar blocos com base na obra selecionada
     if (obraId !== '' && obras.length > 0) {
@@ -61,38 +62,47 @@ const FormEntregasUsuario = ({ userId, atualiza }) => {
       axios.get(`${apiUrl}/servicosPrestados/${obraId}`)
         .then((response) => { setServicos(response.data.getServicoPrestado) })
         .catch(error => console.error(error));
-
     }
   };
 
   const handleSelectedBloco = (blocoId) => {
-    setFormData({...formData,
+    setFormData({
+      ...formData,
       blocoObra: blocoId,
-      })
+    })
 
   };
 
   const handleSelectedServico = (servicoId) => {
-    setFormData({...formData,
+    setFormData({
+      ...formData,
       servicoObra: servicoId,
-      })
+    })
 
     // Buscar etapas com base no serviço selecionado
     if (servicoId !== '' && servicos.length > 0) {
-      axios.get(`${apiUrl}/refEtapas/${servicoId}`)
-        .then((response) => { setEtapas(response.data.etapas) })
+      axios.get(`${apiUrl}/servicoPrestado/${servicoId}`)
+        .then((response) => {
+          const refEtapa = response.data.servico.servicoPrestado._id;
+          axios.get(`${apiUrl}/refEtapas/${refEtapa}`)
+            .then((response) => { setEtapas(response.data.etapas) })
+            .catch(error => console.error(error));
+        })
         .catch(error => console.error(error));
+
     }
   };
 
   const handleSelectedEtapa = (etapaId) => {
-    setFormData({...formData,
+    setFormData({
+      ...formData,
       etapaEntregue: etapaId,
     })
   }
 
   const handleUnidade = (unidade) => {
-    setFormData({...formData,
+    setFormData({
+      ...formData,
       unidadeObra: unidade,
     })
   }
@@ -116,7 +126,7 @@ const FormEntregasUsuario = ({ userId, atualiza }) => {
       <FormSelect name="servicoObra" onChange={(e) => handleSelectedServico(e.target.value)} required>
         <option value={''}>Selecione um serviço</option>
         {servicos.map(servico => (
-          <option key={servico.servicoPrestado._id} value={servico.servicoPrestado._id}>{servico.servicoPrestado.nomeServico}</option>
+          <option key={servico._id} value={servico._id}>{servico.servicoPrestado.nomeServico}</option>
         ))}
       </FormSelect>
 
