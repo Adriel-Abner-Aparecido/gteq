@@ -17,7 +17,11 @@ const FormEntregasUsuario = ({ userId, atualiza }) => {
     servicoObra: '',
     etapaEntregue: '',
     unidadeObra: '',
+    percentual: '',
   });
+
+  const [percentual, setPercentual] = useState(0);
+  const [somaTempo, setSomaTempo] = useState(0);
 
 
   const handleSubmit = async event => {
@@ -98,14 +102,31 @@ const FormEntregasUsuario = ({ userId, atualiza }) => {
       ...formData,
       etapaEntregue: etapaId,
     })
+
+    if (etapaId !== '') {
+      axios.get(`${apiUrl}/refEtapa/${etapaId}`)
+      .then((response) => {setPercentual(response.data.etapa.tempoExecucao)})
+      .catch(error => console.error(error));
+    }
   }
 
   const handleUnidade = (unidade) => {
     setFormData({
       ...formData,
       unidadeObra: unidade,
+      percentual: somaTempo,
     })
   }
+
+  useEffect(() => {
+        
+    const soma = etapas.reduce((acc, tempoItem) => acc + parseInt(tempoItem.tempoExecucao), 0)
+    const percentuais = ((parseInt(percentual) * 100) / soma).toFixed(2);
+    setSomaTempo(percentuais);
+    
+}, [etapas, percentual])
+
+console.log(somaTempo);
 
   return (
     <Form className="row g-3" onSubmit={handleSubmit}>

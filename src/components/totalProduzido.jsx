@@ -5,10 +5,10 @@ import apiUrl from "../config";
 
 const CalculaTotalProduzido = () => {
 
-    const currentDate = new Date();
-    const currentMounth = currentDate.getMonth() + 1;
+    // const currentDate = new Date();
+    // const currentMounth = currentDate.getMonth() + 1;
 
-    const [data, setData] = useState(currentMounth);
+    // const [data, setData] = useState(currentMounth);
 
     const [valor, setValor] = useState(0);
 
@@ -21,7 +21,7 @@ const CalculaTotalProduzido = () => {
                 if (entregasData.length > 0) {
                     const soma = entregasData.reduce((acc, entrega) => {
                         if (entrega.statusEntrega === 'aceito') {
-                            return acc + entrega.servicoObra.valoraReceber;
+                            return acc + (entrega.servicoObra.valoraReceber * (entrega.percentual / 100));
                         }
                         return acc;
                     }, 0);

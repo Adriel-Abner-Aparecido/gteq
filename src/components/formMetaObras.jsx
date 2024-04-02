@@ -69,6 +69,7 @@ const FormMetaObras = ({ id }) => {
       }
     };
     fetchObra();
+    // eslint-disable-next-line
   }, []);
 
   return (
@@ -90,7 +91,7 @@ const FormMetaObras = ({ id }) => {
       }
       {
         metaObra && metaObra.length > 0 && (
-          <Form onSubmit={atualizaDados} id='formUpdate'>
+          <Form onSubmit={atualizaDados}>
             <FormGroup as={Row} >
               <FormLabel column xl={1} htmlFor='valorMeta' className="text-center">Meta:</FormLabel>
               <Col xl={1} className='px-0'>

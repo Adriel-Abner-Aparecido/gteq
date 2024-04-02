@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, Card, CardHeader, CardBody, Button } from 'react-bootstrap';
-import Modal from 'react-bootstrap/Modal';
 import LateralNav from '../../components/lateralNav';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
@@ -11,6 +10,7 @@ import EntregasObra from '../../components/tableEntregasObra';
 import FormMetaObras from '../../components/formMetaObras';
 import FormServicoPrestado from '../../components/formServicoPrestado';
 import ServicosPrestados from '../../components/tableServicosPrestados';
+import UnidadesObra from '../../components/unidadesObra';
 
 
 const ViewObra = () => {
@@ -33,11 +33,7 @@ const ViewObra = () => {
       }
     };
     fetchObra();
-  },[id]);
-
-  const [show, setShow] = useState(false);
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  }, [id]);
 
   return (
     <Container className='p-0 h-100'>
@@ -81,7 +77,7 @@ const ViewObra = () => {
                     </Col>
                   </Row>
                   <Row>
-                    <FormMetaObras id={id} metaObra={metaObra} setMetaObra={setMetaObra}/>
+                    <FormMetaObras id={id} metaObra={metaObra} setMetaObra={setMetaObra} />
                   </Row>
                   <Row className='mt-5'>
                     <Col xl={2}>
@@ -93,26 +89,17 @@ const ViewObra = () => {
               </Row>
             </CardBody>
           </Card>
+          <Card className='mt-5'>
+            <CardBody>
+              <UnidadesObra refObra={id} />
+            </CardBody>
+          </Card>
           <FormServicoPrestado refObra={id} />
-          <ServicosPrestados refObra={id}/>
+          <ServicosPrestados refObra={id} />
           <FormUnidadesObra refObra={id} />
           <EntregasObra id={id} />
         </Col>
       </Row>
-      <Modal show={show} onHide={handleClose} animation={true} centered>
-        <Modal.Header closeButton>
-          <Modal.Title><h1>Alerta</h1></Modal.Title>
-        </Modal.Header>
-        <Modal.Body>Você tem certeza?</Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Sim
-          </Button>
-          <Button variant="danger" onClick={handleClose}>
-            Não
-          </Button>
-        </Modal.Footer>
-      </Modal>
     </Container>
 
   );

@@ -11,7 +11,7 @@ const ServicosPrestados = ({ refObra }) => {
 
     useEffect(() => {
         fetchServicoPrestado();
-    // eslint-disable-next-line
+        // eslint-disable-next-line
     }, []);
 
     const fetchServicoPrestado = async () => {
@@ -40,8 +40,6 @@ const ServicosPrestados = ({ refObra }) => {
             <CardBody>
                 {
                     servicoPrestado.length > 0 && (
-
-
                         <Table>
                             <thead>
                                 <tr>

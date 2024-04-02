@@ -7,7 +7,7 @@ const ModalMeta = ({ show, handleClose }) => {
 
   const [meta, setMeta] = useState([])
   const [formData, setFormData] = useState({
-    meta: '',
+    valorMeta: '',
     diasUteis: '',
     metaData: '',
   })
@@ -54,14 +54,14 @@ const ModalMeta = ({ show, handleClose }) => {
 
   useEffect(() => {
     if (meta.length > 0) {
-      setMetaUpdate(meta[0].meta || '');
+      setMetaUpdate(meta[0].valorMeta || '');
       setDiasUteisUpdate(meta[0].diasUteis || '');
       setMetaDataUpdate(meta[0].metaData || '');
     }
   }, [meta]);
 
   const formUpdate = () => ({
-    meta: metaUpdate,
+    valorMeta: metaUpdate,
     diasUteis: metaDiasUteisUpdate,
     metaData: metaDataUpdate
   })
@@ -87,8 +87,8 @@ const ModalMeta = ({ show, handleClose }) => {
             <Form onSubmit={handleSubmit} id="formMeta" name="meta" method="dialog" className="row justify-content-center">
               <Row>
                 <Col xl={3}>
-                  <FormLabel htmlFor="meta">Definir meta:</FormLabel>
-                  <FormControl type="number" id="meta" name="meta" onChange={handleChange} required />
+                  <FormLabel htmlFor="valorMeta">Definir meta:</FormLabel>
+                  <FormControl type="number" id="valorMeta" name="valorMeta" onChange={handleChange} required />
                 </Col>
                 <Col xl={3}>
                   <FormLabel htmlFor="diasUteis">Dias Uteis</FormLabel>
@@ -107,8 +107,8 @@ const ModalMeta = ({ show, handleClose }) => {
             <Form onSubmit={submitUpdate} id="formMeta" name="meta" method="dialog" className="row justify-content-center">
               <Row>
                 <Col xl={3}>
-                  <FormLabel htmlFor="meta">Definir meta:</FormLabel>
-                  <FormControl type="number" id="meta" name="meta" value={metaUpdate} onChange={e => setMetaUpdate(e.target.value)} required />
+                  <FormLabel htmlFor="valorMeta">Definir meta:</FormLabel>
+                  <FormControl type="number" id="valorMeta" name="valorMeta" value={metaUpdate} onChange={e => setMetaUpdate(e.target.value)} required />
                 </Col>
                 <Col xl={3}>
                   <FormLabel htmlFor="diasUteis">Dias Uteis</FormLabel>

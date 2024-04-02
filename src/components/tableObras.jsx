@@ -21,11 +21,7 @@ const TableObras = () => {
         }
         listaObras();
     }, []);
-
-    var c = 1;
-
-
-
+    
     return (
 
         <Card>
@@ -48,9 +44,9 @@ const TableObras = () => {
                                 </tr>
                             </thead>
                             <tbody>
-                            { obras.map(obras =>(
-                                <tr key={obras._id}>
-                                    <td className="align-middle">{c++}</td>
+                            { obras.map((obras, index) => (
+                                <tr key={index += 1}>
+                                    <td className="align-middle">{index += 1}</td>
                                     <td className="align-middle">{obras.nomeObra}</td>
                                     <td className="align-middle"><Unidades id={obras._id}/></td>
                                     <td className="align-middle text-center"><Button href={`/obras/obra/${obras._id}`} variant="link" className="p-0 m-0"><h5><BsEyeFill/></h5></Button></td>
