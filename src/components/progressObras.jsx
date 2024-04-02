@@ -89,8 +89,6 @@ const ProgressObras = ({ id }) => {
     const calculaMetaDiaria = (pegaMeta / diasUteis)
     const metaDiaria = ((valor * 100) / calculaMetaDiaria)
 
-    console.log(calculaMetaDiaria)
-
     return (
         <>
             <div style={{ background: '#E9ECEF' }}>

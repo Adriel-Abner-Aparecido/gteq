@@ -1,24 +1,25 @@
-import { Table, Card, CardHeader, CardBody, Button, ProgressBar } from "react-bootstrap"
+import { Table, Card, CardHeader, CardBody, Button } from "react-bootstrap"
 import { useState, useEffect } from "react"
 import './style/style.css'
 import axios from "axios"
 import { BsEyeFill } from "react-icons/bs"
 import apiUrl from "../config"
+import ProgressUsuarios from "./progressUsuarios"
 
 const TableUsuarios = () => {
 
 
     const [users, setUsers] = useState([])
 
-    useEffect(()=>{
+    useEffect(() => {
         listaUsers();
     }, []);
 
-    const listaUsers = async () =>{
+    const listaUsers = async () => {
         try {
             const response = await axios.get(`${apiUrl}/usuarios`);
             setUsers(response.data.users);
-        }catch{
+        } catch {
             console.log("Erro ao buscar os dados");
         }
     }
@@ -29,7 +30,7 @@ const TableUsuarios = () => {
             <CardHeader>
                 Colaboradores
                 <div className="float-end">
-                <Button href="./usuarios/cadastroUsuario" variant='link' className="p-0 m-0"><span className="material-symbols-outlined">add_circle</span></Button>
+                    <Button href="./usuarios/cadastroUsuario" variant='link' className="p-0 m-0"><span className="material-symbols-outlined">add_circle</span></Button>
                 </div>
             </CardHeader>
             <CardBody>
@@ -45,15 +46,17 @@ const TableUsuarios = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            { users.map((users, index) =>(
-                                    <tr key={index + 1}>
-                                        <td className="align-middle">{index + 1}</td>
-                                        <td className="align-middle">{users.nomeUsuario}</td>
-                                        <td className="align-middle">{users.emailUsuario}</td>
-                                        <td className="align-middle"><div style={{background: '#E9ECEF'}}><ProgressBar now={60} className="rounded-0 progress-bar-anim" /></div></td>
-                                        <td className="align-middle text-center"><Button href={`/usuarios/usuario/${users._id}`} variant="link" className="p-0 m-0"><h5><BsEyeFill/></h5></Button></td>
-                                    </tr>
-                                ))
+                            {users.map((users, index) => (
+                                <tr key={index + 1}>
+                                    <td className="align-middle">{index + 1}</td>
+                                    <td className="align-middle">{users.nomeUsuario}</td>
+                                    <td className="align-middle">{users.emailUsuario}</td>
+                                    <td className="align-middle">
+                                        <ProgressUsuarios id={users._id} />
+                                    </td>
+                                    <td className="align-middle text-center"><Button href={`/usuarios/usuario/${users._id}`} variant="link" className="p-0 m-0"><h5><BsEyeFill /></h5></Button></td>
+                                </tr>
+                            ))
                             }
                         </tbody>
                     </Table>
@@ -63,7 +66,7 @@ const TableUsuarios = () => {
                 )}
             </CardBody>
         </Card>
-        
+
     )
 }
 export default TableUsuarios;

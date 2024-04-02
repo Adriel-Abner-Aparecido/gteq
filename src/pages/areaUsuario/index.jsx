@@ -1,4 +1,4 @@
-import { Button, Card, CardBody, CardHeader, Col, Container, Row, Table, ProgressBar } from "react-bootstrap";
+import { Button, Card, CardBody, CardHeader, Col, Container, Row, Table } from "react-bootstrap";
 import Avatar from '../../images/avatar.png'
 import { useNavigate } from "react-router-dom";
 import { BsCircleFill } from "react-icons/bs";
@@ -7,6 +7,7 @@ import axios from "axios";
 import ValorAreceber from "../../components/valorAreceber";
 import apiUrl from "../../config";
 import FormEntregasUsuario from "../../components/formEntregasUsuario";
+import ProgressAreaUsuarios from "../../components/progressAreaUsuario";
 
 const AreaUsuario = () => {
 
@@ -69,7 +70,9 @@ const AreaUsuario = () => {
                 </Col>
             </Row>
             <Row className="p-0 m-0">
-                <div className="p-0 m-0" style={{ background: '#E9ECEF', height: '5px' }}><ProgressBar style={{height: '5px'}} now={60} className="rounded-0 progress-bar-anim" /></div>
+                <div className="p-0 m-0" style={{ background: '#E9ECEF', height: '5px' }}>
+                    <ProgressAreaUsuarios id={userId}/>
+                </div>
             </Row>
             <Row className="d-flex justify-content-center mb-5 mt-5 m-0">
                 <Col xxl={4}>
