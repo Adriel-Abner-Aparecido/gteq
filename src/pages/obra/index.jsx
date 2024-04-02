@@ -89,14 +89,14 @@ const ViewObra = () => {
               </Row>
             </CardBody>
           </Card>
+          <FormServicoPrestado refObra={id} />
+          <ServicosPrestados refObra={id} />
+          <FormUnidadesObra refObra={id} />
           <Card className='mt-5'>
             <CardBody>
               <UnidadesObra refObra={id} />
             </CardBody>
           </Card>
-          <FormServicoPrestado refObra={id} />
-          <ServicosPrestados refObra={id} />
-          <FormUnidadesObra refObra={id} />
           <EntregasObra id={id} />
         </Col>
       </Row>

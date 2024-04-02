@@ -126,8 +126,6 @@ const FormEntregasUsuario = ({ userId, atualiza }) => {
     
 }, [etapas, percentual])
 
-console.log(somaTempo);
-
   return (
     <Form className="row g-3" onSubmit={handleSubmit}>
       <FormSelect name="refObra" onChange={(e) => handleSelectedObra(e.target.value)} required>

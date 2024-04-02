@@ -39,11 +39,11 @@ const ProgressUsuarios = ({ id }) => {
                 const hoje = new Date().getDate();
 
                 if (entregasFeitas.length > 0) {
-
                     const valoraReceber = entregasFeitas.reduce((acc, entrega) => {
                         const entregaHoje = new Date(entrega.createdAt).getDate();
+
                         if (entrega.statusEntrega === 'aceito' && hoje === entregaHoje) {
-                            return acc + (entrega.servicoObra.valoraReceber * (entrega.percentual / 100));
+                            return acc + (entrega.servicoObra.valoraPagar * (entrega.percentual / 100))
                         }
                         return acc
                     }, 0)
@@ -56,13 +56,13 @@ const ProgressUsuarios = ({ id }) => {
         pegaObra();
     }, [id])
 
-    const calculaMetaDiaria = (pegaMeta / diasUteis)
-    const metaDiaria = ((valor * 100) / calculaMetaDiaria)
+    const calculaMetaDiaria = pegaMeta / diasUteis;
+    const metaDiaria = (valor * 100) / calculaMetaDiaria;
 
     return (
         <>
             <div style={{ background: '#E9ECEF' }}>
-                <ProgressBar now={metaDiaria} className='rounded-0 progress-bar-anim' label={<Counter finalNumber={metaDiaria} />}/>
+                <ProgressBar now={metaDiaria} className='rounded-0 progress-bar-anim' label={<Counter finalNumber={metaDiaria} />} />
             </div>
         </>
     )

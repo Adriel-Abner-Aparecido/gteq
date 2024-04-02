@@ -41,8 +41,9 @@ const ProgressAreaUsuarios = ({ id }) => {
 
                     const valoraReceber = entregasFeitas.reduce((acc, entrega) => {
                         const entregaHoje = new Date(entrega.createdAt).getDate();
+
                         if (entrega.statusEntrega === 'aceito' && hoje === entregaHoje) {
-                            return acc + (entrega.servicoObra.valoraReceber * (entrega.percentual / 100));
+                            return acc + (entrega.servicoObra.valoraPagar * (entrega.percentual / 100));
                         }
                         return acc
                     }, 0)
@@ -60,7 +61,7 @@ const ProgressAreaUsuarios = ({ id }) => {
 
     return (
         <>
-            <ProgressBar style={{height: '5px'}} now={metaDiaria} className='rounded-0 progress-bar-anim' />
+            <ProgressBar style={{ height: '5px' }} now={metaDiaria} className='rounded-0 progress-bar-anim' />
         </>
     )
 }

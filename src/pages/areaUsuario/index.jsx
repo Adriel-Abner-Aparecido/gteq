@@ -36,6 +36,7 @@ const AreaUsuario = () => {
 
     useEffect(() => {
         fetchServicos();
+        // eslint-disable-next-line
     }, []);
 
     const formatarData = (dataString) => {
@@ -81,7 +82,7 @@ const AreaUsuario = () => {
                             A receber
                         </CardHeader>
                         <CardBody>
-                            <p className="valor text-success text-center">R$<ValorAreceber userId={userId} />,00</p>
+                            <p className="valor text-success text-center">R$<ValorAreceber userId={userId} /></p>
                         </CardBody>
                     </Card>
                 </Col>
