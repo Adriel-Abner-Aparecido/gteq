@@ -117,4 +117,7 @@
     .table-personalized-1 thead tr th:last-child, .table-personalized-1 tbody tr td:last-child{
         width:20%;
     }
+    .mt-xs-3{
+        margin-top: 10px !important;
+    }
 }

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Row, Col, Card, CardHeader, CardBody, Button } from 'react-bootstrap';
+import { Container, Row, Col, Card, CardHeader, CardBody, Button, CardFooter } from 'react-bootstrap';
 import Avatar from '../../images/avatar.jpg'
 import LateralNav from '../../components/lateralNav';
 import axios from 'axios';
@@ -7,6 +7,8 @@ import { useParams } from 'react-router-dom';
 import apiUrl from '../../config';
 import FormMetaUsers from '../../components/formMetaUsers';
 import EntregasUsuarios from '../../components/tableEntregasUsuario';
+import ValorAreceber from '../../components/valorAreceber';
+import ProgressUsuariosMes from '../../components/progressUsuariosMes';
 
 
 
@@ -14,13 +16,14 @@ const ViewUsuario = () => {
 
   const { id } = useParams();
 
-  const [usuario, setUsuario] = useState(null);
+  const [usuario, setUsuario] = useState([]);
 
   useEffect(() => {
     const fetchUsuario = async () => {
       try {
         const responseUsuario = await axios.get(`${apiUrl}/usuario/${id}`);
         setUsuario(responseUsuario.data.usuario);
+        console.log(responseUsuario.data.usuario)
       } catch (error) {
         console.error('Erro ao buscar dados', error);
       }
@@ -39,49 +42,72 @@ const ViewUsuario = () => {
             </CardHeader>
             <CardBody>
               <Row>
-                <Col xl={3} className='d-flex justify-content-center'>
+                <Col xxl={3} className='d-flex justify-content-center'>
                   <img src={Avatar} className='avatar rounded rounded-circle p-2 my-auto' alt={Avatar} />
                 </Col>
-                <Col xl={9}>
+                <Col xxl={5}>
                   <Row className='mb-3'>
                     <Col>
-                      Nome: {usuario && usuario.nomeUsuario}
+                      Nome: {usuario.nomeUsuario}
                     </Col>
                   </Row>
                   <Row>
                     <Col className='mb-3'>
-                      Nome Completo: {usuario && usuario.nomeCompleto}
+                      Nome Completo: {usuario.nomeCompleto}
                     </Col>
                   </Row>
                   <Row className='mb-3'>
                     <Col>
-                      Email: {usuario && usuario.emailUsuario}
+                      Email: {usuario.emailUsuario}
                     </Col>
                   </Row>
                   <Row className='mb-3'>
                     <Col>
-                      Tipo de usuario: {usuario && usuario.nivelUsuario}
+                      Tipo de usuario: {usuario.nivelUsuario}
                     </Col>
                   </Row>
                   <Row className='mb-3'>
                     <Col>
-                      Função: {usuario && usuario.funcaoUsuario}
+                      Função: {usuario.funcaoUsuario === '' ? 'Não definido!' : usuario.funcaoUsuario}
                     </Col>
                   </Row>
                   <Row>
-                    <FormMetaUsers id={id} />
+                    <Col>
+                      <FormMetaUsers id={id} />
+                    </Col>
                   </Row>
-                  <Row className='mt-3'>
-                    <Col xxl={2} xs={6} >
-                      <Button className='w-100' href={`/usuarios/usuario/editarUsuario/${id}`} variant="primary">Editar</Button>
+                  <Row className='mt-3 p-0 m-0'>
+                    <Col className='m-o p-0'>
+                      <Button className='w-50' href={`/usuarios/usuario/editarUsuario/${id}`} variant="primary">Editar</Button>
                     </Col>
                     {/* <Col xxl={2} xs={6}>
                       <Button className='w-100' variant="danger">Apagar</Button>
                     </Col> */}
                   </Row>
                 </Col>
+                <Col xxl={4}>
+                  {/* <Row>
+                    <Col xxl={6}>
+                      Meta:
+                      <ProgressUsuariosMes id={id} />
+                    </Col>
+                  </Row> */}
+                  <Row>
+                    <Col>
+                      Produzido em R$:
+                    </Col>
+                  </Row>
+                  <Row>
+                    <Col>
+                      <h2 className='text-success'>R$ <ValorAreceber userId={id} /></h2>
+                    </Col>
+                  </Row>
+                </Col>
               </Row>
             </CardBody>
+            <CardFooter>
+              <ProgressUsuariosMes id={id} />
+            </CardFooter>
           </Card>
           <EntregasUsuarios id={id} />
         </Col>

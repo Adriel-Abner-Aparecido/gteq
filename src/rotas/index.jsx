@@ -16,6 +16,7 @@ import AreaUsuario from "../pages/areaUsuario";
 import PrivateRouteUser from "./privateRoutUser";
 import EditaObra from "../pages/editarObra";
 import EditaUsuario from "../pages/editarUsuario";
+import ConfigPage from "../pages/configuracoes";
 const Rotas =()=>{
     return(
         <BrowserRouter>
@@ -81,6 +82,11 @@ const Rotas =()=>{
                 <Route path="/obras/obra/editarObra/:id" element={
                     <PrivateRoute>
                         <EditaObra/>
+                    </PrivateRoute>
+                }/>
+                <Route path="/configuracoes" element={
+                    <PrivateRoute>
+                        <ConfigPage/>
                     </PrivateRoute>
                 }/>
                 <Route path="/areaUsuario" element={

@@ -30,6 +30,7 @@ const EntregasUsuarios = ({ id }) => {
 
     useEffect(() => {
         fetchEntregas();
+        // eslint-disable-next-line
     }, []);
 
     //Formata a Data
@@ -53,16 +54,17 @@ const EntregasUsuarios = ({ id }) => {
                 entregaServico && entregaServico.length > 0 && (
                     <CardBody>
 
-                        <Table striped>
+                        <Table responsive striped>
                             <thead>
                                 <tr>
-                                    <th></th>
-                                    <th>Nome</th>
+                                <th></th>
                                     <th>Obra</th>
+                                    <th>Bloco</th>
+                                    <th>Unidade</th>
                                     <th>Etapa</th>
                                     <th>Data</th>
                                     <th className="text-center">Status</th>
-                                    <th>Ação</th>
+                                    <th className="text-center">Ação</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -71,8 +73,9 @@ const EntregasUsuarios = ({ id }) => {
 
                                         <tr key={index + 1}>
                                             <td className='align-middle'>{index + 1}</td>
-                                            <td className='align-middle'>{servico.refUsuario && servico.refUsuario.nomeCompleto}</td>
-                                            <td className='align-middle'>{servico.refObra && servico.refObra.nomeObra}</td>
+                                            <td className="align-middle">{servico.refObra && servico.refObra.nomeObra}</td>
+                                            <td className="align-middle">{servico.blocoObra && servico.blocoObra.numeroBloco}</td>
+                                            <td className="align-middle">{servico.unidadeObra}</td>
                                             <td className='align-middle'>{servico.etapaEntregue && servico.etapaEntregue.nomeEtapa}</td>
                                             <td className='align-middle'>{servico.createdAt && formatarData(servico.createdAt)}</td>
                                             <td className='align-middle text-center'>
@@ -81,7 +84,7 @@ const EntregasUsuarios = ({ id }) => {
                                                         (<BsCircleFill className="text-success" />) : (<BsCircleFill className="text-danger" />)
                                                 }
                                             </td>
-                                            <td className='align-middle'>
+                                            <td className='align-middle text-center'>
                                                 <Button variant='link' onClick={() => handleClick(servico._id, 'aceito')}><BsFillHandThumbsUpFill /></Button>
                                                 <Button variant="link" className="text-danger" onClick={() => handleClick(servico._id, 'rejeitado')}><BsFillHandThumbsDownFill /></Button>
                                             </td>

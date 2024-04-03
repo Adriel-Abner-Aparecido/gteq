@@ -4,31 +4,10 @@ import Counter from "./contador"
 import apiUrl from '../config'
 import axios from "axios"
 
-const ProgressObras = ({ id }) => {
+const ProgressObra = ({ id }) => {
 
     const [entregas, setEntregas] = useState(0)
-    const [pegaMeta, setPegaMeta] = useState([])
-    const [diasUteis, setDiasUteis] = useState([])
     const [numerosObra, setNumerosObra] = useState(0)
-    const [valor, setValor] = useState(0)
-
-    //Define a meta por padrão usa Meta Global definida no CardMeta
-    useEffect(() => {
-        const buscaMeta = async () => {
-            try {
-                const response = await axios.get(`${apiUrl}/metaObra/${id}`)
-                const global = await axios.get(`${apiUrl}/meta`)
-                setPegaMeta(global.data.meta[0].valorMeta)
-                setDiasUteis(global.data.meta[0].diasUteis)
-                if (response.data.metaObra.length !== 0) {
-                    setPegaMeta(response.data.metaObra[0].valorMeta)
-                }
-            } catch (error) {
-                console.error(error)
-            }
-        }
-        buscaMeta();
-    }, [id])
 
     //Calcula numero de Unidades da Obra
     useEffect(() => {
@@ -60,8 +39,6 @@ const ProgressObras = ({ id }) => {
                 const response = await axios.get(`${apiUrl}/entregaServicoObra/${id}`)
                 const entregasFeitas = response.data.entregaServico
 
-                const hoje = new Date().getDate()
-
                 if (entregasFeitas.length > 0) {
 
                     const calculaEntregas = entregasFeitas.reduce((acc, entrega) => {
@@ -71,15 +48,6 @@ const ProgressObras = ({ id }) => {
                         return acc
                     }, 0)
                     setEntregas(calculaEntregas)
-
-                    const valoraReceber = entregasFeitas.reduce((acc, entrega) => {
-                        const metaHoje = new Date(entrega.createdAt).getDate()
-                        if (entrega.statusEntrega === 'aceito' && hoje === metaHoje) {
-                            return acc + (entrega.servicoObra.valoraReceber * (entrega.percentual / 100));
-                        }
-                        return acc
-                    }, 0)
-                    setValor(valoraReceber);
                 }
             } catch (error) {
                 console.error(error);
@@ -89,18 +57,13 @@ const ProgressObras = ({ id }) => {
     }, [id])
 
     const meta = (entregas * 100) / numerosObra;
-    const calculaMetaDiaria = (pegaMeta / diasUteis)
-    const metaDiaria = ((valor * 100) / calculaMetaDiaria)
 
     return (
         <>
             <div style={{ background: '#E9ECEF' }}>
                 <ProgressBar now={meta} className='progress-30 rounded-0 progress-bar-anim' label={<Counter finalNumber={meta} />} />
             </div>
-            <div style={{ background: '#E9ECEF' }}>
-                <ProgressBar variant="success" now={metaDiaria} className='rounded-0 progress-bar-anim mb-2' label={<Counter finalNumber={metaDiaria} />} />
-            </div>
         </>
     )
 }
-export default ProgressObras
+export default ProgressObra

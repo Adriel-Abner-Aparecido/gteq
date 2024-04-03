@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Row, Col, Form, FormGroup, FormControl, FormLabel, Button } from 'react-bootstrap';
+import { Row, Col, Form, FormControl, FormLabel, Button } from 'react-bootstrap';
 import axios from 'axios';
 import apiUrl from '../config';
 
@@ -75,30 +75,28 @@ const FormMetaUsers = ({ id }) => {
       {
         metaUser && metaUser.length === 0 && (
           <Form onSubmit={handleSubmit}>
-            <FormGroup as={Row} >
-              <FormLabel column xxl={1} xl={2} md={2} htmlFor='valorMeta' className="text-center">Meta:</FormLabel>
-              <Col xxl={1} xl={2} md={2} className='px-0'>
-                <FormControl className='input-number' type="number" id='valorMeta' name='valorMeta' value={formData.valorMeta} onChange={handleChange} required />
-              </Col>
-              <Col xxl={2} xl={2} className='px-0'>
-                <Button variant='link' type='submit'>Definir</Button>
-              </Col>
-            </FormGroup>
+            <FormLabel column htmlFor='valorMeta'>Meta:</FormLabel>
+            <Col>
+              <FormControl className='input-number' type="number" id='valorMeta' name='valorMeta' value={formData.valorMeta} onChange={handleChange} required />
+            </Col>
+            <Col>
+              <Button variant='link' type='submit'>Definir</Button>
+            </Col>
           </Form>
         )
       }
       {
         metaUser && metaUser.length > 0 && (
           <Form onSubmit={atualizaDados}>
-            <FormGroup as={Row} >
-              <FormLabel column xxl={1} xl={2} md={2} htmlFor='valorMeta' className="text-center">Meta:</FormLabel>
-              <Col xxl={1} xl={2} md={2} className='px-0'>
-                <FormControl type='number' className='input-number' id='valorMeta' name='valorMeta' value={metaNumber} onChange={handleUpdate} required/>
+            <FormLabel htmlFor='valorMeta' className="text-center">Meta:</FormLabel>
+            <Row>
+              <Col xxl={4}>
+                <FormControl type='number' className='input-number' id='valorMeta' name='valorMeta' value={metaNumber} onChange={handleUpdate} required />
               </Col>
-              <Col xxl={2} xl={2} className='px-0'>
+              <Col>
                 <Button variant='link' type='submit'>Definir</Button>
               </Col>
-            </FormGroup>
+            </Row>
           </Form>
         )
       }

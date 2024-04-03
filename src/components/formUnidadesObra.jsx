@@ -40,7 +40,7 @@ const FormUnidadesObra = ({refObra})=>{
             <Card className="mt-5">
                 <CardBody>
                     <Form onSubmit={handleSubmit}>
-                        <FormGroup as={Row} className="g-sm-3 g-xxl-3">
+                        <FormGroup as={Row} className="g-sm-3 g-xs-3 g-xxl-3">
                             <Col xxl="auto" className="text-xxl-end p-xxl-1">
                                 <FormLabel htmlFor="numeroBloco" className="my-auto">N° BLoco:</FormLabel>
                             </Col>
@@ -59,8 +59,8 @@ const FormUnidadesObra = ({refObra})=>{
                             <Col  className="p-0">
                                 <FormControl name="numeroUnidades" onChange={handleChange} required/>
                             </Col>
-                            <Col xxl="auto" className="px-xxl-3 p-0">
-                                <Button type="submit">Cadastrar</Button>
+                            <Col xxl="auto" sm={12} className="px-xxl-3 mt-xs-3 p-0">
+                                <Button className="w-100" type="submit">Cadastrar</Button>
                             </Col>
                         </FormGroup>
                     </Form>

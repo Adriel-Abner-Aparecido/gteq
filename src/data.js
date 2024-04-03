@@ -1,4 +1,4 @@
-import {BsFillHouseFill, BsBricks, BsBuildingFill, BsBarChartSteps, BsPersonFill } from 'react-icons/bs'
+import {BsFillHouseFill, BsBricks, BsBuildingFill, BsBarChartSteps, BsPersonFill, BsGear } from 'react-icons/bs'
 
 export const links = [
     {
@@ -25,5 +25,10 @@ export const links = [
         name: "Usuários",
         path: '/usuarios',
         icon: <BsPersonFill />
+    },
+    {
+        name: "Configurações",
+        path: '/configuracoes',
+        icon: <BsGear />
     }
 ]

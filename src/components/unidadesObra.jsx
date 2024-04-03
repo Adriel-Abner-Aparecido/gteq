@@ -37,7 +37,7 @@ const UnidadesObra = ({ refObra }) => {
             {
                 numerosObra.length > 0 && (
                     <>
-                        <Table>
+                        <Table responsive>
                             <thead>
                                 <tr>
                                     <th>Numero Bloco:</th>

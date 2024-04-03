@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Row, Col, Card, CardHeader, CardBody, Button } from 'react-bootstrap';
+import { Container, Row, Col, Card, CardHeader, CardBody, Button, CardFooter } from 'react-bootstrap';
 import LateralNav from '../../components/lateralNav';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
@@ -11,6 +11,7 @@ import FormMetaObras from '../../components/formMetaObras';
 import FormServicoPrestado from '../../components/formServicoPrestado';
 import ServicosPrestados from '../../components/tableServicosPrestados';
 import UnidadesObra from '../../components/unidadesObra';
+import ProgressObra from '../../components/progressObra';
 
 
 const ViewObra = () => {
@@ -42,38 +43,38 @@ const ViewObra = () => {
         <Col sm={12} md={10} xxl={10} className="p-5 h-100">
           <Card>
             <CardHeader>
-              <h1>{obra && obra.nomeObra}</h1>
+              <h1>{obra.nomeObra}</h1>
             </CardHeader>
             <CardBody>
               <Row>
                 <Col xl={12}>
                   <Row className='mb-3'>
                     <Col xxl={3}>
-                      Endereço: {obra && obra.enderecoObra}
+                      Endereço: {obra.enderecoObra}
                     </Col>
                     <Col xxl={2}>
-                      n°: {obra && obra.numeroRua}
+                      n°: {obra.numeroRua}
                     </Col>
                     <Col xxl={3}>
-                      Cidade: {obra && obra.cidadeObra}
+                      Cidade: {obra.cidadeObra}
                     </Col>
                     <Col xxl={4}>
-                      Complemento: {obra && obra.complementoObra}
+                      Complemento: {obra.complementoObra}
                     </Col>
                   </Row>
                   <Row>
                     <Col className='mb-3'>
-                      Tipo de Obra: {obra && obra.tipoObra}
+                      Tipo de Obra: {obra.tipoObra}
                     </Col>
                   </Row>
                   <Row className='mb-3'>
                     <Col>
-                      Serviços prestados: {obra && obra.servicoPrestado}
+                      Serviços prestados: {obra.servicoPrestado}
                     </Col>
                   </Row>
                   <Row className='mb-3'>
                     <Col>
-                      Descrição: {obra && obra.descricaoObra}
+                      Descrição: {obra.descricaoObra}
                     </Col>
                   </Row>
                   <Row>
@@ -88,6 +89,9 @@ const ViewObra = () => {
                 </Col>
               </Row>
             </CardBody>
+            <CardFooter>
+              <ProgressObra id={id}/>
+            </CardFooter>
           </Card>
           <FormServicoPrestado refObra={id} />
           <ServicosPrestados refObra={id} />

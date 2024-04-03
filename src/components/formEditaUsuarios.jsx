@@ -60,8 +60,8 @@ const FormEditaUsuarios = ({id}) =>{
 
     return(
         <Card>
-            <CardHeader className=" text-center">
-                <h1 className="text-primary">Cadastrar-se</h1>
+            <CardHeader>
+                Dados do Usuario
             </CardHeader>
             <CardBody>
                 <Form noValidate validated={validated} onSubmit={handleUpdate}>
@@ -98,6 +98,7 @@ const FormEditaUsuarios = ({id}) =>{
                     <FormLabel htmlFor="funcaoUsuario">Função do Colaborador:</FormLabel>
                         <FormSelect id="funcaoUsuario" name="funcaoUsuario" value={formData.funcaoUsuario} onChange={handleChange}>
                             <option></option>
+                            <option value="Não definido!">Não definido!</option>
                             <option value="Pintor">Pintor</option>
                             <option value="Ajudante">Ajudante</option>
                             <option value="Azulegista">Azulegista</option>

@@ -40,7 +40,7 @@ const ServicosPrestados = ({ refObra }) => {
             <CardBody>
                 {
                     servicoPrestado.length > 0 && (
-                        <Table>
+                        <Table responsive>
                             <thead>
                                 <tr>
                                     <th>#</th>
