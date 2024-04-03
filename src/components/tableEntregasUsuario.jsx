@@ -1,12 +1,14 @@
-import { Card, CardHeader, CardBody, Table, Button } from "react-bootstrap";
+import { Card, CardHeader, CardBody, Table, Button, Row, Col, Pagination } from "react-bootstrap";
 import { BsFillHandThumbsUpFill, BsFillHandThumbsDownFill, BsCircleFill } from "react-icons/bs";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import apiUrl from "../config";
 
-const EntregasUsuarios = ({ id }) => {
+const EntregasUsuarios = ({ id, items }) => {
 
     const [entregaServico, setEntregaServico] = useState([]);
+    const [currentPage, setCurrentPage] = useState(1);
+    const itemsPerPage = items === undefined ? 10 : items;
 
     const handleClick = async (id, status) => {
         try {
@@ -45,6 +47,27 @@ const EntregasUsuarios = ({ id }) => {
         return `${hora}:${minutos} - ${dia}/${mes}/${ano}`;
     };
 
+    const indexOfLastItem = currentPage * itemsPerPage;
+    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+    const currentItems = entregaServico.slice(indexOfFirstItem, indexOfLastItem);
+
+    const handlePageChange = (pageNumber) => {
+        setCurrentPage(pageNumber);
+    };
+
+    const handleFirstPage = () => {
+        setCurrentPage(1);
+    };
+
+    const handleLastPage = () => {
+        setCurrentPage(Math.ceil(entregaServico.length / itemsPerPage));
+    };
+
+    const pageNumbers = [];
+    for (let i = 1; i <= Math.ceil(entregaServico.length / itemsPerPage); i++) {
+        pageNumbers.push(i);
+    }
+
     return (
         <><Card className='mt-5'>
             <CardHeader>
@@ -69,8 +92,7 @@ const EntregasUsuarios = ({ id }) => {
                             </thead>
                             <tbody>
                                 {
-                                    entregaServico.map((servico, index) => (
-
+                                    currentItems.map((servico, index) => (
                                         <tr key={index + 1}>
                                             <td className='align-middle'>{index + 1}</td>
                                             <td className="align-middle">{servico.refObra && servico.refObra.nomeObra}</td>
@@ -103,6 +125,17 @@ const EntregasUsuarios = ({ id }) => {
                     </CardBody>
                 )
             }
+            <Row>
+                    <Col>
+                        <Pagination className="justify-content-center">
+                            <Pagination.First onClick={handleFirstPage} />
+                            {pageNumbers.map(number => (
+                                <Pagination.Item key={number} onClick={() => handlePageChange(number)}>{number}</Pagination.Item>
+                            ))}
+                            <Pagination.Last onClick={handleLastPage} />
+                        </Pagination>
+                    </Col>
+                </Row>
         </Card>
         </>
     )
