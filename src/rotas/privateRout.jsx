@@ -17,7 +17,8 @@ const PrivateRoute =({children})=>{
   if (isAuthenticated()) {
     const tokenPayload = JSON.parse(localStorage.getItem("token"));
     const nivelUsuario = tokenPayload?.nivel;
-    if (nivelUsuario === 'user') {
+    const status = tokenPayload?.status;
+    if (nivelUsuario === 'user' && status === true) {
       return <Navigate to="/areaUsuario" />;
     }
     return children;

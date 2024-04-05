@@ -69,7 +69,7 @@ const EntregasUsuarios = ({ id, items }) => {
     }
 
     return (
-        <><Card className='mt-5'>
+        <Card className='mt-5'>
             <CardHeader>
                 Atualizações
             </CardHeader>
@@ -80,7 +80,7 @@ const EntregasUsuarios = ({ id, items }) => {
                         <Table responsive striped>
                             <thead>
                                 <tr>
-                                <th></th>
+                                    <th></th>
                                     <th>Obra</th>
                                     <th>Bloco</th>
                                     <th>Unidade</th>
@@ -115,6 +115,23 @@ const EntregasUsuarios = ({ id, items }) => {
                                 }
                             </tbody>
                         </Table>
+                        {
+                            pageNumbers.length > 0 && (
+                                <Row>
+                                    <Col>
+                                        <Pagination className="justify-content-center">
+                                            <Pagination.First onClick={handleFirstPage} />
+                                            {
+                                                pageNumbers.map(number => (
+                                                    <Pagination.Item key={number} onClick={() => handlePageChange(number)}>{number}</Pagination.Item>
+                                                ))
+                                            }
+                                            <Pagination.Last onClick={handleLastPage} />
+                                        </Pagination>
+                                    </Col>
+                                </Row>
+                            )
+                        }
                     </CardBody>
                 )
             }
@@ -125,19 +142,7 @@ const EntregasUsuarios = ({ id, items }) => {
                     </CardBody>
                 )
             }
-            <Row>
-                    <Col>
-                        <Pagination className="justify-content-center">
-                            <Pagination.First onClick={handleFirstPage} />
-                            {pageNumbers.map(number => (
-                                <Pagination.Item key={number} onClick={() => handlePageChange(number)}>{number}</Pagination.Item>
-                            ))}
-                            <Pagination.Last onClick={handleLastPage} />
-                        </Pagination>
-                    </Col>
-                </Row>
         </Card>
-        </>
     )
 }
 export default EntregasUsuarios

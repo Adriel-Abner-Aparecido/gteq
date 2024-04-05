@@ -64,64 +64,78 @@ const Entregas = ({ items }) => {
 
     return (
         <Card>
-            <CardHeader>Atualizações</CardHeader>
-            <CardBody>
-                {entregaServico.length > 0 ? (
-                    <Table striped responsive>
-                        <thead>
-                            <tr>
-                                <th></th>
-                                <th>Colaborador</th>
-                                <th>Obra</th>
-                                <th>Bloco</th>
-                                <th>Unidade</th>
-                                <th>Etapa</th>
-                                <th>Data</th>
-                                <th className="text-center">Status</th>
-                                <th className="text-center">Ação</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {currentItems.map((servico, index) => (
-                                <tr key={index + indexOfFirstItem + 1}>
-                                    <td className='align-middle'>{index + indexOfFirstItem + 1}</td>
-                                    <td className="align-middle">{servico.refUsuario && servico.refUsuario.nomeCompleto}</td>
-                                    <td className="align-middle">{servico.refObra && servico.refObra.nomeObra}</td>
-                                    <td className="align-middle">{servico.blocoObra && servico.blocoObra.numeroBloco}</td>
-                                    <td className="align-middle">{servico.unidadeObra}</td>
-                                    <td className='align-middle'>{servico.etapaEntregue && servico.etapaEntregue.nomeEtapa}</td>
-                                    <td className='align-middle'>{servico.createdAt && formatarData(servico.createdAt)}</td>
-                                    <td className='align-middle text-center'>
-                                        {servico.statusEntrega === 'pendente' ?
-                                            (<BsCircleFill className="text-warning" />) : servico.statusEntrega === 'aceito' ?
-                                                (<BsCircleFill className="text-success" />) : (<BsCircleFill className="text-danger" />)
-                                        }
-                                    </td>
-                                    <td className='align-middle text-center'>
-                                        <Button variant='link' onClick={() => handleClick(servico._id, 'aceito')}><BsFillHandThumbsUpFill /></Button>
-                                        <Button variant="link" className="text-danger" onClick={() => handleClick(servico._id, 'rejeitado')}><BsFillHandThumbsDownFill /></Button>
-                                    </td>
+            <CardHeader>
+                Atualizações
+            </CardHeader>
+            {
+                entregaServico.length > 0 && (
+                    <CardBody>
+                        <Table striped responsive>
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>Colaborador</th>
+                                    <th>Obra</th>
+                                    <th>Bloco</th>
+                                    <th>Unidade</th>
+                                    <th>Etapa</th>
+                                    <th>Data</th>
+                                    <th className="text-center">Status</th>
+                                    <th className="text-center">Ação</th>
                                 </tr>
-                            ))}
-                        </tbody>
-                    </Table>
-                ) : (
-                    <p className='text-center my-auto'>Ainda não entregou nada</p>
-                )}
-                <Row>
-                    <Col>
-                        <Pagination className="justify-content-center">
-                            <Pagination.First onClick={handleFirstPage} />
-                            {pageNumbers.map(number => (
-                                <Pagination.Item key={number} onClick={() => handlePageChange(number)}>{number}</Pagination.Item>
-                            ))}
-                            <Pagination.Last onClick={handleLastPage} />
-                        </Pagination>
-                    </Col>
-                </Row>
-            </CardBody>
+                            </thead>
+                            <tbody>
+                                {currentItems.map((servico, index) => (
+                                    <tr key={index + indexOfFirstItem + 1}>
+                                        <td className='align-middle'>{index + indexOfFirstItem + 1}</td>
+                                        <td className="align-middle">{servico.refUsuario && servico.refUsuario.nomeCompleto}</td>
+                                        <td className="align-middle">{servico.refObra && servico.refObra.nomeObra}</td>
+                                        <td className="align-middle">{servico.blocoObra && servico.blocoObra.numeroBloco}</td>
+                                        <td className="align-middle">{servico.unidadeObra}</td>
+                                        <td className='align-middle'>{servico.etapaEntregue && servico.etapaEntregue.nomeEtapa}</td>
+                                        <td className='align-middle'>{servico.createdAt && formatarData(servico.createdAt)}</td>
+                                        <td className='align-middle text-center'>
+                                            {servico.statusEntrega === 'pendente' ?
+                                                (<BsCircleFill className="text-warning" />) : servico.statusEntrega === 'aceito' ?
+                                                    (<BsCircleFill className="text-success" />) : (<BsCircleFill className="text-danger" />)
+                                            }
+                                        </td>
+                                        <td className='align-middle text-center'>
+                                            <Button variant='link' onClick={() => handleClick(servico._id, 'aceito')}><BsFillHandThumbsUpFill /></Button>
+                                            <Button variant="link" className="text-danger" onClick={() => handleClick(servico._id, 'rejeitado')}><BsFillHandThumbsDownFill /></Button>
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </Table>
+                        {
+                            pageNumbers.length > 0 && (
+                                <Row>
+                                    <Col>
+                                        <Pagination className="justify-content-center">
+                                            <Pagination.First onClick={handleFirstPage} />
+                                            {
+                                                pageNumbers.map(number => (
+                                                    <Pagination.Item key={number} onClick={() => handlePageChange(number)}>{number}</Pagination.Item>
+                                                ))
+                                            }
+                                            <Pagination.Last onClick={handleLastPage} />
+                                        </Pagination>
+                                    </Col>
+                                </Row>
+                            )
+                        }
+                    </CardBody>
+                )
+            }
+            {
+                entregaServico.length === 0 && (
+                    <CardBody>
+                        <p className='text-center my-auto'>Ainda não entregou nada</p>
+                    </CardBody>
+                )
+            }
         </Card>
     );
 }
-
 export default Entregas;

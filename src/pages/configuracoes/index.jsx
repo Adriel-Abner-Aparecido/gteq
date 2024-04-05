@@ -4,6 +4,7 @@ import { Container, Row, Col } from 'react-bootstrap';
 import LateralNav from '../../components/lateralNav';
 import FormEditaUsuarios from '../../components/formEditaUsuarios';
 import FormAvatar from '../../components/formAvatar';
+import AtualizaSenha from '../../components/atualizaSenha';
 
 
 
@@ -20,12 +21,17 @@ const ConfigPage = () => {
                 <Col sm={12} md={10} xxl={10} className="m-0 h-100 pt-5 pb-5">
                     <Row className='px-5 mb-5'>
                         <Col>
-                            <FormAvatar />
+                            <FormAvatar id={id} />
                         </Col>
                     </Row>
                     <Row className='px-5'>
                         <Col>
                             <FormEditaUsuarios id={id} />
+                        </Col>
+                    </Row>
+                    <Row className='px-5'>
+                        <Col>
+                            <AtualizaSenha id={id}/>
                         </Col>
                     </Row>
                 </Col>
