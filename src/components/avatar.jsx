@@ -23,7 +23,7 @@ const Avatar = ({ id }) => {
     
 
     return (
-        <img className="avatar rounded-circle" src={apiUrl + '/imagens/' + image} alt="Avatar" />
+        <img className="avatar rounded rounded-circle m-auto" src={apiUrl + '/imagens/' + image} alt="Avatar" />
     )
 }
 export default Avatar

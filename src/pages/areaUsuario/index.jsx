@@ -55,7 +55,7 @@ const AreaUsuario = () => {
                 <Col>
                     <Row>
                         <Col className="d-flex justify-content-center">
-                            <Avatar id={userId}/>
+                            <a href="/configusuario"><Avatar id={userId}/></a>
                         </Col>
                     </Row>
                     <Row>

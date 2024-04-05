@@ -17,83 +17,90 @@ import PrivateRouteUser from "./privateRoutUser";
 import EditaObra from "../pages/editarObra";
 import EditaUsuario from "../pages/editarUsuario";
 import ConfigPage from "../pages/configuracoes";
-const Rotas =()=>{
-    return(
+import ConfigUsuario from "../pages/configusuario";
+
+const Rotas = () => {
+    return (
         <BrowserRouter>
             <Routes>
-                <Route path="/" element={<LoginPage/>}/>
-                <Route path="/login" element={<LoginPage/>}/>
-                <Route path="/cadastro" element={<SignupPage/>}/>
+                <Route path="/" element={<LoginPage />} />
+                <Route path="/login" element={<LoginPage />} />
+                <Route path="/cadastro" element={<SignupPage />} />
                 <Route path="/*" element={
                     <PrivateRoute>
-                        <DashboardPage/>
+                        <DashboardPage />
                     </PrivateRoute>
-                }/>
+                } />
                 <Route path="/dashboard" element={
                     <PrivateRoute>
-                        <DashboardPage/>
+                        <DashboardPage />
                     </PrivateRoute>
-                }/>
+                } />
                 <Route path="/usuarios" element={
                     <PrivateRoute>
-                        <ViewUsuarios/>
+                        <ViewUsuarios />
                     </PrivateRoute>
-                    }/>
+                } />
                 <Route path="/obras" element={
                     <PrivateRoute>
-                        <Projetos/>
+                        <Projetos />
                     </PrivateRoute>
-                }/>
+                } />
                 <Route path="/servicos" element={
                     <PrivateRoute>
-                        <ViewServicos/>
+                        <ViewServicos />
                     </PrivateRoute>
-                }/>
+                } />
                 <Route path="/etapas" element={
                     <PrivateRoute>
-                        <ViewEtapas/>
+                        <ViewEtapas />
                     </PrivateRoute>
-                }/>
+                } />
                 <Route path="/obras/cadastroObras" element={
                     <PrivateRoute>
-                        <CadastroObras/>
+                        <CadastroObras />
                     </PrivateRoute>
-                }/>
+                } />
                 <Route path="/usuarios/cadastroUsuario" element={
                     <PrivateRoute>
-                        <CadastroUsuario/>
+                        <CadastroUsuario />
                     </PrivateRoute>
-                }/>
+                } />
                 <Route path="/usuarios/usuario/:id" element={
                     <PrivateRoute>
-                        <ViewUsuario/>
+                        <ViewUsuario />
                     </PrivateRoute>
-                }/>
+                } />
                 <Route path="/usuarios/usuario/editarUsuario/:id" element={
                     <PrivateRoute>
-                        <EditaUsuario/>
+                        <EditaUsuario />
                     </PrivateRoute>
-                }/>
+                } />
                 <Route path="/obras/obra/:id" element={
                     <PrivateRoute>
-                        <ViewObra/>
+                        <ViewObra />
                     </PrivateRoute>
-                }/>
+                } />
                 <Route path="/obras/obra/editarObra/:id" element={
                     <PrivateRoute>
-                        <EditaObra/>
+                        <EditaObra />
                     </PrivateRoute>
-                }/>
+                } />
                 <Route path="/configuracoes" element={
                     <PrivateRoute>
-                        <ConfigPage/>
+                        <ConfigPage />
                     </PrivateRoute>
-                }/>
+                } />
                 <Route path="/areaUsuario" element={
                     <PrivateRouteUser>
-                        <AreaUsuario/>
+                        <AreaUsuario />
                     </PrivateRouteUser>
-                }/>
+                } />
+                <Route path="/configusuario" element={
+                    <PrivateRouteUser>
+                        <ConfigUsuario />
+                    </PrivateRouteUser>
+                } />
             </Routes>
         </BrowserRouter>
     )
