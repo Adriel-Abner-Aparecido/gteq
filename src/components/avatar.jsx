@@ -1,26 +1,29 @@
 import { useEffect, useState } from "react"
 import apiUrl from "../config";
+import axios from 'axios';
 
 const Avatar = ({ id }) => {
 
-    const [imageUrl, setImageUrl] = useState('');
+    const [image, setImage] = useState('');
+    
 
     useEffect(() => {
-
-        fetch(`${apiUrl}/imagens`)
-            .then(response => {
-                if (!response.ok) {
-                    console.log('Erro ao buscar a imagem')
-                }
-                setImageUrl(`${apiUrl}/imagens/${id}.png`)
-            })
-            .catch(error => {
-                console.error('Erro ao buscar imagem', error)
-            })
+        const PegaImagem = async ()=>{
+            const response = await axios.get(`${apiUrl}/avatar/${id}`)
+            if(response.data.avatar === null){
+                const imgdefault = 'avatar.png';
+                setImage(imgdefault)
+            }else{
+                setImage(response.data.avatar.avatar)
+            }
+        }
+        PegaImagem();
     }, [id])
 
+    
+
     return (
-        <img src={imageUrl} alt="Avatar" />
+        <img className="avatar rounded-circle" src={apiUrl + '/imagens/' + image} alt="Avatar" />
     )
 }
 export default Avatar

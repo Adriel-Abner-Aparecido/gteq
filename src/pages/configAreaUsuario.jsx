@@ -1,4 +1,5 @@
 import { Button, Card, CardBody, CardHeader, Col, Container, Row, Table } from "react-bootstrap";
+import Avatar from '../../images/avatar.png'
 import { useNavigate } from "react-router-dom";
 import { BsCircleFill } from "react-icons/bs";
 import { useEffect, useState } from "react";
@@ -7,9 +8,8 @@ import ValorAreceber from "../../components/valorAreceber";
 import apiUrl from "../../config";
 import FormEntregasUsuario from "../../components/formEntregasUsuario";
 import ProgressAreaUsuarios from "../../components/progressAreaUsuario";
-import Avatar from "../../components/avatar";
 
-const AreaUsuario = () => {
+const ConfigAreaUsuario = () => {
 
     const navigate = useNavigate();
 
@@ -55,7 +55,7 @@ const AreaUsuario = () => {
                 <Col>
                     <Row>
                         <Col className="d-flex justify-content-center">
-                            <Avatar id={userId}/>
+                            <img src={Avatar} alt={Avatar} className="avatar rounded rounded-circle p-2" />
                         </Col>
                     </Row>
                     <Row>
@@ -154,4 +154,4 @@ const AreaUsuario = () => {
         </Container>
     )
 }
-export default AreaUsuario;
+export default ConfigAreaUsuario;
