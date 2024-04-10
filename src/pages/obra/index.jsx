@@ -25,7 +25,7 @@ const ViewObra = () => {
   useEffect(() => {
     const fetchObra = async () => {
       try {
-        const responseObra = await axios.get(`${apiUrl}/obra/${id}`);
+        const responseObra = await axios.get(`${apiUrl}/obras/obra/${id}`);
 
         setObra(responseObra.data.obra);
 

@@ -14,7 +14,7 @@ const FormServico = () => {
 
     const handleSubmit = async() =>{
         try {
-            const response = await fetch(`${apiUrl}/cadastroServico`, {
+            const response = await fetch(`${apiUrl}/servicos/cadastroServico`, {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json'

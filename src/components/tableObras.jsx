@@ -13,7 +13,7 @@ const TableObras = () => {
     useEffect(()=>{
         const listaObras = async () =>{
             try {
-                const response = await axios.get(`${apiUrl}/verObras`);
+                const response = await axios.get(`${apiUrl}/obras/verObras`);
                 setObras(response.data.obras);
             }catch{
                 console.log("Erro ao buscar os dados");

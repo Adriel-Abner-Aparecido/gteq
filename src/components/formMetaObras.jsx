@@ -25,7 +25,7 @@ const FormMetaObras = ({ id }) => {
   const handleSubmit = async () => {
 
     try {
-      const response = await fetch(`${apiUrl}/metaObra`, {
+      const response = await fetch(`${apiUrl}/meta/metaObra`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -49,7 +49,7 @@ const FormMetaObras = ({ id }) => {
 
   const atualizaDados = async () => {
     try {
-      await axios.put(`${apiUrl}/metaObra/${metaObra[0]._id}`, formUpdate);
+      await axios.put(`${apiUrl}/meta/metaObra/${metaObra[0]._id}`, formUpdate);
     } catch (error) {
       console.error('Erro ao Atualizar Meta da Obra:', error);
     }
@@ -59,7 +59,7 @@ const FormMetaObras = ({ id }) => {
   useEffect(() => {
     const fetchObra = async () => {
       try {
-        const responseMetaObra = await axios.get(`${apiUrl}/metaObra/${id}`);
+        const responseMetaObra = await axios.get(`${apiUrl}/meta/metaObra/${id}`);
         setMetaObra(responseMetaObra.data.metaObra);
         if (responseMetaObra.data.metaObra.length > 0) {
           setMetaNumber(responseMetaObra.data.metaObra[0].valorMeta)

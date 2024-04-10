@@ -22,7 +22,7 @@ const FormUnidadesObra = ({refObra})=>{
           };
 
         try {
-            await fetch(`${apiUrl}/cadastroNumerosObra`, {
+            await fetch(`${apiUrl}/numerosObra/cadastroNumerosObra`, {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json'

@@ -15,7 +15,7 @@ const ServicosPrestados = ({ refObra }) => {
     }, []);
 
     const fetchServicoPrestado = async () => {
-        const response = await axios.get(`${apiUrl}/servicosPrestados/${refObra}`);
+        const response = await axios.get(`${apiUrl}/servicosPrestados/servicosPrestados/${refObra}`);
         getServicoPrestado(response.data.getServicoPrestado)
     }
 
@@ -23,7 +23,7 @@ const ServicosPrestados = ({ refObra }) => {
         if (deleteInProgress) return;
         try {
             deleteInProgress = true
-            await axios.delete(`${apiUrl}/deleteServicoPrestado/${servicosId}`);
+            await axios.delete(`${apiUrl}/servicosPrestados/deleteServicoPrestado/${servicosId}`);
             fetchServicoPrestado();
         } catch (error) {
             console.error(error);

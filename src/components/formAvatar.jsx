@@ -25,7 +25,7 @@ const FormAvatar = ({ id }) => {
         formData.append('userId', id);
 
         try {
-            await axios.post(`${apiUrl}/avatar`, formData, {
+            await axios.post(`${apiUrl}/avatar/avatar`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }

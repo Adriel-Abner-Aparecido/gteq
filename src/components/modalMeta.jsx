@@ -18,7 +18,7 @@ const ModalMeta = ({ show, handleClose }) => {
     event.preventDefault();
 
     try {
-      const response = await fetch(`${apiUrl}/meta`, {
+      const response = await fetch(`${apiUrl}/meta/meta`, {
         method: 'POST',
         headers: {
           'Content-type': 'application/json'
@@ -40,7 +40,7 @@ const ModalMeta = ({ show, handleClose }) => {
 
   const pegaMeta = async () => {
     try {
-      const meta = await axios.get(`${apiUrl}/meta`);
+      const meta = await axios.get(`${apiUrl}/meta/meta`);
       setMeta(meta.data.meta);
     } catch {
 
@@ -69,7 +69,7 @@ const ModalMeta = ({ show, handleClose }) => {
 
   const submitUpdate = async () => {
     try {
-      await axios.put(`${apiUrl}/meta/${meta[0]._id}`, formUpdate());
+      await axios.put(`${apiUrl}/meta/meta/${meta[0]._id}`, formUpdate());
     } catch (error) {
       console.error('Erro ao atualizar Meta', error);
     }

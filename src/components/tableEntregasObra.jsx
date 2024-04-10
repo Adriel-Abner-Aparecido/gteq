@@ -13,7 +13,7 @@ const EntregasObra = ({ id, items }) => {
 
     const handleClick = async (id, status) => {
         try {
-            await axios.put(`${apiUrl}/atualizaStatusEntrega/${id}`, { statusEntrega: status })
+            await axios.put(`${apiUrl}/entregas/atualizaStatusEntrega/${id}`, { statusEntrega: status })
             fetchEntregas();
         }
         catch {
@@ -23,7 +23,7 @@ const EntregasObra = ({ id, items }) => {
 
     const fetchEntregas = async () => {
         try {
-            const responseEntregaServico = await axios.get(`${apiUrl}/entregaServicoObra/${id}`);
+            const responseEntregaServico = await axios.get(`${apiUrl}/entregas/entregaServicoObra/${id}`);
             setEntregaServico(responseEntregaServico.data.entregaServico);
         } catch (error) {
             console.error('Erro ao buscar dados:', error);

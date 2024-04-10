@@ -17,7 +17,7 @@ const EditaEtapas = ({ id }) => {
     useEffect(() => {
         const pegaEtapas = async () => {
             try {
-                const response = await axios.get(`${apiUrl}/refEtapa/${id}`)
+                const response = await axios.get(`${apiUrl}/etapas/refEtapa/${id}`)
                 setFormData({
                     nomeEtapa: response.data.etapa.nomeEtapa,
                     refEtapa: response.data.etapa.refEtapa._id,
@@ -43,7 +43,7 @@ const EditaEtapas = ({ id }) => {
 
     const handleUpdate = async () => {
         try {
-            await axios.put(`${apiUrl}/atualizaEtapa/${id}`, formData)
+            await axios.put(`${apiUrl}/etapas/atualizaEtapa/${id}`, formData)
         } catch (error) {
             console.error(error)
         }
@@ -52,7 +52,7 @@ const EditaEtapas = ({ id }) => {
 
     const listaServicos = async () => {
         try {
-            const response = await axios.get(`${apiUrl}/servicos`);
+            const response = await axios.get(`${apiUrl}/servicos/servicos`);
             setServicos(response.data.servicos);
         } catch {
             console.log("Erro ao buscar os dados");

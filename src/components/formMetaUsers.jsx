@@ -23,7 +23,7 @@ const FormMetaUsers = ({ id }) => {
 
   const handleSubmit = async () => {
     try {
-      const response = await fetch(`${apiUrl}/metaUser`, {
+      const response = await fetch(`${apiUrl}/meta/metaUser`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -47,7 +47,7 @@ const FormMetaUsers = ({ id }) => {
 
   const atualizaDados = async () => {
     try {
-      await axios.put(`${apiUrl}/metaUser/${metaUser[0]._id}`, formUpdate);
+      await axios.put(`${apiUrl}/meta/metaUser/${metaUser[0]._id}`, formUpdate);
     } catch (error) {
       console.error('Erro ao Atualizar meta do Usuario:', error);
     }
@@ -57,7 +57,7 @@ const FormMetaUsers = ({ id }) => {
   useEffect(() => {
     const fetchUsuario = async () => {
       try {
-        const responseMetaUser = await axios.get(`${apiUrl}/metaUser/${id}`);
+        const responseMetaUser = await axios.get(`${apiUrl}/meta/metaUser/${id}`);
         setMetaUser(responseMetaUser.data.metaUser);
         if (responseMetaUser.data.metaUser.length > 0) {
           setMetaNumber(responseMetaUser.data.metaUser[0].valorMeta)

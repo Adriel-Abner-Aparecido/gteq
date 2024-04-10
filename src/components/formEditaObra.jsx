@@ -20,7 +20,7 @@ const FormEditaObra = ({ id }) => {
 
     useEffect(() => {
             const pegaObra = async () => {
-                const response = await axios.get(`${apiUrl}/obra/${id}`);
+                const response = await axios.get(`${apiUrl}/obra/obra/${id}`);
                 setFormData({
                     nomeObra: response.data.obra.nomeObra,
                     enderecoObra: response.data.obra.enderecoObra,
@@ -54,7 +54,7 @@ const FormEditaObra = ({ id }) => {
         setValidated(true);
 
         try {
-            await axios.put(`${apiUrl}/atualizaObra/${id}`, formData)
+            await axios.put(`${apiUrl}/obra/atualizaObra/${id}`, formData)
             navigate(`/obras/obra/${id}`);
         } catch (error) {
             console.error('Erro ao cadastrar Obra:', error);

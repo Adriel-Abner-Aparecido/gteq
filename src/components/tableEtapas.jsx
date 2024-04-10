@@ -20,7 +20,7 @@ const TableEtapas = ({onSelecionarId}) => {
 
     const listaEtapas = async () => {
         try {
-            const response = await axios.get(`${apiUrl}/etapas`);
+            const response = await axios.get(`${apiUrl}/etapas/etapas`);
             setEtapas(response.data.etapas);
         } catch {
             console.log("Erro ao buscar os dados");
@@ -31,7 +31,7 @@ const TableEtapas = ({onSelecionarId}) => {
 
     const handleDelete = async (servicosId) => {
         try {
-            await axios.delete(`${apiUrl}/deleteEtapa/${servicosId}`);
+            await axios.delete(`${apiUrl}/etapas/deleteEtapa/${servicosId}`);
             listaEtapas();
         } catch (error) {
             console.error(error);

@@ -12,7 +12,7 @@ const EditaServico = ({ id }) => {
     useEffect(() => {
         const listaServicos = async () => {
             try {
-                const response = await axios.get(`${apiUrl}/servico/${id}`);
+                const response = await axios.get(`${apiUrl}/servicos/servico/${id}`);
                 setFormData({
                     nomeServico: response.data.servico.nomeServico,
                 })
@@ -35,7 +35,7 @@ const EditaServico = ({ id }) => {
 
     const handleUpdate = async () => {
         try {
-            await axios.put(`${apiUrl}/atualizaServico/${id}`, formData)
+            await axios.put(`${apiUrl}/servicos/atualizaServico/${id}`, formData)
         } catch (error) {
             console.error(error)
         }

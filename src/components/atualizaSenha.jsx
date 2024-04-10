@@ -18,7 +18,7 @@ const AtualizaSenha = ({ id }) => {
 
     useEffect(() => {
         const pegaUsuario = async () => {
-            const response = await axios.get(`${apiUrl}/usuario/${id}`)
+            const response = await axios.get(`${apiUrl}/usuarios/usuario/${id}`)
             setFormData({
                 senhaUsuario: response.data.usuario.senhaUsuario,
                 confirmaSenha: response.data.usuario.senhaUsuario,
@@ -39,7 +39,7 @@ const AtualizaSenha = ({ id }) => {
         setValidated(true);
 
         try {
-            axios.put(`${apiUrl}/atualizaSenha/${id}`, formData);
+            axios.put(`${apiUrl}/usuario/atualizaSenha/${id}`, formData);
         } catch (error) {
             console.error('Erro ao cadastrar usuário:', error);
         }

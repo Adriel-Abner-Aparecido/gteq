@@ -35,7 +35,7 @@ const FormObras =()=>{
         setValidated(true);
         
         try {
-          const response = await fetch(`${apiUrl}/cadastroObras`, {
+          const response = await fetch(`${apiUrl}/obras/cadastroObras`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json'

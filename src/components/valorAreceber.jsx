@@ -9,7 +9,7 @@ const ValorAreceber = ({ userId }) => {
 
         const fetchServicos = async () => {
             try {
-                const response = await axios.get(`${apiUrl}/entregaServico/${userId}`);
+                const response = await axios.get(`${apiUrl}/entregas/entregaServicoUsuario/${userId}`);
                 const entregaServico = response.data.entregaServico;
 
                 const mes = new Date().getMonth();

@@ -21,7 +21,7 @@ const ViewUsuario = () => {
   useEffect(() => {
     const fetchUsuario = async () => {
       try {
-        const responseUsuario = await axios.get(`${apiUrl}/usuario/${id}`);
+        const responseUsuario = await axios.get(`${apiUrl}/usuarios/usuario/${id}`);
         setUsuario(responseUsuario.data.usuario);
         console.log(responseUsuario.data.usuario)
       } catch (error) {

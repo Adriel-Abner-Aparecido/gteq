@@ -8,19 +8,20 @@ const ProgressObra = ({ id }) => {
 
     const [entregas, setEntregas] = useState(0)
     const [numerosObra, setNumerosObra] = useState(0)
+    const [tempoObra, setTempoObra] = useState(0)
 
     //Calcula numero de Unidades da Obra
     useEffect(() => {
         const unidadesObra = async () => {
             try {
-                const response = await axios.get(`${apiUrl}/numerosObra/${id}`)
+                const response = await axios.get(`${apiUrl}/numerosObra/numerosObra/${id}`)
                 const somaNumerosObra = response.data.numerosObra;
 
                 if (somaNumerosObra.length > 0) {
                     const soma = somaNumerosObra.reduce((acc, numeros) => {
                         const andares = numeros.numeroAndares;
                         const unidades = numeros.numeroUnidades;
-                        return acc + (andares * unidades)
+                        return acc + (andares * unidades);
                     }, 0)
                     setNumerosObra(soma);
                 }
@@ -36,18 +37,24 @@ const ProgressObra = ({ id }) => {
     useEffect(() => {
         const pegaObra = async () => {
             try {
-                const response = await axios.get(`${apiUrl}/entregaServicoObra/${id}`)
+                const response = await axios.get(`${apiUrl}/entregas/entregaServicoObra/${id}`)
                 const entregasFeitas = response.data.entregaServico
+
+                let totalEntregue = 0
 
                 if (entregasFeitas.length > 0) {
 
-                    const calculaEntregas = entregasFeitas.reduce((acc, entrega) => {
-                        if (entrega.statusEntrega === 'aceito') {
-                            return acc + (1 * (entrega.percentual / 100))
+                    for (const entregas of entregasFeitas) {
+                        const pegarServicos = entregas.etapaEntregue._id
+                        const etapaEntregue = await axios.get(`${apiUrl}/etapas/refEtapa/${pegarServicos}`)
+                        const etapa = etapaEntregue.data.etapa
+
+                        if (entregas.statusEntrega === 'aceito') {
+                            totalEntregue += etapa.tempoExecucao
                         }
-                        return acc
-                    }, 0)
-                    setEntregas(calculaEntregas)
+
+                        setEntregas(totalEntregue);
+                    }
                 }
             } catch (error) {
                 console.error(error);
@@ -56,14 +63,44 @@ const ProgressObra = ({ id }) => {
         pegaObra();
     }, [id])
 
-    const meta = (entregas * 100) / numerosObra;
+    useEffect(() => {
+        const pegaServicosPrestados = async () => {
+            try {
+                const response = await axios.get(`${apiUrl}/servicosPrestados/servicosPrestados/${id}`);
+                const servicosPrestados = response.data.getServicoPrestado;
 
+                let tempoTotalObra = 0;
+
+                if (servicosPrestados.length > 0) {
+
+                    for (const servico of servicosPrestados) {
+
+                        const pegarServicos = servico.servicoPrestado._id;
+                        const etapaEntregue = await axios.get(`${apiUrl}/etapas/refEtapas/${pegarServicos}`);
+                        const etapas = etapaEntregue.data.etapas;
+
+                        for (const etapa of etapas) {
+                            tempoTotalObra += etapa.tempoExecucao;
+                        }
+
+                    }
+
+                }
+                setTempoObra(tempoTotalObra);
+            } catch (error) {
+                console.error(error);
+            }
+        }
+        pegaServicosPrestados();
+    }, [id])
+
+    const totalTempoObra = tempoObra * numerosObra
+    const meta = totalTempoObra !== 0 ? (entregas * 100) / totalTempoObra : 0
+    
     return (
-        <>
             <div style={{ background: '#E9ECEF' }}>
                 <ProgressBar now={meta} className='progress-30 rounded-0 progress-bar-anim' label={<Counter finalNumber={meta} />} />
             </div>
-        </>
     )
 }
 export default ProgressObra

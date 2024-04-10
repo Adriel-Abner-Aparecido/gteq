@@ -14,8 +14,8 @@ const ProgressUsuariosMes = ({ id }) => {
     useEffect(() => {
         const buscaMeta = async () => {
             try {
-                const response = await axios.get(`${apiUrl}/metaUser/${id}`)
-                const global = await axios.get(`${apiUrl}/meta`)
+                const response = await axios.get(`${apiUrl}/meta/metaUser/${id}`)
+                const global = await axios.get(`${apiUrl}/meta/meta`)
                 setPegaMeta(global.data.meta[0].valorMeta)
                 if (response.data.metaUser.length !== 0) {
                     setPegaMeta(response.data.metaUser[0].valorMeta)
@@ -31,7 +31,7 @@ const ProgressUsuariosMes = ({ id }) => {
     useEffect(() => {
         const pegaObra = async () => {
             try {
-                const response = await axios.get(`${apiUrl}/entregaServico/${id}`)
+                const response = await axios.get(`${apiUrl}/entregas/entregaServicoUsuario/${id}`)
                 const entregasFeitas = response.data.entregaServico;
 
                 const mes = new Date().getMonth();

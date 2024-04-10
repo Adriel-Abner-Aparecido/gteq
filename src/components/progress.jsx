@@ -14,7 +14,7 @@ const Progress = () => {
     useEffect(() => {
         const pegaMeta = async () => {
             try {
-                const response = await axios.get(`${apiUrl}/meta`)
+                const response = await axios.get(`${apiUrl}/meta/meta`)
                 setMeta(response.data.meta[0].valorMeta);
                 setDiasUteis(response.data.meta[0].diasUteis);
             } catch (error) {
@@ -27,7 +27,7 @@ const Progress = () => {
     useEffect(() => {
         const pagaEntregas = async () => {
             try {
-                const response = await axios.get(`${apiUrl}/entregas`);
+                const response = await axios.get(`${apiUrl}/entregas/entregas`);
                 const entregasData = response.data.entregaServico;
                 const today = new Date().getDate();
                 

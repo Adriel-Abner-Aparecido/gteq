@@ -16,7 +16,7 @@ const UnidadesObra = ({ refObra }) => {
 
     const fetchUnidadesObra = async () => {
         try {
-            const response = await axios.get(`${apiUrl}/numerosObra/${refObra}`);
+            const response = await axios.get(`${apiUrl}/numerosObra/numerosObra/${refObra}`);
             setNumerosObra(response.data.numerosObra);
         } catch (err) {
             console.log(err)
@@ -24,7 +24,7 @@ const UnidadesObra = ({ refObra }) => {
     }
     const handleDelete = async (servicosId) => {
         try {
-            await axios.delete(`${apiUrl}/deleteBloco/${servicosId}`);
+            await axios.delete(`${apiUrl}/numerosObra/apagaNumeros/${servicosId}`);
             fetchUnidadesObra(); // Atualiza a lista após a exclusão
         } catch (error) {
             console.error(error);

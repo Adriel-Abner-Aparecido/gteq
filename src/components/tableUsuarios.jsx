@@ -17,7 +17,7 @@ const TableUsuarios = () => {
 
     const listaUsers = async () => {
         try {
-            const response = await axios.get(`${apiUrl}/usuarios`);
+            const response = await axios.get(`${apiUrl}/usuarios/usuarios`);
             setUsers(response.data.users);
         } catch {
             console.log("Erro ao buscar os dados");

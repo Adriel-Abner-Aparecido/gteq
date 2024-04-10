@@ -11,7 +11,7 @@ const CardProgress = () => {
     useEffect(() => {
         const pegaObras = async () => {
             try {
-                const response = await axios.get(`${apiUrl}/verObras`)
+                const response = await axios.get(`${apiUrl}/obras/verObras`)
                 setObras(response.data.obras)
             } catch (error) {
                 console.error(error)

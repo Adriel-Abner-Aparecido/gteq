@@ -11,7 +11,7 @@ const Entregas = ({ items }) => {
 
     const handleClick = async (id, status) => {
         try {
-            await axios.put(`${apiUrl}/atualizaStatusEntrega/${id}`, { statusEntrega: status });
+            await axios.put(`${apiUrl}/entregas/atualizaStatusEntrega/${id}`, { statusEntrega: status });
             fetchEntregas();
         } catch (error) {
             console.log('Erro ao atualizar este dado:', error);
@@ -20,7 +20,7 @@ const Entregas = ({ items }) => {
 
     const fetchEntregas = async () => {
         try {
-            const response = await axios.get(`${apiUrl}/entregas`);
+            const response = await axios.get(`${apiUrl}/entregas/entregas`);
             setEntregaServico(response.data.entregaServico);
         } catch (error) {
             console.error('Erro ao buscar dados:', error);

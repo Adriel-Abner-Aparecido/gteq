@@ -19,7 +19,7 @@ const TableServicos = ({onSelecionarId}) => {
 
     const listaObras = async () => {
         try {
-            const response = await axios.get(`${apiUrl}/servicos`);
+            const response = await axios.get(`${apiUrl}/servicos/servicos`);
             setServicos(response.data.servicos);
         } catch {
             console.log("Erro ao buscar os dados");
@@ -30,7 +30,7 @@ const TableServicos = ({onSelecionarId}) => {
 
     const handleDelete = async (servicosId) => {
         try {
-            await axios.delete(`${apiUrl}/deleteServico/${servicosId}`);
+            await axios.delete(`${apiUrl}/servicos/deleteServico/${servicosId}`);
             listaObras(); // Atualiza a lista após a exclusão
         } catch (error) {
             console.error(error);

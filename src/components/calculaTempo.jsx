@@ -11,10 +11,10 @@ const Tempo = ({ id, porcentagem, index }) => {
     useEffect(() => {
         const fetchTempo = async () => {
             try {
-                const response = await axios.get(`${apiUrl}/refEtapas/${id}`);
+                const response = await axios.get(`${apiUrl}/etapas/refEtapas/${id}`);
                 setTempo(response.data.etapas)
                 if (index !== null) {
-                    const responseEtapa = await axios.get(`${apiUrl}/refEtapa/${index}`);
+                    const responseEtapa = await axios.get(`${apiUrl}/etapas/refEtapa/${index}`);
                     setPercentual(responseEtapa.data.etapa.tempoExecucao);
                 }
             } catch {

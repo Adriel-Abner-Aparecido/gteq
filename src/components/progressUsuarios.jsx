@@ -8,17 +8,15 @@ const ProgressUsuarios = ({ id }) => {
 
 
     const [pegaMeta, setPegaMeta] = useState([])
-    const [diasUteis, setDiasUteis] = useState([])
     const [valor, setValor] = useState(0)
 
     //Define a meta por padrão usa Meta Global definida no CardMeta
     useEffect(() => {
         const buscaMeta = async () => {
             try {
-                const response = await axios.get(`${apiUrl}/metaUser/${id}`)
-                const global = await axios.get(`${apiUrl}/meta`)
+                const response = await axios.get(`${apiUrl}/meta/metaUser/${id}`)
+                const global = await axios.get(`${apiUrl}/meta/meta`)
                 setPegaMeta(global.data.meta[0].valorMeta)
-                setDiasUteis(global.data.meta[0].diasUteis)
                 if (response.data.metaUser.length !== 0) {
                     setPegaMeta(response.data.metaUser[0].valorMeta)
                 }
@@ -33,14 +31,14 @@ const ProgressUsuarios = ({ id }) => {
     useEffect(() => {
         const pegaObra = async () => {
             try {
-                const response = await axios.get(`${apiUrl}/entregaServico/${id}`)
+                const response = await axios.get(`${apiUrl}/entregas/entregaServicoUsuario/${id}`)
                 const entregasFeitas = response.data.entregaServico;
 
-                const hoje = new Date().getDate();
+                const hoje = new Date().getMonth();
 
                 if (entregasFeitas.length > 0) {
                     const valoraReceber = entregasFeitas.reduce((acc, entrega) => {
-                        const entregaHoje = new Date(entrega.createdAt).getDate();
+                        const entregaHoje = new Date(entrega.createdAt).getMonth();
 
                         if (entrega.statusEntrega === 'aceito' && hoje === entregaHoje) {
                             return acc + (entrega.servicoObra.valoraPagar * (entrega.percentual / 100))
@@ -56,15 +54,12 @@ const ProgressUsuarios = ({ id }) => {
         pegaObra();
     }, [id])
 
-    const calculaMetaDiaria = pegaMeta / diasUteis;
-    const metaDiaria = (valor * 100) / calculaMetaDiaria;
+    const metaDiaria = (valor * 100) / pegaMeta;
 
     return (
-        <>
             <div style={{ background: '#E9ECEF' }}>
                 <ProgressBar now={metaDiaria} className='rounded-0 progress-bar-anim' label={<Counter finalNumber={metaDiaria} />} />
             </div>
-        </>
     )
 }
 export default ProgressUsuarios

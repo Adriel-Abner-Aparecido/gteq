@@ -28,7 +28,7 @@ const FormEntregasUsuario = ({ userId, atualiza }) => {
 
     event.preventDefault();
     try {
-      await fetch(`${apiUrl}/entregaServico`, {
+      await fetch(`${apiUrl}/entregas/entregaServico`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -47,7 +47,7 @@ const FormEntregasUsuario = ({ userId, atualiza }) => {
 
   useEffect(() => {
     // Buscar lista de obras ao carregar o componente
-    axios.get(`${apiUrl}/verObras`)
+    axios.get(`${apiUrl}/obras/verObras`)
       .then(response => setObras(response.data.obras))
       .catch(error => console.error(error));
   }, []);
@@ -60,10 +60,10 @@ const FormEntregasUsuario = ({ userId, atualiza }) => {
 
     // Buscar blocos com base na obra selecionada
     if (obraId !== '' && obras.length > 0) {
-      axios.get(`${apiUrl}/numerosObra/${obraId}`)
+      axios.get(`${apiUrl}/numerosObra/numerosObra/${obraId}`)
         .then((response) => { setBlocos(response.data.numerosObra) })
         .catch(error => console.error(error));
-      axios.get(`${apiUrl}/servicosPrestados/${obraId}`)
+      axios.get(`${apiUrl}/servicosPrestados/servicosPrestados/${obraId}`)
         .then((response) => { setServicos(response.data.getServicoPrestado) })
         .catch(error => console.error(error));
     }
@@ -85,10 +85,10 @@ const FormEntregasUsuario = ({ userId, atualiza }) => {
 
     // Buscar etapas com base no serviço selecionado
     if (servicoId !== '' && servicos.length > 0) {
-      axios.get(`${apiUrl}/servicoPrestado/${servicoId}`)
+      axios.get(`${apiUrl}/servicosPrestados/servicoPrestado/${servicoId}`)
         .then((response) => {
           const refEtapa = response.data.servico.servicoPrestado._id;
-          axios.get(`${apiUrl}/refEtapas/${refEtapa}`)
+          axios.get(`${apiUrl}/etapas/refEtapas/${refEtapa}`)
             .then((response) => { setEtapas(response.data.etapas) })
             .catch(error => console.error(error));
         })
@@ -104,7 +104,7 @@ const FormEntregasUsuario = ({ userId, atualiza }) => {
     })
 
     if (etapaId !== '') {
-      axios.get(`${apiUrl}/refEtapa/${etapaId}`)
+      axios.get(`${apiUrl}/etapas/refEtapa/${etapaId}`)
       .then((response) => {setPercentual(response.data.etapa.tempoExecucao)})
       .catch(error => console.error(error));
     }

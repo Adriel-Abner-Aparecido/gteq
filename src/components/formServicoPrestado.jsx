@@ -21,7 +21,7 @@ const FormServicoPrestado = ({ refObra }) => {
     const handleSubmit = async () => {
 
         try {
-            await fetch(`${apiUrl}/servicoPrestado`, {
+            await fetch(`${apiUrl}/servicosPrestados/servicoPrestado`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -42,7 +42,7 @@ const FormServicoPrestado = ({ refObra }) => {
 
     const listaObras = async () => {
         try {
-            const response = await axios.get(`${apiUrl}/servicos`);
+            const response = await axios.get(`${apiUrl}/servicos/servicos`);
             setServicos(response.data.servicos);
         } catch {
             console.log("Erro ao buscar os dados");

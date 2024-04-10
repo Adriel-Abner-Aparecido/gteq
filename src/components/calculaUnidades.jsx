@@ -10,7 +10,7 @@ const Unidades = ({ id }) => {
     useEffect(()=>{
         const fetchUnidadesObra = async()=>{
             try{
-                const response = await axios.get(`${apiUrl}/numerosObra/${id}`);
+                const response = await axios.get(`${apiUrl}/numerosObra/numerosObra/${id}`);
                 setNumerosObra(response.data.numerosObra);
             } catch(err){
                 console.log(err)

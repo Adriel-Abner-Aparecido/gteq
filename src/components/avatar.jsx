@@ -9,7 +9,7 @@ const Avatar = ({ id }) => {
 
     useEffect(() => {
         const PegaImagem = async ()=>{
-            const response = await axios.get(`${apiUrl}/avatar/${id}`)
+            const response = await axios.get(`${apiUrl}/avatar/avatar/${id}`)
             if(response.data.avatar === null){
                 const imgdefault = 'avatar.png';
                 setImage(imgdefault)
@@ -23,7 +23,7 @@ const Avatar = ({ id }) => {
     
 
     return (
-        <img className="avatar rounded rounded-circle m-auto" src={apiUrl + '/imagens/' + image} alt="Avatar" />
+        <img className="avatar rounded rounded-circle m-auto" src={apiUrl + '/public/imagens/' + image} alt="Avatar" />
     )
 }
 export default Avatar

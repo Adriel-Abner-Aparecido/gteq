@@ -15,7 +15,7 @@ const CalculaTotalProduzido = () => {
     useEffect(() => {
         const pagaEntregas = async () => {
             try {
-                const response = await axios.get(`${apiUrl}/entregas`);
+                const response = await axios.get(`${apiUrl}/entregas/entregas`);
                 const entregasData = response.data.entregaServico;
                 
                 if (entregasData.length > 0) {

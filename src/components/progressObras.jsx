@@ -7,17 +7,18 @@ import axios from "axios"
 const ProgressObras = ({ id }) => {
 
     const [entregas, setEntregas] = useState(0)
-    const [pegaMeta, setPegaMeta] = useState([])
-    const [diasUteis, setDiasUteis] = useState([])
+    const [pegaMeta, setPegaMeta] = useState(0)
+    const [diasUteis, setDiasUteis] = useState(0)
     const [numerosObra, setNumerosObra] = useState(0)
     const [valor, setValor] = useState(0)
+    const [tempoObra, setTempoObra] = useState(0)
 
     //Define a meta por padrão usa Meta Global definida no CardMeta
     useEffect(() => {
         const buscaMeta = async () => {
             try {
-                const response = await axios.get(`${apiUrl}/metaObra/${id}`)
-                const global = await axios.get(`${apiUrl}/meta`)
+                const response = await axios.get(`${apiUrl}/meta/metaObra/${id}`)
+                const global = await axios.get(`${apiUrl}/meta/meta`)
                 setPegaMeta(global.data.meta[0].valorMeta)
                 setDiasUteis(global.data.meta[0].diasUteis)
                 if (response.data.metaObra.length !== 0) {
@@ -34,7 +35,7 @@ const ProgressObras = ({ id }) => {
     useEffect(() => {
         const unidadesObra = async () => {
             try {
-                const response = await axios.get(`${apiUrl}/numerosObra/${id}`)
+                const response = await axios.get(`${apiUrl}/numerosObra/numerosObra/${id}`)
                 const somaNumerosObra = response.data.numerosObra;
 
                 if (somaNumerosObra.length > 0) {
@@ -57,20 +58,26 @@ const ProgressObras = ({ id }) => {
     useEffect(() => {
         const pegaObra = async () => {
             try {
-                const response = await axios.get(`${apiUrl}/entregaServicoObra/${id}`)
+                const response = await axios.get(`${apiUrl}/entregas/entregaServicoObra/${id}`)
                 const entregasFeitas = response.data.entregaServico
 
                 const hoje = new Date().getDate()
+                let totalEntregue = 0;
 
                 if (entregasFeitas.length > 0) {
 
-                    const calculaEntregas = entregasFeitas.reduce((acc, entrega) => {
-                        if (entrega.statusEntrega === 'aceito') {
-                            return acc + (1 * (entrega.percentual / 100))
+
+                    for (const entregas of entregasFeitas) {
+                        const pegarServicos = entregas.etapaEntregue._id
+                        const etapaEntregue = await axios.get(`${apiUrl}/etapas/refEtapa/${pegarServicos}`)
+                        const etapa = etapaEntregue.data.etapa
+
+                        if (entregas.statusEntrega === 'aceito') {
+                            totalEntregue += etapa.tempoExecucao
                         }
-                        return acc
-                    }, 0)
-                    setEntregas(calculaEntregas)
+
+                        setEntregas(totalEntregue);
+                    }
 
                     const valoraReceber = entregasFeitas.reduce((acc, entrega) => {
                         const metaHoje = new Date(entrega.createdAt).getDate()
@@ -88,9 +95,36 @@ const ProgressObras = ({ id }) => {
         pegaObra();
     }, [id])
 
-    const meta = (entregas * 100) / numerosObra;
-    const calculaMetaDiaria = (pegaMeta / diasUteis)
-    const metaDiaria = ((valor * 100) / calculaMetaDiaria)
+    useEffect(() => {
+        const pegaServicosPrestados = async () => {
+            try {
+                const response = await axios.get(`${apiUrl}/servicosPrestados/servicosPrestados/${id}`);
+                const servicosPrestados = response.data.getServicoPrestado;
+
+                let tempoTotalObra = 0;
+
+                for (const servico of servicosPrestados) {
+
+                    const pegarServicos = servico.servicoPrestado._id;
+                    const etapaEntregue = await axios.get(`${apiUrl}/etapas/refEtapas/${pegarServicos}`);
+                    const etapas = etapaEntregue.data.etapas;
+
+                    for (const etapa of etapas) {
+                        tempoTotalObra += etapa.tempoExecucao;
+                    }
+                }
+                setTempoObra(tempoTotalObra);
+            } catch (error) {
+                console.error(error);
+            }
+        }
+        pegaServicosPrestados();
+    }, [id])
+
+    const totalTempoObra = tempoObra * numerosObra
+    const meta = totalTempoObra !== 0 ? (entregas * 100) / totalTempoObra : 0
+    const calculaMetaDiaria = (pegaMeta / diasUteis);
+    const metaDiaria = ((valor * 100) / calculaMetaDiaria);
 
     return (
         <>

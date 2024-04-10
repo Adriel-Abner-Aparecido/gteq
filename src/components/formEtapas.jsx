@@ -17,7 +17,7 @@ const FormEtapas = () => {
 
     const handleSubmit = async() =>{
         try {
-            const response = await fetch(`${apiUrl}/cadastroEtapa`, {
+            const response = await fetch(`${apiUrl}/etapas/cadastroEtapa`, {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json'
@@ -38,7 +38,7 @@ const FormEtapas = () => {
 
     const listaServicos = async () =>{
         try {
-            const response = await axios.get(`${apiUrl}/servicos`);
+            const response = await axios.get(`${apiUrl}/servicos/servicos`);
             setServicos(response.data.servicos);
         }catch{
             console.log("Erro ao buscar os dados");

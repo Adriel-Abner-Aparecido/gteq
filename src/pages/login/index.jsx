@@ -6,7 +6,6 @@ import apiUrl from '../../config';
 
 const LoginPage = () => {
 
-  const [validated, setValidated] = useState(false);
   const [formData, setFormData] = useState({
     nomeUsuario: '',
     senhaUsuario: ''
@@ -20,16 +19,9 @@ const LoginPage = () => {
   const handleSubmit = async (event) => {
 
     event.preventDefault();
-    const form = event.currentTarget;
-    if (form.checkValidity() === false) {
-      event.stopPropagation();
-      setValidated(true);
-      return;
-    }
-    setValidated(true);
 
     try {
-      const response = await fetch(`${apiUrl}/login`, {
+      const response = await fetch(`${apiUrl}/login/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -41,14 +33,17 @@ const LoginPage = () => {
         const { token, nivelUsuario, userId, userName, status } = await response.json();
 
         const tokenPayLoad = { token, nivel: nivelUsuario, userId: userId, userName: userName, status: status };
+
         localStorage.setItem('token', JSON.stringify(tokenPayLoad));
 
         if (nivelUsuario === 'user' && status === true) {
           navigate('/areaUsuario');
         }
+
         if (nivelUsuario === 'adm' && status === true) {
           navigate('/dashboard')
         }
+
       } else {
         alert('Usuario ou senha inválidos');
       }
@@ -67,7 +62,7 @@ const LoginPage = () => {
           <h1 className="text-primary">Login</h1>
         </CardHeader>
         <CardBody>
-          <Form noValidate validated={validated} onSubmit={handleSubmit}>
+          <Form onSubmit={handleSubmit}>
             <FormLabel htmlFor="nomeUsuario">Usuário:</FormLabel>
             <FormControl type="text" className="form-control" id="nomeUsuario" name='nomeUsuario' value={formData.nomeUsuario} onChange={handleChange} required />
             <FormLabel htmlFor="senhaUsuario">Senha:</FormLabel>
