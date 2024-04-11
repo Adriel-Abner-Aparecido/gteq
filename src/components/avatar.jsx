@@ -29,7 +29,7 @@ const Avatar = ({ id }) => {
   return (
     <img
       className="avatar rounded rounded-circle m-auto"
-      src={apiUrl + "/public/imagens/" + image}
+      src={apiUrl + "/imagens/" + image}
       alt="Avatar"
     />
   );

@@ -31,7 +31,9 @@ const ProgressObras = ({ id }) => {
           },
         });
         setPegaMeta(global.data.meta[0].valorMeta);
+
         setDiasUteis(global.data.meta[0].diasUteis);
+
         if (response.data.metaObra.length !== 0) {
           setPegaMeta(response.data.metaObra[0].valorMeta);
         }
@@ -170,12 +172,15 @@ const ProgressObras = ({ id }) => {
   const meta = totalTempoObra !== 0 ? (entregas * 100) / totalTempoObra : 0;
   const calculaMetaDiaria = pegaMeta / diasUteis;
   const metaDiaria = (valor * 100) / calculaMetaDiaria;
+  const hoje = new Date().getDate();
+  const metahoje = (totalTempoObra / diasUteis) * hoje;
 
   return (
     <>
       <div style={{ background: "#E9ECEF" }}>
         <ProgressBar
           now={meta}
+          variant={metahoje > meta ? "danger" : "primary"}
           className="progress-30 rounded-0 progress-bar-anim"
           label={<Counter finalNumber={meta} />}
         />

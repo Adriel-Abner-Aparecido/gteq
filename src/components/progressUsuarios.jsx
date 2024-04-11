@@ -7,6 +7,7 @@ import Counter from "./contador";
 const ProgressUsuarios = ({ id }) => {
   const [pegaMeta, setPegaMeta] = useState([]);
   const [valor, setValor] = useState(0);
+  const [diasUteis, setDiasUteis] = useState(0);
 
   const token = localStorage.getItem("token");
   const tokenPayload = JSON.parse(token);
@@ -27,6 +28,7 @@ const ProgressUsuarios = ({ id }) => {
           },
         });
         setPegaMeta(global.data.meta[0].valorMeta);
+        setDiasUteis(global.data.meta[0].diasUteis);
         if (response.data.metaUser.length !== 0) {
           setPegaMeta(response.data.metaUser[0].valorMeta);
         }
@@ -74,14 +76,18 @@ const ProgressUsuarios = ({ id }) => {
     pegaObra();
   }, [id, settoken]);
 
-  const metaDiaria = (valor * 100) / pegaMeta;
+  const meta = (valor * 100) / pegaMeta;
+  const metaDiaria = pegaMeta / diasUteis;
+  const hoje = new Date().getDate();
+  const metaHoje = metaDiaria * hoje;
 
   return (
     <div style={{ background: "#E9ECEF" }}>
       <ProgressBar
-        now={metaDiaria}
+        now={meta}
+        variant={metaHoje > meta ? "danger" : "primary"}
         className="rounded-0 progress-bar-anim"
-        label={<Counter finalNumber={metaDiaria} />}
+        label={<Counter finalNumber={meta} />}
       />
     </div>
   );

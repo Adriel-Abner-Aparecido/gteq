@@ -6,6 +6,7 @@ import axios from "axios";
 const ProgressAreaUsuarios = ({ id }) => {
   const [pegaMeta, setPegaMeta] = useState([]);
   const [valor, setValor] = useState(0);
+  const [diasUteis, setDiasUteis] = useState(0);
 
   const token = localStorage.getItem("token");
   const tokenPayload = JSON.parse(token);
@@ -26,6 +27,7 @@ const ProgressAreaUsuarios = ({ id }) => {
           },
         });
         setPegaMeta(global.data.meta[0].valorMeta);
+        setDiasUteis(global.data.meta[0].diasUteis);
         if (response.data.metaUser.length !== 0) {
           setPegaMeta(response.data.metaUser[0].valorMeta);
         }
@@ -73,13 +75,17 @@ const ProgressAreaUsuarios = ({ id }) => {
     pegaObra();
   }, [id, settoken]);
 
-  const metaDiaria = (valor * 100) / pegaMeta;
+  const metaMensal = (valor * 100) / pegaMeta;
+  const metaDiaria = pegaMeta / diasUteis;
+  const hoje = new Date().getDate();
+  const metaHoje = metaDiaria * hoje;
 
   return (
     <>
       <ProgressBar
         style={{ height: "5px" }}
-        now={metaDiaria}
+        variant={metaHoje > metaDiaria ? "danger" : "primary"}
+        now={metaMensal}
         className="rounded-0 progress-bar-anim"
       />
     </>

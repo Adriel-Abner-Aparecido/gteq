@@ -81,12 +81,15 @@ const Progress = () => {
   const metaGeral = (valor * 100) / meta;
   const metaDiaria = meta / diasUteis;
   const diaria = (metaDia * 100) / metaDiaria;
+  const hoje = new Date().getDate();
+  const metaHoje = metaDiaria * hoje;
 
   return (
     <>
       <div style={{ background: "#fff" }}>
         <ProgressBar
           now={metaGeral}
+          variant={metaHoje > metaDiaria ? "danger" : "primary"}
           className="progress-30 rounded-0 mt-2 progress-bar-anim"
           label={<Counter finalNumber={metaGeral} />}
         />

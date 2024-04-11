@@ -8,10 +8,28 @@ const ProgressObra = ({ id }) => {
   const [entregas, setEntregas] = useState(0);
   const [numerosObra, setNumerosObra] = useState(0);
   const [tempoObra, setTempoObra] = useState(0);
+  const [diasUteis, setDiasUteis] = useState(0);
 
   const token = localStorage.getItem("token");
   const tokenPayload = JSON.parse(token);
   const settoken = tokenPayload?.token;
+
+  //pegar dias Uteis
+  useEffect(() => {
+    const pegaMeta = async () => {
+      try {
+        const response = await axios.get(`${apiUrl}/meta/meta`, {
+          headers: {
+            Authorization: `Bearer ${settoken}`,
+          },
+        });
+        setDiasUteis(response.data.meta[0].diasUteis);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    pegaMeta();
+  }, [id, settoken]);
 
   //Calcula numero de Unidades da Obra
   useEffect(() => {
@@ -128,11 +146,19 @@ const ProgressObra = ({ id }) => {
 
   const totalTempoObra = tempoObra * numerosObra;
   const meta = totalTempoObra !== 0 ? (entregas * 100) / totalTempoObra : 0;
+  const metaDiaria = totalTempoObra / diasUteis;
+  const hoje = new Date().getDate();
+  const metaHoje = metaDiaria * hoje;
+
+  console.log("Tempo total da Obra:", totalTempoObra);
+  console.log("MetaDiaria", metaDiaria);
+  console.log("Entregue este mes:", entregas);
 
   return (
     <div style={{ background: "#E9ECEF" }}>
       <ProgressBar
         now={meta}
+        variant={metaHoje > meta ? "danger" : "primary"}
         className="progress-30 rounded-0 progress-bar-anim"
         label={<Counter finalNumber={meta} />}
       />

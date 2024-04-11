@@ -17,7 +17,7 @@ import apiUrl from "../../config";
 import FormMetaUsers from "../../components/formMetaUsers";
 import EntregasUsuarios from "../../components/tableEntregasUsuario";
 import ValorAreceber from "../../components/valorAreceber";
-import ProgressUsuariosMes from "../../components/progressUsuariosMes";
+import ProgressUsuarios from "../../components/progressUsuarios";
 
 const ViewUsuario = () => {
   const { id } = useParams();
@@ -128,7 +128,7 @@ const ViewUsuario = () => {
               </Row>
             </CardBody>
             <CardFooter>
-              <ProgressUsuariosMes id={id} />
+              <ProgressUsuarios id={id} />
             </CardFooter>
           </Card>
           <EntregasUsuarios id={id} />
