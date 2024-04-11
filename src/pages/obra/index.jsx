@@ -1,44 +1,57 @@
-import React, { useState, useEffect } from 'react';
-import { Container, Row, Col, Card, CardHeader, CardBody, Button, CardFooter } from 'react-bootstrap';
-import LateralNav from '../../components/lateralNav';
-import axios from 'axios';
-import { useParams } from 'react-router-dom';
-import '../obra/index.css'
-import FormUnidadesObra from '../../components/formUnidadesObra';
-import apiUrl from '../../config';
-import EntregasObra from '../../components/tableEntregasObra';
-import FormMetaObras from '../../components/formMetaObras';
-import FormServicoPrestado from '../../components/formServicoPrestado';
-import ServicosPrestados from '../../components/tableServicosPrestados';
-import UnidadesObra from '../../components/unidadesObra';
-import ProgressObra from '../../components/progressObra';
-
+import React, { useState, useEffect } from "react";
+import {
+  Container,
+  Row,
+  Col,
+  Card,
+  CardHeader,
+  CardBody,
+  Button,
+  CardFooter,
+} from "react-bootstrap";
+import LateralNav from "../../components/lateralNav";
+import axios from "axios";
+import { useParams } from "react-router-dom";
+import "../obra/index.css";
+import FormUnidadesObra from "../../components/formUnidadesObra";
+import apiUrl from "../../config";
+import EntregasObra from "../../components/tableEntregasObra";
+import FormMetaObras from "../../components/formMetaObras";
+import FormServicoPrestado from "../../components/formServicoPrestado";
+import ServicosPrestados from "../../components/tableServicosPrestados";
+import UnidadesObra from "../../components/unidadesObra";
+import ProgressObra from "../../components/progressObra";
 
 const ViewObra = () => {
-
   const { id } = useParams();
 
   const [obra, setObra] = useState([]);
   const [metaObra, setMetaObra] = useState([]);
 
+  const token = localStorage.getItem("token");
+  const tokenPayload = JSON.parse(token);
+  const settoken = tokenPayload?.token;
 
   useEffect(() => {
     const fetchObra = async () => {
       try {
-        const responseObra = await axios.get(`${apiUrl}/obras/obra/${id}`);
+        const responseObra = await axios.get(`${apiUrl}/obras/obra/${id}`, {
+          headers: {
+            Authorization: `Bearer ${settoken}`,
+          },
+        });
 
         setObra(responseObra.data.obra);
-
       } catch (error) {
-        console.error('Erro ao buscar dados:', error);
+        console.error("Erro ao buscar dados:", error);
       }
     };
     fetchObra();
-  }, [id]);
+  }, [id, settoken]);
 
   return (
-    <Container className='p-0 h-100'>
-      <Row className='p-0 m-0 '>
+    <Container className="p-0 h-100">
+      <Row className="p-0 m-0 ">
         <LateralNav />
         <Col sm={12} md={10} xxl={10} className="p-5 h-100">
           <Card>
@@ -48,41 +61,37 @@ const ViewObra = () => {
             <CardBody>
               <Row>
                 <Col xl={12}>
-                  <Row className='mb-3'>
-                    <Col xxl={3}>
-                      Endereço: {obra.enderecoObra}
-                    </Col>
-                    <Col xxl={2}>
-                      n°: {obra.numeroRua}
-                    </Col>
-                    <Col xxl={3}>
-                      Cidade: {obra.cidadeObra}
-                    </Col>
-                    <Col xxl={4}>
-                      Complemento: {obra.complementoObra}
-                    </Col>
+                  <Row className="mb-3">
+                    <Col xxl={3}>Endereço: {obra.enderecoObra}</Col>
+                    <Col xxl={2}>n°: {obra.numeroRua}</Col>
+                    <Col xxl={3}>Cidade: {obra.cidadeObra}</Col>
+                    <Col xxl={4}>Complemento: {obra.complementoObra}</Col>
                   </Row>
                   <Row>
-                    <Col className='mb-3'>
-                      Tipo de Obra: {obra.tipoObra}
-                    </Col>
+                    <Col className="mb-3">Tipo de Obra: {obra.tipoObra}</Col>
                   </Row>
-                  <Row className='mb-3'>
-                    <Col>
-                      Serviços prestados: {obra.servicoPrestado}
-                    </Col>
+                  <Row className="mb-3">
+                    <Col>Serviços prestados: {obra.servicoPrestado}</Col>
                   </Row>
-                  <Row className='mb-3'>
-                    <Col>
-                      Descrição: {obra.descricaoObra}
-                    </Col>
+                  <Row className="mb-3">
+                    <Col>Descrição: {obra.descricaoObra}</Col>
                   </Row>
                   <Row>
-                    <FormMetaObras id={id} metaObra={metaObra} setMetaObra={setMetaObra} />
+                    <FormMetaObras
+                      id={id}
+                      metaObra={metaObra}
+                      setMetaObra={setMetaObra}
+                    />
                   </Row>
-                  <Row className='mt-5'>
+                  <Row className="mt-5">
                     <Col xl={2}>
-                      <Button className='w-100' href={`./editarObra/${obra._id}`} variant='primary'>Editar</Button>
+                      <Button
+                        className="w-100"
+                        href={`./editarObra/${obra._id}`}
+                        variant="primary"
+                      >
+                        Editar
+                      </Button>
                       {/* <Button variant='danger' className='mx-3' onClick={handleShow}>Apagar</Button> */}
                     </Col>
                   </Row>
@@ -90,13 +99,13 @@ const ViewObra = () => {
               </Row>
             </CardBody>
             <CardFooter>
-              <ProgressObra id={id}/>
+              <ProgressObra id={id} />
             </CardFooter>
           </Card>
           <FormServicoPrestado refObra={id} />
           <ServicosPrestados refObra={id} />
           <FormUnidadesObra refObra={id} />
-          <Card className='mt-5'>
+          <Card className="mt-5">
             <CardBody>
               <UnidadesObra refObra={id} />
             </CardBody>
@@ -105,7 +114,6 @@ const ViewObra = () => {
         </Col>
       </Row>
     </Container>
-
   );
 };
 

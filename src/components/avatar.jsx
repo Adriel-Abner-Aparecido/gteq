@@ -1,29 +1,37 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState } from "react";
 import apiUrl from "../config";
-import axios from 'axios';
+import axios from "axios";
 
 const Avatar = ({ id }) => {
+  const [image, setImage] = useState("");
 
-    const [image, setImage] = useState('');
-    
+  const token = localStorage.getItem("token");
+  const tokenPayload = JSON.parse(token);
+  const settoken = tokenPayload?.token;
 
-    useEffect(() => {
-        const PegaImagem = async ()=>{
-            const response = await axios.get(`${apiUrl}/avatar/avatar/${id}`)
-            if(response.data.avatar === null){
-                const imgdefault = 'avatar.png';
-                setImage(imgdefault)
-            }else{
-                setImage(response.data.avatar.avatar)
-            }
-        }
-        PegaImagem();
-    }, [id])
+  useEffect(() => {
+    const PegaImagem = async () => {
+      const response = await axios.get(`${apiUrl}/avatar/avatar/${id}`, {
+        headers: {
+          Authorization: `Bearer ${settoken}`,
+        },
+      });
+      if (response.data.avatar === null) {
+        const imgdefault = "avatar.png";
+        setImage(imgdefault);
+      } else {
+        setImage(response.data.avatar.avatar);
+      }
+    };
+    PegaImagem();
+  }, [id, settoken]);
 
-    
-
-    return (
-        <img className="avatar rounded rounded-circle m-auto" src={apiUrl + '/public/imagens/' + image} alt="Avatar" />
-    )
-}
-export default Avatar
+  return (
+    <img
+      className="avatar rounded rounded-circle m-auto"
+      src={apiUrl + "/public/imagens/" + image}
+      alt="Avatar"
+    />
+  );
+};
+export default Avatar;
