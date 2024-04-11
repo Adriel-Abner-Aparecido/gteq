@@ -85,7 +85,7 @@ const ProgressUsuarios = ({ id }) => {
     <div style={{ background: "#E9ECEF" }}>
       <ProgressBar
         now={meta}
-        variant={metaHoje > meta ? "danger" : "primary"}
+        variant={metaHoje > valor ? "danger" : "primary"}
         className="rounded-0 progress-bar-anim"
         label={<Counter finalNumber={meta} />}
       />

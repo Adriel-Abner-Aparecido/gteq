@@ -89,7 +89,7 @@ const Progress = () => {
       <div style={{ background: "#fff" }}>
         <ProgressBar
           now={metaGeral}
-          variant={metaHoje > metaDiaria ? "danger" : "primary"}
+          variant={metaHoje > valor ? "danger" : "primary"}
           className="progress-30 rounded-0 mt-2 progress-bar-anim"
           label={<Counter finalNumber={metaGeral} />}
         />

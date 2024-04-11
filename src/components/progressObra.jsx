@@ -158,7 +158,7 @@ const ProgressObra = ({ id }) => {
     <div style={{ background: "#E9ECEF" }}>
       <ProgressBar
         now={meta}
-        variant={metaHoje > meta ? "danger" : "primary"}
+        variant={metaHoje > entregas ? "danger" : "primary"}
         className="progress-30 rounded-0 progress-bar-anim"
         label={<Counter finalNumber={meta} />}
       />

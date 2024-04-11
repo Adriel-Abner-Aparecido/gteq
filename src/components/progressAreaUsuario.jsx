@@ -84,7 +84,7 @@ const ProgressAreaUsuarios = ({ id }) => {
     <>
       <ProgressBar
         style={{ height: "5px" }}
-        variant={metaHoje > metaDiaria ? "danger" : "primary"}
+        variant={metaHoje > valor ? "danger" : "primary"}
         now={metaMensal}
         className="rounded-0 progress-bar-anim"
       />

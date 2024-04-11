@@ -40,7 +40,6 @@ const ViewUsuario = () => {
           }
         );
         setUsuario(responseUsuario.data.usuario);
-        console.log(responseUsuario.data.usuario);
       } catch (error) {
         console.error("Erro ao buscar dados", error);
       }
@@ -58,11 +57,7 @@ const ViewUsuario = () => {
             <CardBody>
               <Row>
                 <Col xxl={3} className="d-flex justify-content-center">
-                  <img
-                    src={Avatar}
-                    className="avatar rounded rounded-circle p-2 my-auto"
-                    alt={Avatar}
-                  />
+                  <Avatar id={id} />
                 </Col>
                 <Col xxl={5}>
                   <Row className="mb-3">
