@@ -1,31 +1,13 @@
 import React, { useState, useEffect } from "react";
-import {
-  Row,
-  Col,
-  Form,
-  FormControl,
-  FormLabel,
-  Button,
-} from "react-bootstrap";
+import { Col, Form, FormControl, FormLabel, Button } from "react-bootstrap";
 import axios from "axios";
 import apiUrl from "../config";
 
 const FormMetaUsers = ({ id }) => {
-  const [metaUser, setMetaUser] = useState();
-  const [metaNumber, setMetaNumber] = useState(null);
-
   const [formData, setFormData] = useState({
     relUser: id,
     valorMeta: "",
   });
-
-  const [formUpdate, setFormUpdate] = useState({
-    valorMeta: "",
-  });
-
-  const handleChange = (event) => {
-    setFormData({ ...formData, [event.target.name]: event.target.value });
-  };
 
   const token = localStorage.getItem("token");
   const tokenPayload = JSON.parse(token);
@@ -47,104 +29,51 @@ const FormMetaUsers = ({ id }) => {
     }
   };
 
-  const handleUpdate = async (event) => {
-    if (!event.target.value) {
-      setMetaNumber("");
-    } else {
-      setMetaNumber(event.target.value);
-    }
-    setFormUpdate({ valorMeta: `${event.target.value}` });
-  };
-
-  const atualizaDados = async () => {
-    try {
-      await axios.put(
-        `${apiUrl}/meta/metaUser/${metaUser[0]._id}`,
-        formUpdate,
-        {
+  useEffect(() => {
+    const metaUsuario = async () => {
+      try {
+        const response = await axios.get(`${apiUrl}/meta/metaUser/${id}`, {
           headers: {
             Authorization: `Bearer ${settoken}`,
           },
-        }
-      );
-    } catch (error) {
-      console.error("Erro ao Atualizar meta do Usuario:", error);
-    }
-  };
-
-  useEffect(() => {
-    const fetchUsuario = async () => {
-      try {
-        const responseMetaUser = await axios.get(
-          `${apiUrl}/meta/metaUser/${id}`,
-          {
-            headers: {
-              Authorization: `Bearer ${settoken}`,
-            },
-          }
-        );
-        setMetaUser(responseMetaUser.data.metaUser);
-        if (responseMetaUser.data.metaUser.length > 0) {
-          setMetaNumber(responseMetaUser.data.metaUser[0].valorMeta);
-        }
+        });
+        setFormData({
+          relUser: response.data.metaUser.relUser,
+          valorMeta: response.data.metaUser.valorMeta,
+        });
       } catch (error) {
         console.error("Erro ao buscar dados", error);
       }
     };
-    fetchUsuario();
+    metaUsuario();
     // eslint-disable-next-line
   }, []);
 
+  const handleChange = (event) => {
+    setFormData({ ...formData, [event.target.name]: event.target.value });
+  };
+
   return (
     <Col className="">
-      {metaUser && metaUser.length === 0 && (
-        <Form onSubmit={handleSubmit}>
-          <FormLabel column htmlFor="valorMeta">
-            Meta:
-          </FormLabel>
-          <Col>
-            <FormControl
-              className="input-number"
-              type="number"
-              id="valorMeta"
-              name="valorMeta"
-              value={formData.valorMeta}
-              onChange={handleChange}
-              required
-            />
-          </Col>
-          <Col>
-            <Button variant="link" type="submit">
-              Definir
-            </Button>
-          </Col>
-        </Form>
-      )}
-      {metaUser && metaUser.length > 0 && (
-        <Form onSubmit={atualizaDados}>
-          <FormLabel htmlFor="valorMeta" className="text-center">
-            Meta:
-          </FormLabel>
-          <Row>
-            <Col xxl={4}>
-              <FormControl
-                type="number"
-                className="input-number"
-                id="valorMeta"
-                name="valorMeta"
-                value={metaNumber}
-                onChange={handleUpdate}
-                required
-              />
-            </Col>
-            <Col>
-              <Button variant="link" type="submit">
-                Definir
-              </Button>
-            </Col>
-          </Row>
-        </Form>
-      )}
+      <Form onSubmit={handleSubmit}>
+        <FormLabel htmlFor="valorMeta">Meta:</FormLabel>
+        <Col xxl={4}>
+          <FormControl
+            className="input-number"
+            type="number"
+            id="valorMeta"
+            name="valorMeta"
+            value={formData.valorMeta}
+            onChange={handleChange}
+            required
+          />
+        </Col>
+        <Col>
+          <Button variant="link" type="submit">
+            Definir
+          </Button>
+        </Col>
+      </Form>
     </Col>
   );
 };

@@ -30,12 +30,12 @@ const ProgressObras = ({ id }) => {
             Authorization: `Bearer ${settoken}`,
           },
         });
-        setPegaMeta(global.data.meta[0].valorMeta);
+        setPegaMeta(global.data.meta.valorMeta);
 
-        setDiasUteis(global.data.meta[0].diasUteis);
+        setDiasUteis(global.data.meta.diasUteis);
 
-        if (response.data.metaObra.length !== 0) {
-          setPegaMeta(response.data.metaObra[0].valorMeta);
+        if (response.ok) {
+          setPegaMeta(response.data.metaObra.valorMeta);
         }
       } catch (error) {
         console.error(error);

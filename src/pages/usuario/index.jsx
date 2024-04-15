@@ -18,6 +18,8 @@ import FormMetaUsers from "../../components/formMetaUsers";
 import EntregasUsuarios from "../../components/tableEntregasUsuario";
 import ValorAreceber from "../../components/valorAreceber";
 import ProgressUsuarios from "../../components/progressUsuarios";
+import FormDescontos from "../../components/formDescontos";
+import TableDescontos from "../../components/tableDescontos";
 
 const ViewUsuario = () => {
   const { id } = useParams();
@@ -110,14 +112,7 @@ const ViewUsuario = () => {
                     </Col>
                   </Row> */}
                   <Row>
-                    <Col>Produzido em R$:</Col>
-                  </Row>
-                  <Row>
-                    <Col>
-                      <h2 className="text-success">
-                        R$ <ValorAreceber userId={id} />
-                      </h2>
-                    </Col>
+                    <ValorAreceber id={id} />
                   </Row>
                 </Col>
               </Row>
@@ -126,6 +121,8 @@ const ViewUsuario = () => {
               <ProgressUsuarios id={id} />
             </CardFooter>
           </Card>
+          <FormDescontos id={id} />
+          <TableDescontos id={id} />
           <EntregasUsuarios id={id} />
         </Col>
       </Row>

@@ -5,7 +5,7 @@ import axios from "axios";
 import Counter from "./contador";
 
 const ProgressUsuarios = ({ id }) => {
-  const [pegaMeta, setPegaMeta] = useState([]);
+  const [pegaMeta, setPegaMeta] = useState(0);
   const [valor, setValor] = useState(0);
   const [diasUteis, setDiasUteis] = useState(0);
 
@@ -27,17 +27,15 @@ const ProgressUsuarios = ({ id }) => {
             Authorization: `Bearer ${settoken}`,
           },
         });
-        setPegaMeta(global.data.meta[0].valorMeta);
-        setDiasUteis(global.data.meta[0].diasUteis);
-        if (response.data.metaUser.length !== 0) {
-          setPegaMeta(response.data.metaUser[0].valorMeta);
-        }
+        setDiasUteis(global.data.meta.diasUteis);
+        setPegaMeta(response.data.metaUser.valorMeta);
       } catch (error) {
         console.error(error);
       }
     };
     buscaMeta();
-  }, [id, settoken]);
+    // eslint-disable-next-line
+  }, []);
 
   //Calcula as entregas Feitas
   useEffect(() => {
@@ -74,9 +72,10 @@ const ProgressUsuarios = ({ id }) => {
       }
     };
     pegaObra();
-  }, [id, settoken]);
+    // eslint-disable-next-line
+  }, []);
 
-  const meta = (valor * 100) / pegaMeta;
+  const meta = pegaMeta > 0 ? (valor * 100) / pegaMeta : 0;
   const metaDiaria = pegaMeta / diasUteis;
   const hoje = new Date().getDate();
   const metaHoje = metaDiaria * hoje;

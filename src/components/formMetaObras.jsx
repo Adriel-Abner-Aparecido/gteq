@@ -1,32 +1,13 @@
 import React, { useState, useEffect } from "react";
-import {
-  Row,
-  Col,
-  Form,
-  FormGroup,
-  FormControl,
-  FormLabel,
-  Button,
-} from "react-bootstrap";
+import { Col, Form, FormControl, FormLabel, Button } from "react-bootstrap";
 import axios from "axios";
 import apiUrl from "../config";
 
 const FormMetaObras = ({ id }) => {
-  const [metaObra, setMetaObra] = useState("");
-  const [metaNumber, setMetaNumber] = useState("");
-
   const [formData, setFormData] = useState({
     relObra: id,
     valorMeta: "",
   });
-
-  const [formUpdate, setFormUpdate] = useState({
-    valorMeta: "",
-  });
-
-  const handleChange = (event) => {
-    setFormData({ ...formData, [event.target.name]: event.target.value });
-  };
 
   const token = localStorage.getItem("token");
   const tokenPayload = JSON.parse(token);
@@ -48,116 +29,53 @@ const FormMetaObras = ({ id }) => {
     }
   };
 
-  const handleUpdate = async (event) => {
-    if (!event.target.value) {
-      setMetaNumber("");
-    } else {
-      setMetaNumber(event.target.value);
-    }
-    setFormUpdate({ valorMeta: `${event.target.value}` });
-  };
-
-  const atualizaDados = async () => {
-    try {
-      await axios.put(
-        `${apiUrl}/meta/metaObra/${metaObra[0]._id}`,
-        formUpdate,
-        {
+  useEffect(() => {
+    const metaObra = async () => {
+      try {
+        const response = await axios.get(`${apiUrl}/meta/metaObra/${id}`, {
           headers: {
             Authorization: `Bearer ${settoken}`,
           },
-        }
-      );
-    } catch (error) {
-      console.error("Erro ao Atualizar Meta da Obra:", error);
-    }
-  };
-
-  useEffect(() => {
-    const fetchObra = async () => {
-      try {
-        const responseMetaObra = await axios.get(
-          `${apiUrl}/meta/metaObra/${id}`,
-          {
-            headers: {
-              Authorization: `Bearer ${settoken}`,
-            },
-          }
-        );
-        setMetaObra(responseMetaObra.data.metaObra);
-        if (responseMetaObra.data.metaObra.length > 0) {
-          setMetaNumber(responseMetaObra.data.metaObra[0].valorMeta);
-        }
+        });
+        setFormData({
+          relObra: response.data.metaObra.relObra,
+          valorMeta: response.data.metaObra.valorMeta,
+        });
       } catch (error) {
         console.error("Erro ao buscar dados", error);
       }
     };
-    fetchObra();
+    metaObra();
     // eslint-disable-next-line
   }, []);
 
+  const handleChange = (event) => {
+    setFormData({ ...formData, [event.target.name]: event.target.value });
+  };
+
   return (
     <Col>
-      {metaObra && metaObra.length === 0 && (
-        <Form onSubmit={handleSubmit}>
-          <FormGroup as={Row}>
-            <FormLabel
-              column
-              xl={1}
-              htmlFor="valorMeta"
-              className="text-center"
-            >
-              Meta:
-            </FormLabel>
-            <Col xl={1} className="px-0">
-              <FormControl
-                className="input-number"
-                type="number"
-                id="valorMeta"
-                name="valorMeta"
-                value={formData.valorMeta}
-                onChange={handleChange}
-                required
-              />
-            </Col>
-            <Col xl={2} className="px-0">
-              <Button variant="link" type="submit">
-                Definir
-              </Button>
-            </Col>
-          </FormGroup>
-        </Form>
-      )}
-      {metaObra && metaObra.length > 0 && (
-        <Form onSubmit={atualizaDados}>
-          <FormGroup as={Row}>
-            <FormLabel
-              column
-              xl={1}
-              htmlFor="valorMeta"
-              className="text-center"
-            >
-              Meta:
-            </FormLabel>
-            <Col xl={1} className="px-0">
-              <FormControl
-                className="form-control input-number"
-                type="number"
-                id="valorMeta"
-                name="valorMeta"
-                value={metaNumber}
-                onChange={handleUpdate}
-                required
-              />
-            </Col>
-            <Col xl={2} className="px-0">
-              <Button variant="link" type="submit">
-                Definir
-              </Button>
-            </Col>
-          </FormGroup>
-        </Form>
-      )}
+      <Form onSubmit={handleSubmit}>
+        <FormLabel htmlFor="valorMeta" className="text-center">
+          Meta:
+        </FormLabel>
+        <Col xxl={1} className="px-0">
+          <FormControl
+            className="input-number"
+            type="number"
+            id="valorMeta"
+            name="valorMeta"
+            value={formData.valorMeta}
+            onChange={handleChange}
+            required
+          />
+        </Col>
+        <Col xxl={2} className="px-0">
+          <Button variant="link" type="submit">
+            Definir
+          </Button>
+        </Col>
+      </Form>
     </Col>
   );
 };

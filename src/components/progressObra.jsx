@@ -23,7 +23,9 @@ const ProgressObra = ({ id }) => {
             Authorization: `Bearer ${settoken}`,
           },
         });
-        setDiasUteis(response.data.meta[0].diasUteis);
+        if (response.ok) {
+          setDiasUteis(response.data.meta.diasUteis);
+        }
       } catch (error) {
         console.error(error);
       }
@@ -149,10 +151,6 @@ const ProgressObra = ({ id }) => {
   const metaDiaria = totalTempoObra / diasUteis;
   const hoje = new Date().getDate();
   const metaHoje = metaDiaria * hoje;
-
-  console.log("Tempo total da Obra:", totalTempoObra);
-  console.log("MetaDiaria", metaDiaria);
-  console.log("Entregue este mes:", entregas);
 
   return (
     <div style={{ background: "#E9ECEF" }}>

@@ -5,9 +5,9 @@ import Counter from "./contador";
 import { ProgressBar } from "react-bootstrap";
 
 const Progress = () => {
-  const [meta, setMeta] = useState([]);
+  const [meta, setMeta] = useState(0);
   const [metaDia, setMetaDia] = useState([]);
-  const [diasUteis, setDiasUteis] = useState([]);
+  const [diasUteis, setDiasUteis] = useState(0);
   const [valor, setValor] = useState(0);
 
   const token = localStorage.getItem("token");
@@ -22,8 +22,8 @@ const Progress = () => {
             Authorization: `Bearer ${settoken}`,
           },
         });
-        setMeta(response.data.meta[0].valorMeta);
-        setDiasUteis(response.data.meta[0].diasUteis);
+        setMeta(response.data.meta.valorMeta);
+        setDiasUteis(response.data.meta.diasUteis);
       } catch (error) {
         console.error(error);
       }
