@@ -66,13 +66,21 @@ const FormEntregasUsuario = ({ userId, atualiza }) => {
     // Buscar blocos com base na obra selecionada
     if (obraId !== "" && obras.length > 0) {
       axios
-        .get(`${apiUrl}/numerosObra/numerosObra/${obraId}`)
+        .get(`${apiUrl}/numerosObra/numerosObra/${obraId}`, {
+          headers: {
+            Authorization: `Bearer ${settoken}`,
+          },
+        })
         .then((response) => {
           setBlocos(response.data.numerosObra);
         })
         .catch((error) => console.error(error));
       axios
-        .get(`${apiUrl}/servicosPrestados/servicosPrestados/${obraId}`)
+        .get(`${apiUrl}/servicosPrestados/servicosPrestados/${obraId}`, {
+          headers: {
+            Authorization: `Bearer ${settoken}`,
+          },
+        })
         .then((response) => {
           setServicos(response.data.getServicoPrestado);
         })
@@ -96,11 +104,19 @@ const FormEntregasUsuario = ({ userId, atualiza }) => {
     // Buscar etapas com base no serviço selecionado
     if (servicoId !== "" && servicos.length > 0) {
       axios
-        .get(`${apiUrl}/servicosPrestados/servicoPrestado/${servicoId}`)
+        .get(`${apiUrl}/servicosPrestados/servicoPrestado/${servicoId}`, {
+          headers: {
+            Authorization: `Bearer ${settoken}`,
+          },
+        })
         .then((response) => {
           const refEtapa = response.data.servico.servicoPrestado._id;
           axios
-            .get(`${apiUrl}/etapas/refEtapas/${refEtapa}`)
+            .get(`${apiUrl}/etapas/refEtapas/${refEtapa}`, {
+              headers: {
+                Authorization: `Bearer ${settoken}`,
+              },
+            })
             .then((response) => {
               setEtapas(response.data.etapas);
             })
@@ -118,7 +134,11 @@ const FormEntregasUsuario = ({ userId, atualiza }) => {
 
     if (etapaId !== "") {
       axios
-        .get(`${apiUrl}/etapas/refEtapa/${etapaId}`)
+        .get(`${apiUrl}/etapas/refEtapa/${etapaId}`, {
+          headers: {
+            Authorization: `Bearer ${settoken}`,
+          },
+        })
         .then((response) => {
           setPercentual(response.data.etapa.tempoExecucao);
         })

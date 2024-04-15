@@ -176,24 +176,22 @@ const ProgressObras = ({ id }) => {
   const metahoje = (totalTempoObra / diasUteis) * hoje;
 
   return (
-    <>
-      <div style={{ background: "#E9ECEF" }}>
+    <div className="">
+      <ProgressBar className="progress-30 rounded-0 progress-bar-anim">
         <ProgressBar
           now={meta}
           variant={metahoje > entregas ? "danger" : "primary"}
-          className="progress-30 rounded-0 progress-bar-anim"
           label={<Counter finalNumber={meta} />}
         />
-      </div>
-      <div style={{ background: "#E9ECEF" }}>
+      </ProgressBar>
+      <ProgressBar className="rounded-0 mb-2 progress-bar-anim">
         <ProgressBar
           variant="success"
           now={metaDiaria}
-          className="rounded-0 progress-bar-anim mb-2"
           label={<Counter finalNumber={metaDiaria} />}
         />
-      </div>
-    </>
+      </ProgressBar>
+    </div>
   );
 };
 export default ProgressObras;

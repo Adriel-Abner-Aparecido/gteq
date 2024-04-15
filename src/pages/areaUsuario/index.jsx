@@ -103,10 +103,7 @@ const AreaUsuario = () => {
           <Card>
             <CardHeader className="text-center">A receber</CardHeader>
             <CardBody>
-              <p className="valor text-success text-center">
-                R$
-                <ValorAreceber userId={userId} />
-              </p>
+              <ValorAreceber id={userId} />
             </CardBody>
           </Card>
         </Col>

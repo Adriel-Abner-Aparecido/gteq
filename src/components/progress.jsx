@@ -83,25 +83,35 @@ const Progress = () => {
   const diaria = (metaDia * 100) / metaDiaria;
   const hoje = new Date().getDate();
   const metaHoje = metaDiaria * hoje;
+  const faltaMeta = 100 - (valor * 100) / metaHoje;
+
+  console.log(faltaMeta);
 
   return (
     <>
-      <div style={{ background: "#fff" }}>
+      Meta do Mês: R$ {meta.toFixed(2).replace(".", ",")}
+      <ProgressBar className="progress-30 p-0 rounded-0">
         <ProgressBar
           now={metaGeral}
           variant={metaHoje > valor ? "danger" : "primary"}
-          className="progress-30 rounded-0 mt-2 progress-bar-anim"
+          className="progress-bar-anim"
           label={<Counter finalNumber={metaGeral} />}
         />
-      </div>
-      <div style={{ background: "#FFF" }}>
+        <ProgressBar
+          now={faltaMeta}
+          variant="warning"
+          className="progress-bar-anim"
+          label={<Counter finalNumber={faltaMeta} />}
+        />
+      </ProgressBar>
+      <ProgressBar className="progress-30 rounded-0">
         <ProgressBar
           variant="success"
           now={diaria}
-          className="rounded-0 progress-bar-anim"
+          className=" progress-bar-anim"
           label={<Counter finalNumber={diaria} />}
         />
-      </div>
+      </ProgressBar>
     </>
   );
 };
