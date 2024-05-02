@@ -48,7 +48,11 @@ const EditaServico = ({ id }) => {
 
   const handleUpdate = async () => {
     try {
-      await axios.put(`${apiUrl}/servicos/atualizaServico/${id}`, formData);
+      await axios.put(`${apiUrl}/servicos/atualizaServico/${id}`, formData, {
+        headers: {
+          Authorization: `Bearer ${settoken}`,
+        },
+      });
     } catch (error) {
       console.error(error);
     }

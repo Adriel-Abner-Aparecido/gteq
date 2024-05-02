@@ -73,7 +73,9 @@ const ValorAreceber = ({ id }) => {
       <Row>
         <Col>
           Salario:
-          <h3 className="text-success">R$ {salarioLiquido}</h3>
+          <h3 className="text-success">
+            R$ {salarioLiquido.toFixed(2).replace(".", ",")}
+          </h3>
         </Col>
       </Row>
       <Row>

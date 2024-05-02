@@ -28,10 +28,10 @@ const ProgressUsuarios = ({ id }) => {
           },
         });
         setDiasUteis(global.data.meta.diasUteis);
-        setPegaMeta(response.data.metaUser.valorMeta);
-      } catch (error) {
-        console.error(error);
-      }
+        if (response) {
+          setPegaMeta(response.data.metaUser.valorMeta);
+        }
+      } catch {}
     };
     buscaMeta();
     // eslint-disable-next-line
@@ -81,14 +81,14 @@ const ProgressUsuarios = ({ id }) => {
   const metaHoje = metaDiaria * hoje;
 
   return (
-    <div style={{ background: "#E9ECEF" }}>
+    <ProgressBar className="progress-30 rounded-0">
       <ProgressBar
         now={meta}
         variant={metaHoje > valor ? "danger" : "primary"}
-        className="rounded-0 progress-bar-anim"
+        className="progress-bar-anim"
         label={<Counter finalNumber={meta} />}
       />
-    </div>
+    </ProgressBar>
   );
 };
 export default ProgressUsuarios;

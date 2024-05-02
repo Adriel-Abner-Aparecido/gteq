@@ -64,7 +64,7 @@ const ProgressObra = ({ id }) => {
 
   //Calcula as entregas Feitas
   useEffect(() => {
-    const pegaObra = async () => {
+    const pegaEntregas = async () => {
       try {
         const response = await axios.get(
           `${apiUrl}/entregas/entregaServicoObra/${id}`,
@@ -102,7 +102,7 @@ const ProgressObra = ({ id }) => {
         console.error(error);
       }
     };
-    pegaObra();
+    pegaEntregas();
   }, [id, settoken]);
 
   useEffect(() => {
@@ -153,14 +153,14 @@ const ProgressObra = ({ id }) => {
   const metaHoje = metaDiaria * hoje;
 
   return (
-    <div style={{ background: "#E9ECEF" }}>
+    <ProgressBar className="progress-30 rounded-0">
       <ProgressBar
         now={meta}
         variant={metaHoje > entregas ? "danger" : "primary"}
-        className="progress-30 rounded-0 progress-bar-anim"
+        className="progress-bar-anim"
         label={<Counter finalNumber={meta} />}
       />
-    </div>
+    </ProgressBar>
   );
 };
 export default ProgressObra;

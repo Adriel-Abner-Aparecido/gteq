@@ -44,6 +44,7 @@ const EditaEtapas = ({ id }) => {
     };
     listaServicos();
     pegaEtapas();
+    // eslint-disable-next-line
   }, [id, settoken]);
 
   const handleChange = (event) => {
@@ -56,7 +57,11 @@ const EditaEtapas = ({ id }) => {
 
   const handleUpdate = async () => {
     try {
-      await axios.put(`${apiUrl}/etapas/atualizaEtapa/${id}`, formData);
+      await axios.put(`${apiUrl}/etapas/atualizaEtapa/${id}`, formData, {
+        headers: {
+          Authorization: `Bearer ${settoken}`,
+        },
+      });
     } catch (error) {
       console.error(error);
     }
@@ -64,7 +69,11 @@ const EditaEtapas = ({ id }) => {
 
   const listaServicos = async () => {
     try {
-      const response = await axios.get(`${apiUrl}/servicos/servicos`);
+      const response = await axios.get(`${apiUrl}/servicos/servicos`, {
+        headers: {
+          Authorization: `Bearer ${settoken}`,
+        },
+      });
       setServicos(response.data.servicos);
     } catch {
       console.log("Erro ao buscar os dados");

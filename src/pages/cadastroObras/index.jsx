@@ -1,19 +1,14 @@
-import { Container, Row, Col } from "react-bootstrap";
-import LateralNav from "../../components/lateralNav";
+import { Col } from "react-bootstrap";
 import FormObras from "../../components/formObras";
+import App from "../../layout/app";
 
 const CadastroObras = () => {
-    return(
-        <Container className='p-0'>
-            <Row className='p-0 m-0'>
-                <LateralNav/>
-                <Col sm={12} md={10} xxl={10} className="m-0 h-100 pt-5 pb-5">
-                    <Col xl={12} className='p-5'>
-                        <FormObras/>
-                    </Col>
-                </Col>
-                </Row>
-        </Container>
-    )
-}
+  return (
+    <App>
+      <Col xl={12} className="p-5">
+        <FormObras />
+      </Col>
+    </App>
+  );
+};
 export default CadastroObras;
