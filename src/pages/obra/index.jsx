@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import {
-  Container,
   Row,
   Col,
   Card,
@@ -9,7 +8,6 @@ import {
   Button,
   CardFooter,
 } from "react-bootstrap";
-import LateralNav from "../../components/lateralNav";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import "../obra/index.css";
@@ -21,6 +19,7 @@ import FormServicoPrestado from "../../components/formServicoPrestado";
 import ServicosPrestados from "../../components/tableServicosPrestados";
 import UnidadesObra from "../../components/unidadesObra";
 import ProgressObra from "../../components/progressObra";
+import App from "../../layout/app";
 
 const ViewObra = () => {
   const { id } = useParams();
@@ -50,70 +49,65 @@ const ViewObra = () => {
   }, [id, settoken]);
 
   return (
-    <Container className="p-0 h-100">
-      <Row className="p-0 m-0 ">
-        <LateralNav />
-        <Col sm={12} md={10} xxl={10} className="p-5 h-100">
-          <Card>
-            <CardHeader>
-              <h1>{obra.nomeObra}</h1>
-            </CardHeader>
-            <CardBody>
+    <App>
+      <Card>
+        <CardHeader>
+          <h1>{obra.nomeObra}</h1>
+        </CardHeader>
+        <CardBody>
+          <Row>
+            <Col xl={12}>
+              <Row className="mb-3">
+                <Col xxl={3}>Endereço: {obra.enderecoObra}</Col>
+                <Col xxl={2}>n°: {obra.numeroRua}</Col>
+                <Col xxl={3}>Cidade: {obra.cidadeObra}</Col>
+                <Col xxl={4}>Complemento: {obra.complementoObra}</Col>
+              </Row>
               <Row>
-                <Col xl={12}>
-                  <Row className="mb-3">
-                    <Col xxl={3}>Endereço: {obra.enderecoObra}</Col>
-                    <Col xxl={2}>n°: {obra.numeroRua}</Col>
-                    <Col xxl={3}>Cidade: {obra.cidadeObra}</Col>
-                    <Col xxl={4}>Complemento: {obra.complementoObra}</Col>
-                  </Row>
-                  <Row>
-                    <Col className="mb-3">Tipo de Obra: {obra.tipoObra}</Col>
-                  </Row>
-                  <Row className="mb-3">
-                    <Col>Serviços prestados: {obra.servicoPrestado}</Col>
-                  </Row>
-                  <Row className="mb-3">
-                    <Col>Descrição: {obra.descricaoObra}</Col>
-                  </Row>
-                  <Row>
-                    <FormMetaObras
-                      id={id}
-                      metaObra={metaObra}
-                      setMetaObra={setMetaObra}
-                    />
-                  </Row>
-                  <Row className="mt-5">
-                    <Col xl={2}>
-                      <Button
-                        className="w-100"
-                        href={`./editarObra/${obra._id}`}
-                        variant="primary"
-                      >
-                        Editar
-                      </Button>
-                      {/* <Button variant='danger' className='mx-3' onClick={handleShow}>Apagar</Button> */}
-                    </Col>
-                  </Row>
+                <Col className="mb-3">Tipo de Obra: {obra.tipoObra}</Col>
+              </Row>
+              <Row className="mb-3">
+                <Col>Serviços prestados: {obra.servicoPrestado}</Col>
+              </Row>
+              <Row className="mb-3">
+                <Col>Descrição: {obra.descricaoObra}</Col>
+              </Row>
+              <Row>
+                <FormMetaObras
+                  id={id}
+                  metaObra={metaObra}
+                  setMetaObra={setMetaObra}
+                />
+              </Row>
+              <Row className="mt-5">
+                <Col xl={2}>
+                  <Button
+                    className="w-100"
+                    href={`./editarObra/${obra._id}`}
+                    variant="primary"
+                  >
+                    Editar
+                  </Button>
+                  {/* <Button variant='danger' className='mx-3' onClick={handleShow}>Apagar</Button> */}
                 </Col>
               </Row>
-            </CardBody>
-            <CardFooter>
-              <ProgressObra id={id} />
-            </CardFooter>
-          </Card>
-          <FormServicoPrestado refObra={id} />
-          <ServicosPrestados refObra={id} />
-          <FormUnidadesObra refObra={id} />
-          <Card className="mt-5">
-            <CardBody>
-              <UnidadesObra refObra={id} />
-            </CardBody>
-          </Card>
-          <EntregasObra id={id} />
-        </Col>
-      </Row>
-    </Container>
+            </Col>
+          </Row>
+        </CardBody>
+        <CardFooter>
+          <ProgressObra id={id} />
+        </CardFooter>
+      </Card>
+      <FormServicoPrestado refObra={id} />
+      <ServicosPrestados refObra={id} />
+      <FormUnidadesObra refObra={id} />
+      <Card className="mt-5">
+        <CardBody>
+          <UnidadesObra refObra={id} />
+        </CardBody>
+      </Card>
+      <EntregasObra id={id} />
+    </App>
   );
 };
 

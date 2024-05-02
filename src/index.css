@@ -1,3 +1,7 @@
+* {
+  padding: 0;
+  margin: 0;
+}
 .link-15-400 {
   font-size: 20px !important;
   font-weight: 400 !important;
@@ -71,9 +75,6 @@
   0% {
     width: 0%;
   }
-  100% {
-    width: 100%;
-  }
 }
 @media (max-width: 1352px) {
   .valor {
@@ -93,6 +94,9 @@
   }
 }
 @media (max-width: 767px) {
+  .h-100 {
+    min-height: auto !important;
+  }
   .h-600 {
     min-width: 100% !important;
   }

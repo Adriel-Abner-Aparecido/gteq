@@ -1,43 +1,35 @@
-import React from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import { Container, Row, Col } from 'react-bootstrap';
-import LateralNav from '../../components/lateralNav';
-import FormEditaUsuarios from '../../components/formEditaUsuarios';
-import FormAvatar from '../../components/formAvatar';
-import AtualizaSenha from '../../components/atualizaSenha';
-
-
+import React from "react";
+import "bootstrap/dist/css/bootstrap.min.css";
+import { Row, Col } from "react-bootstrap";
+import FormEditaUsuarios from "../../components/formEditaUsuarios";
+import FormAvatar from "../../components/formAvatar";
+import AtualizaSenha from "../../components/atualizaSenha";
+import App from "../../layout/app";
 
 const ConfigPage = () => {
+  const token = localStorage.getItem("token");
+  const tokenPayload = JSON.parse(token);
+  const id = tokenPayload?.userId;
 
-    const token = localStorage.getItem('token');
-    const tokenPayload = JSON.parse(token);
-    const id = tokenPayload?.userId;
-
-    return (
-        <Container className='p-0 h-100'>
-            <Row className='p-0 m-0'>
-                <LateralNav />
-                <Col sm={12} md={10} xxl={10} className="m-0 h-100 pt-5 pb-5">
-                    <Row className='px-5 mb-5'>
-                        <Col>
-                            <FormAvatar id={id} />
-                        </Col>
-                    </Row>
-                    <Row className='px-5'>
-                        <Col>
-                            <FormEditaUsuarios id={id} />
-                        </Col>
-                    </Row>
-                    <Row className='px-5'>
-                        <Col>
-                            <AtualizaSenha id={id}/>
-                        </Col>
-                    </Row>
-                </Col>
-            </Row>
-        </Container>
-    );
+  return (
+    <App>
+      <Row className="px-5 mb-5">
+        <Col>
+          <FormAvatar id={id} />
+        </Col>
+      </Row>
+      <Row className="px-5">
+        <Col>
+          <FormEditaUsuarios id={id} />
+        </Col>
+      </Row>
+      <Row className="px-5">
+        <Col>
+          <AtualizaSenha id={id} />
+        </Col>
+      </Row>
+    </App>
+  );
 };
 
 export default ConfigPage;

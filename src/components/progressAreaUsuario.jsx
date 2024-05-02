@@ -26,10 +26,10 @@ const ProgressAreaUsuarios = ({ id }) => {
             Authorization: `Bearer ${settoken}`,
           },
         });
-        setPegaMeta(global.data.meta[0].valorMeta);
-        setDiasUteis(global.data.meta[0].diasUteis);
+        setPegaMeta(global.data.meta.valorMeta);
+        setDiasUteis(global.data.meta.diasUteis);
         if (response.data.metaUser.length !== 0) {
-          setPegaMeta(response.data.metaUser[0].valorMeta);
+          setPegaMeta(response.data.metaUser.valorMeta);
         }
       } catch (error) {
         console.error(error);

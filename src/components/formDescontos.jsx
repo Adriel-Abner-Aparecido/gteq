@@ -1,14 +1,11 @@
 import { useState } from "react";
 import {
-  Row,
   Card,
   CardBody,
   CardHeader,
   Form,
   FormControl,
   FormLabel,
-  FormGroup,
-  Col,
   Button,
 } from "react-bootstrap";
 import apiUrl from "../config";
@@ -48,41 +45,31 @@ const FormDescontos = ({ id }) => {
 
   return (
     <Card className="mt-5">
-      <CardHeader>Descontos</CardHeader>
+      <CardHeader>Adicionar Descontos</CardHeader>
       <CardBody>
         <Form onSubmit={handleSubmit}>
-          <FormGroup as={Row}>
-            <Col xxl="auto" className="text-xxl-end p-xxl-1">
-              <FormLabel htmlFor="descricao">Descrição:</FormLabel>
-            </Col>
-            <Col xxl={6}>
-              <FormControl
-                type="text"
-                name="descricao"
-                id="descricao"
-                value={formData.descricao}
-                onChange={handleChange}
-                required
-              />
-            </Col>
-            <Col xxl="auto" className="text-xxl-end p-xxl-1">
-              <FormLabel htmlFor="valorDesconto">Valor:</FormLabel>
-            </Col>
-            <Col xxl={2}>
-              <FormControl
-                type="number"
-                className="input-number"
-                name="valorDesconto"
-                id="valorDesconto"
-                value={formData.valorDesconto}
-                onChange={handleChange}
-                required
-              />
-            </Col>
-            <Col xxl={2}>
-              <Button type="submit">Cadastrar</Button>
-            </Col>
-          </FormGroup>
+          <FormLabel htmlFor="descricao">Descrição:</FormLabel>
+          <FormControl
+            type="text"
+            name="descricao"
+            id="descricao"
+            value={formData.descricao}
+            onChange={handleChange}
+            required
+          />
+          <FormLabel htmlFor="valorDesconto">Valor:</FormLabel>
+          <FormControl
+            type="number"
+            className="input-number"
+            name="valorDesconto"
+            id="valorDesconto"
+            value={formData.valorDesconto}
+            onChange={handleChange}
+            required
+          />
+          <Button type="submit" className="w-100 mt-3">
+            Cadastrar
+          </Button>
         </Form>
       </CardBody>
     </Card>

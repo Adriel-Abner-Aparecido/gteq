@@ -6,9 +6,11 @@ import { ProgressBar } from "react-bootstrap";
 
 const Progress = () => {
   const [meta, setMeta] = useState(0);
-  const [metaDia, setMetaDia] = useState([]);
+  const [metaDia, setMetaDia] = useState(0);
   const [diasUteis, setDiasUteis] = useState(0);
   const [valor, setValor] = useState(0);
+  const [tempoServico, setTempoServico] = useState(0);
+  const [valorServico, setValorServico] = useState(0);
 
   const token = localStorage.getItem("token");
   const tokenPayload = JSON.parse(token);
@@ -67,7 +69,6 @@ const Progress = () => {
             }
             return acc;
           }, 0);
-
           setMetaDia(soma);
         }
       } catch (error) {
@@ -78,6 +79,50 @@ const Progress = () => {
     pagaEntregas();
   }, [settoken]);
 
+  useEffect(() => {
+    const pegaServicosPrestados = async () => {
+      try {
+        const response = await axios.get(
+          `${apiUrl}/servicosPrestados/servicosPrestados`,
+          {
+            headers: {
+              Authorization: `Bearer ${settoken}`,
+            },
+          }
+        );
+        const servicosprestados = response.data.servicos;
+
+        if (servicosprestados.length > 0) {
+          let valorServico = 0;
+          let tempoEntregue = 0;
+          for (const servico of servicosprestados) {
+            const etapa = servico.servicoPrestado._id;
+            const responseEtapa = await axios.get(
+              `${apiUrl}/etapas/refEtapas/${etapa}`,
+              {
+                headers: {
+                  Authorization: `Bearer ${settoken}`,
+                },
+              }
+            );
+
+            valorServico += servico.valoraReceber;
+
+            const etapaData = responseEtapa.data.etapas;
+            for (const etapa of etapaData) {
+              tempoEntregue += etapa.tempoExecucao;
+            }
+          }
+          setValorServico(valorServico);
+          setTempoServico(tempoEntregue);
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    pegaServicosPrestados();
+  }, [settoken]);
+
   const metaGeral = (valor * 100) / meta;
   const metaDiaria = meta / diasUteis;
   const diaria = (metaDia * 100) / metaDiaria;
@@ -85,7 +130,7 @@ const Progress = () => {
   const metaHoje = metaDiaria * hoje;
   const faltaMeta = 100 - (valor * 100) / metaHoje;
 
-  console.log(faltaMeta);
+  console.log(valorServico, tempoServico);
 
   return (
     <>
